@@ -1,0 +1,3 @@
+ocnao_homepage:
+    path:     /
+    defaults: { _controller: OCNAOBundle:Default:index }
