@@ -1,6 +1,6 @@
 <?php
 
-namespace P5NAO\P5NAOBundle\Form;
+namespace OC\NAOBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,18 +19,18 @@ class ContactType extends AbstractType
     {
         $builder
         ->add('name', TextType::class)
-        ->add('prename', TextType::class)    
+        ->add('prename', TextType::class)
         ->add('email', EmailType::class)
         ->add('message', TextType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'P5NAO\P5NAOBundle\Entity\Contact'
+            'data_class' => 'OC\NAOBundle\Entity\Contact'
         ));
     }
 }

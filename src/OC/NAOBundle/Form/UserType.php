@@ -1,6 +1,6 @@
 <?php
 
-namespace P5NAO\P5NAOBundle\Form;
+namespace OC\NAOBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ class UserType extends AbstractType
     {
         $builder
         ->add('name', TextType::class)
-        ->add('prename', TextType::class)    
+        ->add('prename', TextType::class)
         ->add('username', TextType::class)
         ->add('password', RepeatedType::class, array(
             'type' => PasswordType::class,
@@ -33,14 +33,14 @@ class UserType extends AbstractType
         ))
         ->add('email', EmailType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'P5NAO\P5NAOBundle\Entity\Users'
+            'data_class' => 'OC\NAOBundle\Entity\Users'
         ));
     }
 }
