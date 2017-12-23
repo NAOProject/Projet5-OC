@@ -22,25 +22,23 @@ use FOS\UserBundle\Model\User as BaseUser;
    private $id;
 
    /**
-    * @ORM\Column(name="username", type="string", length=255, unique=true)
+    * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist", "remove"})
     */
-   private $username;
+     private $observation;
 
    /**
-    * @ORM\Column(name="password", type="string", length=255)
+    * @var string
+    *
+    * @ORM\Column(name="role", type="string", length=20, precision=0, scale=0, nullable=true, unique=false)
     */
-   private $password;
-
-   /**
-    * @ORM\Column(name="salt", type="string", length=255)
-    */
-   private $salt;
-
-   /**
-    * @ORM\Column(name="roles", type="array")
-    */
-   private $roles = array();
-
+   private $role;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->observation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -53,102 +51,60 @@ use FOS\UserBundle\Model\User as BaseUser;
     }
 
     /**
-     * Set username
+     * Set role
      *
-     * @param string $username
+     * @param string $role
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setRole($role)
     {
-        $this->username = $username;
+        $this->role = $role;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get role
      *
      * @return string
      */
-    public function getUsername()
+    public function getRole()
     {
-        return $this->username;
+        return $this->role;
     }
 
     /**
-     * Set password
+     * Add observation
      *
-     * @param string $password
+     * @param \NAOBundle\Entity\Observation $observation
      *
      * @return User
      */
-    public function setPassword($password)
+    public function addObservation(\NAOBundle\Entity\Observation $observation)
     {
-        $this->password = $password;
+        $this->observation[] = $observation;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Remove observation
      *
-     * @return string
+     * @param \NAOBundle\Entity\Observation $observation
      */
-    public function getPassword()
+    public function removeObservation(\NAOBundle\Entity\Observation $observation)
     {
-        return $this->password;
+        $this->observation->removeElement($observation);
     }
 
     /**
-     * Set salt
+     * Get observation
      *
-     * @param string $salt
-     *
-     * @return User
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setSalt($salt)
+    public function getObservation()
     {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     *
-     * @return User
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Get roles
-     *
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    public function eraseCredentials()
-    {
+        return $this->observation;
     }
 }
