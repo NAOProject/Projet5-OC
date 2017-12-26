@@ -45,6 +45,13 @@ class Contact
     /**
      * @var string
      *
+     * @ORM\Column(name="object", type="string", length=255)
+     */
+    private $object;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="message", type="string", length=400)
      */
     private $message;
@@ -154,5 +161,29 @@ class Contact
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set object
+     *
+     * @param string $object
+     *
+     * @return Contact
+     */
+    public function setObject($object)
+    {
+        $this->object = $object;
+
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return string
+     */
+    public function getObject()
+    {
+        return $this->object;
     }
 }

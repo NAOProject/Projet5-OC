@@ -45,6 +45,13 @@ class Contact
     /**
      * @var string
      *
+     * @ORM\Column(name="object", type="string", length=255)
+     */
+    private $object;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="message", type="string", length=400)
      */
     private $message;

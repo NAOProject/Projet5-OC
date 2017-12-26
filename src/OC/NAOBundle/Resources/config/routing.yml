@@ -1,3 +1,9 @@
 ocnao_homepage:
     path:     /
-    defaults: { _controller: OCNAOBundle:Default:index }
+    defaults: { _controller: OCNAOBundle:Home:index }
+ocnao_observation:
+    path:     /
+    defaults: { _controller: OCNAOBundle:Observation:index }
+ocnao_contact:
+    path:     /
+    defaults: { _controller: OCNAOBundle:Contact:index }

@@ -30,37 +30,12 @@ class Observation
   	private $user;
 
 
-    /**
-     * Get id
-     *
-     * @return integer
+     /**
+     * @ORM\ManyToOne(targetEntity="NAOBundle\Entity\Taxref")
+     * @ORM\JoinColumn(name="taxrefname", referencedColumnName="CD_NAME")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+     private $taxrefname;
 
-    /**
-     * Set user
-     *
-     * @param \UserBundle\Entity\User $user
-     *
-     * @return Observation
-     */
-    public function setUser(\UserBundle\Entity\User $user)
-    {
-        $this->user = $user;
 
-        return $this;
-    }
 
-    /**
-     * Get user
-     *
-     * @return \UserBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

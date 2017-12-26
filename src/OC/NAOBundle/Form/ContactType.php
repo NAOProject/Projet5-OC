@@ -21,6 +21,7 @@ class ContactType extends AbstractType
         ->add('name', TextType::class)
         ->add('prename', TextType::class)
         ->add('email', EmailType::class)
+        ->add('object', TextType::class)
         ->add('message', TextType::class);
     }
 
