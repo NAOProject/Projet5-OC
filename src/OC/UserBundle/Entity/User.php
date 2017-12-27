@@ -25,6 +25,7 @@ use FOS\UserBundle\Model\User as BaseUser;
   public function __construct()
   {
       parent::__construct();
+       $this->roles = array('ROLE_OBSERVER');
   }
 
    /**

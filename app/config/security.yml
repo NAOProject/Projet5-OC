@@ -4,8 +4,8 @@ security:
     OC\UserBundle\Entity\User: sha512
 
   role_hierarchy:
-    ROLE_USER:         ROLE_OBSERVER
-    ROLE_NATURALIST:   ROLE_NATURALIST
+    ROLE_OBSERVER:    ROLE_OBSERVER
+    ROLE_NATURALIST:  ROLE_NATURALIST
     ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
   providers:
@@ -26,7 +26,7 @@ security:
         check_path: fos_user_security_check
       logout:
         path:       fos_user_security_logout
-        target:     /
+        target:     /ocnao_homepage
       logout_on_user_change: true
       remember_me:
         secret:     '%secret%'
