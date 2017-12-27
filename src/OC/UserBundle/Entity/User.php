@@ -28,18 +28,43 @@ use FOS\UserBundle\Model\User as BaseUser;
   }
 
    /**
-    * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=true)
     */
     private $observation;
 
-   /**
-    * @var string
-    *
-    * @ORM\Column(name="role", type="string", length=20, precision=0, scale=0, nullable=true, unique=false)
-    */
-   private $role;
+
     /**
-     * Constructor
+     * Add observation
+     *
+     * @param \NAOBundle\Entity\Observation $observation
+     *
+     * @return User
      */
-  
+    public function addObservation(\NAOBundle\Entity\Observation $observation)
+    {
+        $this->observation[] = $observation;
+
+        return $this;
+    }
+
+    /**
+     * Remove observation
+     *
+     * @param \NAOBundle\Entity\Observation $observation
+     */
+    public function removeObservation(\NAOBundle\Entity\Observation $observation)
+    {
+        $this->observation->removeElement($observation);
+    }
+
+    /**
+     * Get observation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getObservation()
+    {
+        return $this->observation;
+    }
 }

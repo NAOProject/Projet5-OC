@@ -1,3 +1,17 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
-{% block body %}Ici le backoffice{% endblock %}
+
+{% block body %}
+<h1>backoffice</h1>
+
+{% if is_granted('ROLE_OBSERVER') %}
+<h2>Observateur</h2>
+{% endif %}
+{% if is_granted('ROLE_NATURALIST') %}
+<h2>Naturaliste</h2>
+{% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+<h2>Administrateur</h2>
+{% endif %}
+
+{% endblock %}

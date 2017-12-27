@@ -8,6 +8,6 @@ class ObservationController extends Controller
 {
     public function observationAction()
     {
-        return $this->render('OCNAOBundle:Default:index.html.twig');
+        return $this->render('OCNAOBundle:Default:observation.html.twig');
     }
 }

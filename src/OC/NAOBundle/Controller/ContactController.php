@@ -3,7 +3,9 @@
 namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use OCNAOBundle\Form\ContactType;
+use Symfony\Component\HttpFoundation\Request;
+use OC\NAOBundle\Entity\Contact;
+use OC\NAOBundle\Form\ContactType;
 
 class ContactController extends Controller
 {
@@ -37,9 +39,9 @@ class ContactController extends Controller
           return $this->redirectToRoute('ocnao_contact');// ***************** ou la page accueil ?????????????
         }
         //**************A faire*************************
-      // return $this->render('OCNAOBundle:Contact:contact.html.twig', array(
-      //     'form' => $form->createView()
-      //));
+      return $this->render('OCNAOBundle:Contact:contact.html.twig', array(
+          'form' => $form->createView()
+      ));
   }
 
 

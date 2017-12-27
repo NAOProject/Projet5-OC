@@ -2,11 +2,11 @@ ocnao_homepage:
     path:     /
     defaults: { _controller: OCNAOBundle:Home:index }
 ocnao_observation:
-    path:     /
+    path:     /observation
     defaults: { _controller: OCNAOBundle:Observation:observation }
 ocnao_backoffice:
-    path:     /
+    path:     /backoffice
     defaults: { _controller: OCNAOBundle:BackOffice:index }
 ocnao_contact:
-    path:     /
+    path:     /contact
     defaults: { _controller: OCNAOBundle:Contact:contact }
