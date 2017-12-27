@@ -3,7 +3,10 @@ ocnao_homepage:
     defaults: { _controller: OCNAOBundle:Home:index }
 ocnao_observation:
     path:     /
-    defaults: { _controller: OCNAOBundle:Observation:index }
+    defaults: { _controller: OCNAOBundle:Observation:observation }
+ocnao_backoffice:
+    path:     /
+    defaults: { _controller: OCNAOBundle:BackOffice:index }
 ocnao_contact:
     path:     /
-    defaults: { _controller: OCNAOBundle:Contact:index }
+    defaults: { _controller: OCNAOBundle:Contact:contact }

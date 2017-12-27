@@ -4,8 +4,9 @@ security:
     OC\UserBundle\Entity\User: sha512
 
   role_hierarchy:
-    ROLE_ADMIN:       ROLE_USER
-    ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    ROLE_OBSERVER:    ROLE_OBSERVER
+    ROLE_NATURALIST:  ROLE_NATURALIST
+    ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
   providers:
     fos_userbundle:

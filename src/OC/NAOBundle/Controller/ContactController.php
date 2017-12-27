@@ -21,7 +21,7 @@ class ContactController extends Controller
 
           //**************A faire*************************
           $content = $this->twig->render(
-            'OCNAOBundle:Email:email.html.twig',
+            'OCNAOBundle:Contact:email.html.twig',
             array('contact' => $contact
             ));
 
@@ -37,9 +37,9 @@ class ContactController extends Controller
           return $this->redirectToRoute('ocnao_contact');// ***************** ou la page accueil ?????????????
         }
         //**************A faire*************************
-      // return $this->render('OCNAOBundle::contact.html.twig', array(
+      // return $this->render('OCNAOBundle:Contact:contact.html.twig', array(
       //     'form' => $form->createView()
-      ));
+      //));
   }
 
 

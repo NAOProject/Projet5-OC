@@ -4,10 +4,15 @@ namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class HomeController extends Controller
+class BackOfficeController extends Controller
 {
+
+
     public function indexAction()
     {
-        return $this->render('OCNAOBundle:Default:index.html.twig');
+
+
+
+        return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig');
     }
 }
