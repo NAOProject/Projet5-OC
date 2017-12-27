@@ -39,7 +39,6 @@ class Picture
     private $url;
 
 
-
     /**
      * Get id
      *

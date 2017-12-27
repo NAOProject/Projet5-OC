@@ -27,11 +27,10 @@ use FOS\UserBundle\Model\User as BaseUser;
       parent::__construct();
   }
 
-   /**
-    * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=true)
-    */
-    private $observation;
+  //  /**
+  //   * @ORM\OneToMany(targetEntity="OC\NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist"})
+  //   */
+  //   private $observation;
 
 
     /**

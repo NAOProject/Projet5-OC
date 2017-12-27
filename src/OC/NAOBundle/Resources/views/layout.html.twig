@@ -17,13 +17,14 @@
   <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
   <li role="presentation"><a href="{{ path('ocnao_observation') }}">Observation</a></li>
   <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">backoffice</a></li>
+  <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Backoffice</a></li>
 
   </ul>
 
 {% block body %}{% endblock %}
 
-
+<div class="container">
+<div>
     <h3>Utilisateur</h3>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       Connecté en tant que {{ app.user.username }}
@@ -35,7 +36,7 @@
 
     {% endif %}
   </div>
-  <div id="content" class="col-md-9">
+  <div >
     {% block user %}
     {% endblock %}
   </div>
