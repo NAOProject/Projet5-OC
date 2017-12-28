@@ -24,17 +24,17 @@ class Observation
 
     /**
   	 *
-  	 * @ORM\ManyToOne(targetEntity="OC\UserBundle\Entity\User", inversedBy="observation", cascade={"persist"})
+  	 * @ORM\ManyToOne(targetEntity="OC\UserBundle\Entity\User")
   	 * @ORM\JoinColumn(nullable=false)
   	 *
   	 */
   	private $user;
 
-    // /**
-    //  * @ORM\ManyToOne(targetEntity="OC\NAOBundle\Entity\Taxref")
-    //  * @ORM\JoinColumn(name="taxrefname", referencedColumnName="CD_NAME")
-    //  */
-    // private $taxrefname;
+    /**
+     * @ORM\ManyToOne(targetEntity="OC\NAOBundle\Entity\Taxref")
+     * @ORM\JoinColumn(name="taxrefname", referencedColumnName="CD_NAME")
+     */
+    private $taxrefname;
 
     /**
      * @ORM\OneToOne(targetEntity="OC\NAOBundle\Entity\Picture", cascade={"persist", "remove"})
