@@ -1,6 +1,106 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<h1>Observation</h1>
+<style>
+  #map {
+    height: 50%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  .container {
+    width: 90%;
+    padding-top: 20px;
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="formulaire col-md-6">
+    <h1>Observation</h1>
+
+    {{ form_start(form) }}
+      {{ form_errors(form) }}
+
+        {{ form_row(form.user, {'label': "Utilisateur" }) }}
+        {{ form_row(form.taxrefname, {'label': "Nom de l'espece" }) }}
+        {{ form_row(form.picture, {'label': "Photo de l'observation" }) }}
+
+        <div class="Coordonnees">
+          <label>Coordonnees GPS:</label>
+          <h6>Cliquez sur la carte afin de remplir les coordonnées automatiquement</h6>
+          {{ form_row(form.latitude, {'label': "Latitude" }) }}
+          {{ form_row(form.longitude, {'label': "Longitude" }) }}
+        </div>
+
+      {{ form_row(form.submit, {'label': 'Envoyer'}) }}
+      {{ form_end(form) }}
+    </div>
+
+    <div class="carte">
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
+  <script>
+  var inputLatitude = document.getElementById("observation_latitude");
+  var inputLongitude = document.getElementById("observation_longitude");
+  inputLatitude.value = null;
+  inputLongitude.value = null;
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 5,
+      center: { lat: 46.52863469527167, lng: 2.43896484375 }
+    });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          map.setCenter(pos);
+          map.setZoom(14);
+        })
+      }
+    map.addListener('click', function(e) {
+      placeMarkerAndPanTo(e.latLng, map);
+    });
+  }
+
+  var marker
+  function placeMarkerAndPanTo(latLng, map) {
+    if(marker) {
+      marker.setPosition(latLng);
+    }else{
+       marker = new google.maps.Marker({
+        position: latLng,
+        map: map
+      });
+    }
+    map.panTo(latLng);
+    inputLatitude.value = latLng.lat();
+    inputLongitude.value = latLng.lng();
+  }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
+  </script>
+</body>
 
 {% endblock %}

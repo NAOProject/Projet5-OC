@@ -4,6 +4,9 @@ ocnao_homepage:
 ocnao_observation:
     path:     /observation
     defaults: { _controller: OCNAOBundle:Observation:observation }
+ocnao_recherche:
+      path:     /recherche
+      defaults: { _controller: OCNAOBundle:Observation:recherche }
 ocnao_backoffice:
     path:     /backoffice
     defaults: { _controller: OCNAOBundle:BackOffice:index }
