@@ -4,6 +4,7 @@ namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use OC\NAOBundle\Entity\Observation;
 use OC\NAOBundle\Entity\Recherche;
 use OC\NAOBundle\Form\ObservationType;
@@ -33,6 +34,19 @@ class ObservationController extends Controller
     ));
   }
 
+  public function autocompleteAction(Request $request)
+  {
+      if($request->isXmlHttpRequest())
+      {
+          $oiseau = $request->get('oiseau');
+          $em = $this->getDoctrine()->getManager();
+          $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
+          $response = new Response(json_encode($listeEspece));
+          $response -> headers -> set('Content-Type', 'application/json');
+          return $response;
+      }
+  }
+
   //Fonction permettant la recherche d'observations
   public function rechercheAction(Request $request)
   {
@@ -53,7 +67,7 @@ class ObservationController extends Controller
           100,                            // Limite
           0                               // Offset
         );
-        
+
         if($results) {
           return $this->render('OCNAOBundle:Default:results.html.twig', array(
             'results' => $results,

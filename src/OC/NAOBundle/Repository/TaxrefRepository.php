@@ -2,6 +2,9 @@
 
 namespace OC\NAOBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * TaxrefRepository
  *
@@ -10,4 +13,19 @@ namespace OC\NAOBundle\Repository;
  */
 class TaxrefRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function listeEspece($espece)
+  {
+    $qb = $this->createQueryBuilder('e');
+    $qb->select('DISTINCT e.nomVern')->where('e.nomVern LIKE :espece')->setParameter('espece', $espece.'%');
+
+    $arrayQb = $qb->getQuery()->getArrayResult();
+
+    $array = array();
+
+    foreach ($arrayQb as $value) {
+      $array[] = $value;
+    }
+
+    return $array;
+  }
 }

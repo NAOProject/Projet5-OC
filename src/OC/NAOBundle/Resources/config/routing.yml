@@ -13,3 +13,8 @@ ocnao_backoffice:
 ocnao_contact:
     path:     /contact
     defaults: { _controller: OCNAOBundle:Contact:contact }
+ocnao_autocomplete:
+    path:     /autocomplete
+    defaults: { _controller: OCNAOBundle:Observation:autocomplete }
+    requirements:
+      _method: POST
