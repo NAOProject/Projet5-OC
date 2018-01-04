@@ -16,12 +16,12 @@ class BackOfficeController extends Controller
     public function indexAction()
     {
       // pour mettre donnée un role a l'utilisteur voulu (ici azerty)
-    //  $userManager = $this->get('fos_user.user_manager');//recuperre le service
-    //   $user = $userManager->findUserBy(array('username' => 'azerty'));
-    //   $user->removeRole('ROLE_OBSERVER'); // surpimer le role observateur
+      //$userManager = $this->get('fos_user.user_manager');//recuperre le service
+       //$user = $userManager->findUserBy(array('username' => 'Lucas'));
+       //$user->removeRole('ROLE_OBSERVER'); // surpimer le role observateur
     //   $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
-    //   //$user->setRoles(array('ROLE_ADMIN'));// enregistre le role admin
-    //   $userManager->updateUser($user);
+      //$user->setRoles(array('ROLE_ADMIN'));// enregistre le role admin
+      //$userManager->updateUser($user);
     // //   echo "*************";
       // $user = $userManager->findUserBy(array('username' => 'azerty'));
       // $x = $user->getRoles();

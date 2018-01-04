@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +23,6 @@ class ObservationType extends AbstractType
         $builder
         ->add('user', TextType::class)
         ->add('taxrefname', TextType::class)
-        ->add('notsure', CheckboxType::class) //A faire, checkbox je ne suis pas sure de moi !!!Faire le script qui rend obligatoire la photo!!!
         ->add('picture', FileType::class, array(
           "required" => false,
         ))
