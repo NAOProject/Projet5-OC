@@ -7,12 +7,16 @@
   {% block title %}{% endblock %}
   {% block stylesheets %}
   <!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="{{asset("assets/jquery/js/jquery-3.2.1.min.js")}}"></script>
+	<script src="{{asset("assets/jquery/js/jquery-ui.min.js")}}"></script>
 	<!-- Bootstrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.structure.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.theme.css")}}">
+
   {% endblock %}
 
 </head>
@@ -20,6 +24,7 @@
   <body>
   <ul class="nav nav-tabs">
   <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
+  <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche</a></li>
   <li role="presentation"><a href="{{ path('ocnao_observation') }}">Observation</a></li>
   <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
   <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Backoffice</a></li>

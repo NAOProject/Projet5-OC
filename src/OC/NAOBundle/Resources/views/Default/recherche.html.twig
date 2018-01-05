@@ -51,9 +51,9 @@ $("input[data-id=listedesespeces]").autocomplete({
             data : objData,
             type: 'POST',
             success: function (data) {
-                response($.map(data, function (item) {
+                response($.map(data, function (espece) {
                     return {
-                    label: item.nomVern
+                    label: espece.nomVern
                     }
                 }));
             },
@@ -62,20 +62,19 @@ $("input[data-id=listedesespeces]").autocomplete({
             }
         });
     }
-})
+  })
+  //Affichage et récupération de la valeur sélectionnée
+  $("input[data-id=listedesespeces]").on('autocompleteselect',function(event, ui) {
 
-//Affichage et récupération de la valeur sélectionnée
-$("input[data-id=listedesespeces]").on('autocompleteselect',function(event, ui) {
+  	event.preventDefault();
 
-	event.preventDefault();
+      var contact = ui.item.label;
+          id = ui.item.value;
+      console.log('Event: ', event);
+      console.log('UI :', ui.item);
+      $(event.currentTarget).val(contact);
 
-    var contact = ui.item.label;
-        id = ui.item.value;
-    console.log('Event: ', event);
-    console.log('UI :', ui.item);
-    $(event.currentTarget).val(contact);
-
-});
+  });
 </script>
 </body>
 

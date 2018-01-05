@@ -42,7 +42,7 @@ class ObservationController extends Controller
           $em = $this->getDoctrine()->getManager();
           $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
           $response = new Response(json_encode($listeEspece));
-          $response -> headers -> set('Content-Type', 'application/json');
+          //$response->headers->set('Content-Type', 'application/json');
           return $response;
       }
   }
