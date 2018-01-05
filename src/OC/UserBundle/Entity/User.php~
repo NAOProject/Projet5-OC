@@ -31,5 +31,5 @@ use FOS\UserBundle\Model\User as BaseUser;
     * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist", "remove"})
     */
     private $observation;
-  
+
 }

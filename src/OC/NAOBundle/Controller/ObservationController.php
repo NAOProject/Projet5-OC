@@ -5,6 +5,7 @@ namespace OC\NAOBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use UserBundle\Entity\User;
 use OC\NAOBundle\Entity\Observation;
 use OC\NAOBundle\Entity\Recherche;
 use OC\NAOBundle\Form\ObservationType;
@@ -20,6 +21,10 @@ class ObservationController extends Controller
 
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
+        $user = $this->getUser();
+        $date = new \DateTime();
+        $observation->setDatetime($date);
+        $observation->setUser($user);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);

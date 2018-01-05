@@ -37,8 +37,14 @@
     {{ form_start(form) }}
       {{ form_errors(form) }}
 
-        {{ form_row(form.user, {'label': "Utilisateur" }) }}
-        {{ form_row(form.taxrefname, {'label': "Nom de l'espece" }) }}
+        {{ form_row(form.taxrefname, {
+          'label': "Nom de l'espece",
+          'attr': {
+  					'data-id': 'listedesespeces',
+  					'data-url': path('ocnao_autocomplete')
+            }
+          })
+        }}
         {{ form_row(form.picture, {'label': "Photo de l'observation" }) }}
 
         <div class="Coordonnees">
@@ -101,6 +107,7 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
   </script>
+  <script src="{{asset("assets/js/autocomplete.js")}}"></script>
 </body>
 
 {% endblock %}

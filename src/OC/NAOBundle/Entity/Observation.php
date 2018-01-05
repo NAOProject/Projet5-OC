@@ -75,7 +75,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
+     * //@Assert\NotBlank()
      */
     private $status;
 
@@ -193,7 +193,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setUser(\UserBundle\Entity\User $user)
+    public function setUser(\OC\UserBundle\Entity\User $user)
     {
         $this->user = $user;
 

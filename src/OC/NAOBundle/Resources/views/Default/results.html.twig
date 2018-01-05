@@ -1,34 +1,6 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<style>
-  #map {
-    height: 50%;
-  }
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  #floating-panel {
-    position: absolute;
-    top: 10px;
-    left: 25%;
-    z-index: 5;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #999;
-    text-align: center;
-    font-family: 'Roboto','sans-serif';
-    line-height: 30px;
-    padding-left: 10px;
-  }
-  .container {
-    width: 90%;
-    padding-top: 20px;
-  }
-</style>
-
 <div class="container">
   <div class="row">
     <div class="formulaire col-md-6">
@@ -38,7 +10,6 @@
     <div id="coordonnees" class="hidden">
       {% for result in results %}
         <div data-latitude="{{ result.latitude }}" data-longitude="{{ result.longitude }}"></div>
-      </div>
       {% endfor %}
     </div>
 
@@ -46,6 +17,7 @@
       <div id="map"></div>
     </div>
   </div>
+</div>
 
   <script>
   var resultArray = (function getGeoDataArray() {
@@ -78,6 +50,5 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
   </script>
-</body>
 
 {% endblock %}
