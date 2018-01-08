@@ -22,6 +22,13 @@ class ObservationController extends Controller
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $user = $this->getUser();
+        if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURE')) {
+          $observation->setStatus(true);
+          $this->addFlash('success', 'Votre observation à été publiée.');
+        } else {
+          $observation->setStatus(false);
+          $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+        }
         $date = new \DateTime();
         $observation->setDatetime($date);
         $observation->setUser($user);
@@ -30,7 +37,6 @@ class ObservationController extends Controller
         $em->persist($observation);
         $em->flush();
 
-        $this->addFlash('info', 'Votre message a bien été envoyé');
         return $this->redirectToRoute('ocnao_homepage');
       }
 
@@ -62,16 +68,7 @@ class ObservationController extends Controller
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
 
-        $repository = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('OCNAOBundle:Observation');
-
-        $results = $repository->findBy(
-          array('taxrefname' => $espece), // Critere
-          array('datetime' => 'desc'),    // Tri
-          100,                            // Limite
-          0                               // Offset
-        );
+        $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
 
         if($results) {
           return $this->render('OCNAOBundle:Default:results.html.twig', array(
@@ -82,6 +79,9 @@ class ObservationController extends Controller
           return $this->redirectToRoute('ocnao_recherche');
         }
       }
+
+    //Derniere observations
+    $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
