@@ -1,24 +1,10 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<style>
-  #map {
-    height: 50%;
-  }
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .container {
-    width: 90%;
-    padding-top: 20px;
-  }
-</style>
 
 <div class="container">
   <div class="row">
-    <div class="formulaire col-md-6">
+    <div class="formulaire col-md-12">
     <h1>Recherche</h1>
 
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -36,8 +22,27 @@
       {{ form_row(form.submit, {'label': 'Envoyer'}) }}
       {{ form_end(form) }}
     </div>
+    <div class="lastObs">
+      <h1>Dernières observations publiées</h1>
+      {% for obs in lastObs %}
+        <div class="col-md-4 well">
+          <div class="title center">
+            {% if obs.picture.image is defined %}
+              <div class="picture center">
+                <img class="lastObsPic" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+              </div>
+            {% endif %}
+            <h3>{{ obs.taxrefname }}</h3>
+            <h5>Observé par {{ obs.user.username }}</h5>
+            <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
+
+</script>
 <script src="{{asset("assets/js/autocomplete.js")}}"></script>
 </body>
 

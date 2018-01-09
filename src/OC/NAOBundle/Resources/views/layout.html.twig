@@ -14,12 +14,14 @@
   <!-- CSS -->
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.css")}}">
   <link rel="stylesheet" href="{{asset("assets/css/map.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/css/main.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.structure.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.theme.css")}}">
 
   {% endblock %}
 
 </head>
+
 
   <body>
 
@@ -30,8 +32,8 @@
        </div>
        <ul class="nav navbar-nav">
          <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_observation') }}">Observation</a></li>
+         <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche une observation</a></li>
+         <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">Ajouter une observation</a></li>
          <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
          <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Profil</a></li>
        </ul>
@@ -47,21 +49,6 @@
      </div>
    </nav>
 
-  <!-- <ul class="nav nav-tabs">
-  <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_observation') }}">Observation</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Profil</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Profil</a></li>
-  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-  <li role="presentation" class="text-right"><a href="{{ path('ocnao_backoffice') }}">{{ app.user.username }}</a></li>
-  <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-  {% else %}
-  <li role="presentation"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-  <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
-  {% endif %} -->
-</ul>
 
 <div class="container" style="margin-top:50px">
 {% block body %}{% endblock %}
@@ -89,5 +76,17 @@
     {% endblock %}
   </div>
 </div>
+
+
+  {% for label, messages in app.flashes(['info', 'success']) %}
+    {% for message in messages %}
+      <div class="alert alert-{{ label }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endfor %}
+
+
+
 </body>
 </html>

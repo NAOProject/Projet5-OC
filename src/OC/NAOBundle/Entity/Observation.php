@@ -72,10 +72,9 @@ class Observation
     private $longitude;
 
     /**
-     * @var string
+     * @var bool
      *
-     * @ORM\Column(name="status", type="string", length=255, nullable=true)
-     * //@Assert\NotBlank()
+     * @ORM\Column(name="status", type="boolean")
      */
     private $status;
 

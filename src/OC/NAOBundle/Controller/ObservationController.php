@@ -7,14 +7,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
 use OC\NAOBundle\Entity\Observation;
+use OC\NAOBundle\Entity\Picture;
 use OC\NAOBundle\Entity\Recherche;
 use OC\NAOBundle\Form\ObservationType;
 use OC\NAOBundle\Form\RechercheType;
 
 class ObservationController extends Controller
 {
-  //Fonction permettant l'ajout d'observations
-  public function observationAction(Request $request)
+  //Fonction permettant l'ajout d'observation
+  public function addObservationAction(Request $request)
   {
     $observation = new Observation();
     $form = $this->createForm(ObservationType::class, $observation);
@@ -22,6 +23,13 @@ class ObservationController extends Controller
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $user = $this->getUser();
+        if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURE')) {
+          $observation->setStatus(true);
+          $this->addFlash('success', 'Votre observation à été publiée.');
+        } else {
+          $observation->setStatus(false);
+          $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+        }
         $date = new \DateTime();
         $observation->setDatetime($date);
         $observation->setUser($user);
@@ -33,16 +41,29 @@ class ObservationController extends Controller
           $observation->setStatus('true');
         }
 
+        /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+        $file = $observation->getPicture()->getImage();
+        var_dump($file);
+        if ($file != null) {
+          $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+          $file->move(
+              $this->getParameter('picture_directory'),
+              $fileName
+          );
+          $picture = $observation->getPicture()->setImage($fileName);
+          $observation->setPicture($picture);
+        }
+
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);
         $em->flush();
 
-        $this->addFlash('info', 'Votre message a bien été envoyé');
         return $this->redirectToRoute('ocnao_homepage');
       }
 
-    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+    return $this->render('OCNAOBundle:Default:addObservation.html.twig', array(
       'form' => $form->createView(),
     ));
   }
@@ -70,16 +91,9 @@ class ObservationController extends Controller
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
 
-        $repository = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('OCNAOBundle:Observation');
+        $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
 
-        $results = $repository->findBy(
-          array('taxrefname' => $espece), // Critere
-          array('datetime' => 'desc'),    // Tri
-          100,                            // Limite
-          0                               // Offset
-        );
+        var_dump($results);
 
         if($results) {
           return $this->render('OCNAOBundle:Default:results.html.twig', array(
@@ -91,8 +105,23 @@ class ObservationController extends Controller
         }
       }
 
+    //Derniere observations
+    $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
+    var_dump($lastObs);
+
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
+      'lastObs' => $lastObs,
+    ));
+  }
+
+  //Afficher une observation, en fonction de son id
+  public function ObservationAction($id)
+  {
+    $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
+    var_dump($observation);
+    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+      'observation' => $observation,
     ));
   }
 }

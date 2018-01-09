@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use OC\NAOBundle\Entity\Picture;
+
 
 class PictureType extends AbstractType
 {
@@ -17,7 +19,7 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('picture', FileType::class, array(
+        ->add('image', FileType::class, array(
           "label" => false,
         ));
     }
@@ -28,7 +30,7 @@ class PictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OC\NAOBundle\Entity\Picture'
+            'data_class' => Picture::class,
         ));
     }
 }

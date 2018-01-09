@@ -25,7 +25,7 @@ class BackOfficeController extends Controller
       // exit;
       switch ($role) {
           case 'ROLE_OBSERVER':
-          // echo "icicccccccccc";
+          // echo "icic";
           // exit;
               $Listobservation = $em->getRepository('OCNAOBundle:Observation')->findBy(
                 array('user' => $user), // Critere
@@ -57,11 +57,9 @@ class BackOfficeController extends Controller
           // ));
               break;
           case 'ADMIN':
-              echo "i égal 2";
+
               break;
       }
-
-
 
         // return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig', array(
         //   'user' => $user,
