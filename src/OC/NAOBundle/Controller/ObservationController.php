@@ -23,7 +23,7 @@ class ObservationController extends Controller
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $user = $this->getUser();
-        if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURE')) {
+        if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
           $observation->setStatus(true);
           $this->addFlash('success', 'Votre observation à été publiée.');
         } else {
@@ -33,13 +33,6 @@ class ObservationController extends Controller
         $date = new \DateTime();
         $observation->setDatetime($date);
         $observation->setUser($user);
-
-        //statut de l'observation si poster par un observateur
-        if ($user->getRoles() == 'OBSERVER') {
-          $observation->setStatus('false');
-        }else { //directement publier si naturalist ou administrateur
-          $observation->setStatus('true');
-        }
 
         /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
         $file = $observation->getPicture()->getImage();
