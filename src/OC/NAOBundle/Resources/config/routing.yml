@@ -1,12 +1,15 @@
 ocnao_homepage:
     path:     /
     defaults: { _controller: OCNAOBundle:Home:index }
+ocnao_addObservation:
+    path:     /addObservation
+    defaults: { _controller: OCNAOBundle:Observation:addObservation }
 ocnao_observation:
-    path:     /observation
+    path:     /observation/{id}
     defaults: { _controller: OCNAOBundle:Observation:observation }
 ocnao_recherche:
-      path:     /recherche
-      defaults: { _controller: OCNAOBundle:Observation:recherche }
+    path:     /recherche
+    defaults: { _controller: OCNAOBundle:Observation:recherche }
 ocnao_backoffice:
     path:     /backoffice
     defaults: { _controller: OCNAOBundle:BackOffice:index }
