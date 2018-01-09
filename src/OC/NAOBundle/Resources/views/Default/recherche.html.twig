@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="formulaire col-md-6">
+    <div class="formulaire col-md-12">
     <h1>Recherche</h1>
 
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -21,6 +21,22 @@
 
       {{ form_row(form.submit, {'label': 'Envoyer'}) }}
       {{ form_end(form) }}
+    </div>
+    <div class="lastObs">
+      <h1>Dernières observations publiées</h1>
+      {% for obs in lastObs %}
+        <div class="col-md-4 well">
+          <div class="title center">
+            {% if obs.picture is defined %}
+              <div class="picture center">
+                {{ obs.picture }}
+              </div>
+            {% endif %}
+            <h3>{{ obs.taxrefname }}</h3>
+            <h5>Observé par {{ obs.user.username }}</h5>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </div>

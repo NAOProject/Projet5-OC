@@ -14,6 +14,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.css")}}">
   <link rel="stylesheet" href="{{asset("assets/css/map.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/css/main.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.structure.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.theme.css")}}">
 
@@ -21,43 +22,38 @@
 
 </head>
 
-  <body>
-  <ul class="nav nav-tabs">
-  <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">Observation</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
-  <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Backoffice</a></li>
+<body>
+  <nav class="navbar navbar-fixed-top"><!-- Rendre la nav bar responsive -->
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand"><!--AJOUTER LOGO NAO --></a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
+        <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche une observation</a></li>
+        <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">Ajouter une observation</a></li>
+        <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
+        <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Backoffice</a></li>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <li role="presentation"><p class="navbar-text">Connecté en tant que {{ app.user.username }}</p></li>
+          <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+        {% else %}
+          <li role="presentation"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+          <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
 
-  </ul>
-
-{% for label, messages in app.flashes(['info', 'success']) %}
+  {% for label, messages in app.flashes(['info', 'success']) %}
     {% for message in messages %}
-        <div class="alert alert-{{ label }}">
-            {{ message }}
-        </div>
+      <div class="alert alert-{{ label }}">
+        {{ message }}
+      </div>
     {% endfor %}
-{% endfor %}
+  {% endfor %}
 
-{% block body %}{% endblock %}
-
-<div class="container">
-<div>
-    <h3>Utilisateur</h3>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que {{ app.user.username }}
-      <br>
-      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-      <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-      <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-
-    {% endif %}
-  </div>
-  <div >
-    {% block user %}
-    {% endblock %}
-  </div>
-</div>
+  {% block body %}{% endblock %}
+  {% block user %}{% endblock %}
 </body>
 </html>

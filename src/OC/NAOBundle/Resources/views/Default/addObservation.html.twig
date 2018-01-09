@@ -4,6 +4,7 @@
 
 <div class="container">
   <div class="row">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <div class="formulaire col-md-6">
     <h1>Observation</h1>
 
@@ -34,6 +35,11 @@
     <div class="carte">
       <div id="map"></div>
     </div>
+    {% else %}
+    <p>Vous devez être connecté pour acceder à cette partie du site</p>
+    <a href="{{ path('fos_user_security_login') }}">Connexion</a></br>
+    <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+    {% endif %}
   </div>
 </div>
   <script>

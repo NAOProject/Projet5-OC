@@ -84,9 +84,11 @@ class ObservationController extends Controller
 
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
+    var_dump($lastObs);
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
+      'lastObs' => $lastObs,
     ));
   }
 
