@@ -18,8 +18,16 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
   }
 
   public function listeObsEspece($espece) {
-    $qb = $this->createQueryBuilder('o');
-    $qb->select('o')->where('o.taxrefname = :espece')->setParameter('espece', $espece)->orderBy('o.datetime', 'DESC')->andWhere('o.status = 1');
+    $qb = $this->createQueryBuilder('lo');
+    $qb->select('lo')->where('lo.taxrefname = :espece')->setParameter('espece', $espece)->orderBy('lo.datetime', 'DESC')->andWhere('lo.status = 1');
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function observation($id)
+  {
+    $qb = $this->createQueryBuilder('ob');
+    $qb->select('ob')->where('ob.id = :id')->setParameter('id', $id);
 
     return $qb->getQuery()->getResult();
   }

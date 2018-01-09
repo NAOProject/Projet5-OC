@@ -13,8 +13,8 @@ use OC\NAOBundle\Form\RechercheType;
 
 class ObservationController extends Controller
 {
-  //Fonction permettant l'ajout d'observations
-  public function observationAction(Request $request)
+  //Fonction permettant l'ajout d'observation
+  public function addObservationAction(Request $request)
   {
     $observation = new Observation();
     $form = $this->createForm(ObservationType::class, $observation);
@@ -40,7 +40,7 @@ class ObservationController extends Controller
         return $this->redirectToRoute('ocnao_homepage');
       }
 
-    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+    return $this->render('OCNAOBundle:Default:addObservation.html.twig', array(
       'form' => $form->createView(),
     ));
   }
@@ -70,6 +70,8 @@ class ObservationController extends Controller
 
         $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
 
+        var_dump($results);
+
         if($results) {
           return $this->render('OCNAOBundle:Default:results.html.twig', array(
             'results' => $results,
@@ -85,6 +87,16 @@ class ObservationController extends Controller
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
+    ));
+  }
+
+  //Afficher une observation, en fonction de son id
+  public function ObservationAction($id)
+  {
+    $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
+    var_dump($observation);
+    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+      'observation' => $observation,
     ));
   }
 }
