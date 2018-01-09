@@ -2,16 +2,37 @@
 
 
 {% block body %}
-<h1>backoffice</h1>
 
-{% if is_granted('ROLE_OBSERVER') %}
-<h2>Observateur</h2>
-{% endif %}
-{% if is_granted('ROLE_NATURALIST') %}
-<h2>Naturaliste</h2>
-{% endif %}
-{% if is_granted('ROLE_ADMIN') %}
-<h2>Administrateur</h2>
-{% endif %}
+  <div class="text-center">
+    <h1>backoffice</h1>
+
+    {% if is_granted('ROLE_OBSERVER') %}
+    <h2>Observateur</h2>
+    {% endif %}
+    {% if is_granted('ROLE_NATURALIST') %}
+    <h2>Naturaliste</h2>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+    <h2>Administrateur</h2>
+    {% endif %}
+
+    <h3>Observation publier</h3>
+    {% for observation in Listobservation %}
+    {% if observation.status == 'false' %}
+    {{ observation.taxrefname }}
+    {% endif %}
+    {% endfor %}
+
+    <h3>Observation en en attente</h3>
+    {% for observation in Listobservation %}
+    {% if observation.status == 'true' %}
+    {{observation.taxrefname}}
+    {% endif %}
+    {% endfor %}
+  </div>
+
+
+<button type="submit" href="" name="button" href>Je ve devenir naturalist</button>
+modal
 
 {% endblock %}

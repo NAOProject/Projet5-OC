@@ -21,6 +21,13 @@ use FOS\UserBundle\Model\User as BaseUser;
     */
    protected $id;
 
+   /**
+    * @var string
+    *
+    * @ORM\Column(name="status", type="boolean", length=255, nullable=true)
+    * @Assert\NotBlank()
+    */
+   private $status;
 
   public function __construct()
   {

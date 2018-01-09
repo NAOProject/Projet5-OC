@@ -18,3 +18,17 @@ ocnao_autocomplete:
     defaults: { _controller: OCNAOBundle:Observation:autocomplete }
     requirements:
       _method: POST
+ocnao_backoffice_naturalist:
+    path:     /backoffice/naturalist
+    defaults: { _controller: OCNAOBundle:BackOffice:naturalist }
+    # a supprimer
+ocnao_backoffice_nat:
+    path:     /backoffice/nat
+    defaults: { _controller: OCNAOBundle:BackOffice:nat }
+ocnao_backoffice_adm:
+    path:     /backoffice/adm
+    defaults: { _controller: OCNAOBundle:BackOffice:adm }
+ocnao_backoffice_obs:
+    path:     /backoffice/obs
+    defaults: { _controller: OCNAOBundle:BackOffice:obs }
+#  fin suppresion

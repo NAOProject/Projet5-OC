@@ -26,6 +26,14 @@ class ObservationController extends Controller
         $observation->setDatetime($date);
         $observation->setUser($user);
 
+        //statut de l'observation si poster par un observateur
+        if ($user->getRoles() == 'OBSERVER') {
+          $observation->setStatus('false');
+        }else { //directement publier si naturalist ou administrateur
+          $observation->setStatus('true');
+        }
+
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);
         $em->flush();

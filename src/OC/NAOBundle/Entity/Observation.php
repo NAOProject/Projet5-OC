@@ -80,6 +80,7 @@ class Observation
     private $status;
 
 
+
     /**
      * Get id
      *
@@ -88,6 +89,30 @@ class Observation
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set taxrefname
+     *
+     * @param string $taxrefname
+     *
+     * @return Observation
+     */
+    public function setTaxrefname($taxrefname)
+    {
+        $this->taxrefname = $taxrefname;
+
+        return $this;
+    }
+
+    /**
+     * Get taxrefname
+     *
+     * @return string
+     */
+    public function getTaxrefname()
+    {
+        return $this->taxrefname;
     }
 
     /**
@@ -153,7 +178,7 @@ class Observation
     }
 
     /**
-     * Get latitude
+     * Get longitude
      *
      * @return string
      */
@@ -189,7 +214,7 @@ class Observation
     /**
      * Set user
      *
-     * @param \UserBundle\Entity\User $user
+     * @param \OC\UserBundle\Entity\User $user
      *
      * @return Observation
      */
@@ -203,7 +228,7 @@ class Observation
     /**
      * Get user
      *
-     * @return \UserBundle\Entity\User
+     * @return \OC\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -211,37 +236,13 @@ class Observation
     }
 
     /**
-     * Set taxrefname
-     *
-     * @param string
-     *
-     * @return Observation
-     */
-    public function setTaxrefname($taxrefname)
-    {
-        $this->taxrefname = $taxrefname;
-
-        return $this;
-    }
-
-    /**
-     * Get taxrefname
-     *
-     * @return \NAOBundle\Entity\Taxref
-     */
-    public function getTaxrefname()
-    {
-        return $this->taxrefname;
-    }
-
-    /**
      * Set picture
      *
-     * @param \NAOBundle\Entity\Picture $picture
+     * @param \OC\NAOBundle\Entity\Picture $picture
      *
      * @return Observation
      */
-    public function setPicture(\NAOBundle\Entity\Picture $picture = null)
+    public function setPicture(\OC\NAOBundle\Entity\Picture $picture = null)
     {
         $this->picture = $picture;
 
@@ -251,7 +252,7 @@ class Observation
     /**
      * Get picture
      *
-     * @return \NAOBundle\Entity\Picture
+     * @return \OC\NAOBundle\Entity\Picture
      */
     public function getPicture()
     {
