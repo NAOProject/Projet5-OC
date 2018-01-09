@@ -19,7 +19,10 @@
             }
           })
         }}
+        {{ form_row(form.notsur, {'label': "Pas sûr de moi ? (À cocher si vous n'êtes pas sûr de l'espèce d'oiseau, cocher la case rend la photo obligatoire.)"  }) }}
+
         {{ form_row(form.picture, {'label': "Photo de l'observation" }) }}
+
 
         <div class="Coordonnees">
           <label>Coordonnees GPS:</label>
@@ -43,6 +46,16 @@
   </div>
 </div>
   <script>
+
+  $('#observation_notsur').change(function() {
+    if ($('#observation_notsur').is(":checked")) {
+      $('#observation_picture_image').attr("required", true);
+    } else {
+      $('#observation_picture_image').attr("required", false);
+    }
+  })
+
+
   var inputLatitude = document.getElementById("observation_latitude");
   var inputLongitude = document.getElementById("observation_longitude");
   inputLatitude.value = null;

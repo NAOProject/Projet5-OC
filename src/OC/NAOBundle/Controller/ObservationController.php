@@ -34,10 +34,9 @@ class ObservationController extends Controller
         $observation->setDatetime($date);
         $observation->setUser($user);
 
-        /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-        $file = $observation->getPicture()->getImage();
-        var_dump($file);
-        if ($file != null) {
+        if ($observation->getPicture() != null) {
+          $file = $observation->getPicture()->getImage();
+
           $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
           $file->move(

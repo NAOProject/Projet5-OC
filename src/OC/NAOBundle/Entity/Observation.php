@@ -42,6 +42,13 @@ class Observation
     private $taxrefname;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="notsur", type="boolean")
+     */
+    private $notsur;
+
+    /**
      * @ORM\OneToOne(targetEntity="OC\NAOBundle\Entity\Picture", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="picture", referencedColumnName="id")
      */
@@ -189,7 +196,7 @@ class Observation
     /**
      * Set status
      *
-     * @param string $status
+     * @param boolean $status
      *
      * @return Observation
      */
@@ -203,7 +210,7 @@ class Observation
     /**
      * Get status
      *
-     * @return string
+     * @return boolean
      */
     public function getStatus()
     {
@@ -256,5 +263,29 @@ class Observation
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * Set notsur
+     *
+     * @param bool $notsur
+     *
+     * @return Observation
+     */
+    public function setNotsur($notsur)
+    {
+        $this->notsur = $notsur;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getNotsur()
+    {
+        return $this->notsur;
     }
 }

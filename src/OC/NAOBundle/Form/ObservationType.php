@@ -23,6 +23,9 @@ class ObservationType extends AbstractType
     {
         $builder
         ->add('taxrefname', TextType::class)
+        ->add('notsur', CheckboxType::class, array(
+          "required" => false,
+        ))
         ->add('picture', PictureType::class, array(
           "required" => false,
         ))
