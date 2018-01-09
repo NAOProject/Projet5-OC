@@ -26,18 +26,40 @@ class Picture
     /**
      * @var string
      *
-     * @ORM\Column(name="alt", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
+     *
      */
     private $alt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     *
      */
     private $url;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\File(
+     * mimeTypes={ "image/jpeg", "image/jpg", "image/png" }, mimeTypesMessage = "La photo doit etre au format JPEG, JPG ou PNG",
+     * maxSize= "2M", maxSizeMessage = "La photo doit peser moins de 2Mo"
+     * )
+     */
+    private $image;
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
 
     /**

@@ -27,13 +27,14 @@
       {% for obs in lastObs %}
         <div class="col-md-4 well">
           <div class="title center">
-            {% if obs.picture is defined %}
+            {% if obs.picture.image is defined %}
               <div class="picture center">
-                {{ obs.picture }}
+                <img class="lastObsPic" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
               </div>
             {% endif %}
             <h3>{{ obs.taxrefname }}</h3>
             <h5>Observé par {{ obs.user.username }}</h5>
+            <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
           </div>
         </div>
       {% endfor %}

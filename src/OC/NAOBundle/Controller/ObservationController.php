@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
 use OC\NAOBundle\Entity\Observation;
+use OC\NAOBundle\Entity\Picture;
 use OC\NAOBundle\Entity\Recherche;
 use OC\NAOBundle\Form\ObservationType;
 use OC\NAOBundle\Form\RechercheType;
@@ -32,6 +33,20 @@ class ObservationController extends Controller
         $date = new \DateTime();
         $observation->setDatetime($date);
         $observation->setUser($user);
+
+        /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+        $file = $observation->getPicture()->getImage();
+        var_dump($file);
+        if ($file != null) {
+          $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+          $file->move(
+              $this->getParameter('picture_directory'),
+              $fileName
+          );
+          $picture = $observation->getPicture()->setImage($fileName);
+          $observation->setPicture($picture);
+        }
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);

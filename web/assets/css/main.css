@@ -6,3 +6,9 @@ body {
   text-align: center;
   align-content: center;
 }
+
+.lastObsPic {
+  width: 300px;
+  hight: 300px;
+  float: left;
+}

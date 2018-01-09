@@ -240,7 +240,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setPicture(\NAOBundle\Entity\Picture $picture = null)
+    public function setPicture(\OC\NAOBundle\Entity\Picture $picture = null)
     {
         $this->picture = $picture;
 
