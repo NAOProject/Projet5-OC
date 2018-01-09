@@ -25,10 +25,8 @@ class ObservationController extends Controller
         $user = $this->getUser();
         if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
           $observation->setStatus(true);
-          $this->addFlash('success', 'Votre observation à été publiée.');
         } else {
           $observation->setStatus(false);
-          $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
         }
         $date = new \DateTime();
         $observation->setDatetime($date);
@@ -51,6 +49,12 @@ class ObservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);
         $em->flush();
+
+        if($observation->getStatus() == true) {
+          $this->addFlash('success', 'Votre observation à été publiée.');
+        }else {
+          $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+        }
 
         return $this->redirectToRoute('ocnao_homepage');
       }
