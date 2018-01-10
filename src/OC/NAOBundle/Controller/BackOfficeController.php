@@ -21,43 +21,43 @@ class BackOfficeController extends Controller
       $em = $this->getDoctrine()->getManager();
       $user = $this->getUser();
       $role = $user->getRoles()[0];
-      // dump($role);
-      // exit;
+
+      $Listobservation = $em->getRepository('OCNAOBundle:Observation')->findBy(
+        array('user' => $user), // Critere
+        array('datetime' => 'desc'),        // Tri
+        5,                              // Limite
+        0                               // Offset
+      );
       switch ($role) {
           case 'ROLE_OBSERVER':
-          // echo "icic";
-          // exit;
-              $Listobservation = $em->getRepository('OCNAOBundle:Observation')->findBy(
-                array('user' => $user), // Critere
-                array('datetime' => 'desc'),        // Tri
-                5,                              // Limite
-                0                               // Offset
-              );
+
+
+              // dump($Listobservation);
+              // exit;
               return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig', array(
                 'user' => $user,
                 'Listobservation' => $Listobservation,
               ));
-              break;
-          case 'NATURALIST':
-          // $Listobservation = $em->getRepository('UserBundle:Observation')->findBy(
-          //   array('user' => $user), // Critere
-          //   array('datetime' => 'desc'),        // Tri
-          //   5,                              // Limite
-          //   0                               // Offset
-          // );
-          // $Listobservationvalidate = $em->getRepository('UserBundle:Observation')->findBy(
-          //   array('statut' => 'false'), // Critere
-          //   array('datetime' => 'desc'),        // Tri
-          //   5,                              // Limite
-          //   0                               // Offset
-          // );
-          // return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig', array(
-          //   'user' => $user,
-          //   'Listobservation' => $Listobservation,
-          // ));
-              break;
-          case 'ADMIN':
+              //break;
 
+          case 'ROLE_NATURALIST':
+
+            $Listobservationvalidate = $em->getRepository('OCNAOBundle:Observation')->findBy(
+              array('status' => false), // Critere
+              array('datetime' => 'desc'),        // Tri
+              5,                              // Limite
+              0                               // Offset
+            );
+
+            return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig', array(
+              'user' => $user,
+              'Listobservation' => $Listobservation,
+              'Listobservationvalidate' => $Listobservationvalidate,
+            ));
+              //break;
+
+          case 'ROLE_ADMIN':
+          echo "admin a faire";
               break;
       }
 
@@ -66,6 +66,21 @@ class BackOfficeController extends Controller
         //   'Listobservation' => $Listobservation,
         // ));
     }
+
+    /**
+     *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+     */
+      public function validateAction($id)
+      {
+        $em = $this->getDoctrine()->getManager();
+        $obs = $em->getRepository('OCNAOBundle:Observation')->find($id);
+        $obs->setStatus(true);
+        echo "test validation";
+        exit;
+        $em->persist($obs);
+        $em->flush();
+
+      }
 
     /**
      *@Security("has_role('ROLE_ADMIN')")
@@ -84,8 +99,25 @@ class BackOfficeController extends Controller
 
    public function ObserverAction()
    {
-     //demande pour de venir naturalist
-     //envoi email administrateur
+    //  //demande pour de venir naturalist
+    //  //envoi email administrateur
+    //  $userManager = $this->get('fos_user.user_manager');//recuperre le service
+    //  $user = $this->setStatus('demande');
+    //  $userManager->updateUser($user);
+     //
+    //  //envoi email administrateur
+    //  $content = "???????????";
+     //
+    //  $mailer = $this->container->get('mailer');
+    //  $message =  \Swift_Message::newInstance($object)
+    //    ->setTo('EmailDestinataire')
+    //    ->setFrom($this->getEmail(), 'Nos Amis les Oiseaux')
+    //    ->setBody($content, 'text/html')
+    //    ;
+    //  $mailer->send($message);
+     //
+    //  $this->addFlash('info', 'La demande est en cours un administrateur vous contactera pas email');
+    //  return $this->redirectToRoute('ocnao_backoffice');
 
    }
 
@@ -102,7 +134,7 @@ class BackOfficeController extends Controller
       $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig');
+        return $this->redirectToRoute('ocnao_backoffice');
     }
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -130,6 +162,6 @@ class BackOfficeController extends Controller
       $user->setRoles(array('ROLE_OBSERVER'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->render('OCNAOBundle:BackOffice:backoffice.html.twig');
+        return $this->redirectToRoute('ocnao_backoffice');
     }
 }

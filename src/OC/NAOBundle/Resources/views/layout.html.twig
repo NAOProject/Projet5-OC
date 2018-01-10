@@ -51,33 +51,6 @@
 
 
 <div class="container" style="margin-top:50px">
-{% block body %}{% endblock %}
-</div>
-
-<div class="container">
-<div>
-  <h3>Dev</h3>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que {{ app.user.username }}
-
-      <p>etape 1 cliquer sur le role voulu</p>
-        <a href="{{ path('ocnao_backoffice_obs') }}">devenir observateur</a>
-        <a href="{{ path('ocnao_backoffice_nat') }}">devenir naturalist</a>
-        <a href="{{ path('ocnao_backoffice_adm') }}">devenir administrateur</a>
-      <p>etape 2 ce deconnecte</p>
-      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-      <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-      <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-    {% endif %}
-  </div>
-  <div >
-    {% block user %}
-    {% endblock %}
-  </div>
-</div>
-
-
   {% for label, messages in app.flashes(['info', 'success']) %}
     {% for message in messages %}
       <div class="alert alert-{{ label }}">
@@ -86,7 +59,38 @@
     {% endfor %}
   {% endfor %}
 
+{% block body %}{% endblock %}
+</div>
+
+<div class="container">
+  <div >
+    {% block user %}{% endblock %}
+  </div>
+</div>
+
+
+
 
 
 </body>
+<footer>
+  <div class="container">
+    <h3>Dev</h3>
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Connecté en tant que {{ app.user.username }}
+
+        <p>etape 1 cliquer sur le role voulu</p>
+          <a href="{{ path('ocnao_backoffice_obs') }}">devenir observateur</a>
+          <a href="{{ path('ocnao_backoffice_nat') }}">devenir naturalist</a>
+          <a href="{{ path('ocnao_backoffice_adm') }}">devenir administrateur</a>
+        <p>etape 2 ce deconnecte</p>
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+      {% else %}
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+      {% endif %}
+  </div>
+
+
+</footer>
 </html>

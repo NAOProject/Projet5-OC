@@ -35,3 +35,6 @@ ocnao_backoffice_obs:
     path:     /backoffice/obs
     defaults: { _controller: OCNAOBundle:BackOffice:obs }
 #  fin suppresion
+ocnao_backoffice_validate:
+    path:     /backoffice/validate/{id}
+    defaults: { _controller: OCNAOBundle:BackOffice:validate }
