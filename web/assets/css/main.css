@@ -7,8 +7,18 @@ body {
   align-content: center;
 }
 
+.photoObs {
+  width: 150px;
+  height: 150px;
+}
+
+.obs {
+  margin-left: 10px;
+}
+
 .lastObsPic {
-  width: 300px;
-  hight: 300px;
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
   float: left;
 }
