@@ -11,10 +11,10 @@ namespace OC\NAOBundle\Repository;
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
   public function lastObs() {
-    // $qb = $this->createQueryBuilder('e');
-    // $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(6);
-    //
-    // return $qb->getQuery()->getResult();
+    $qb = $this->createQueryBuilder('e');
+    $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(6);
+
+    return $qb->getQuery()->getResult();
   }
 
   public function listeObsEspece($espece) {
