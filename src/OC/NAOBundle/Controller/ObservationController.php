@@ -12,6 +12,8 @@ use OC\NAOBundle\Entity\Recherche;
 use OC\NAOBundle\Form\ObservationType;
 use OC\NAOBundle\Form\RechercheType;
 
+use web\assets\images;
+
 class ObservationController extends Controller
 {
   //Fonction permettant l'ajout d'observation
@@ -103,7 +105,7 @@ class ObservationController extends Controller
 
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
-    var_dump($lastObs);
+
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),

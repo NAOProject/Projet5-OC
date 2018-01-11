@@ -10,7 +10,6 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//mettre case newletter
 
     }
 

@@ -10,8 +10,19 @@
 
     <div id='Observations' class="col-md-6 col-xs-12">
       {% for result in results %}
-        {{ result.user.username }}
-        <a href="{{ path('ocnao_observation', {'id': result.id }) }}">Voir l'observation</a>
+      <div class="row">
+        <div class="observation col-md-12">
+          <div class="photoObs col-md-4">
+            {% if result.picture.image is defined %}
+              <img class="lastObsPic" src=" {{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/>
+            {% endif %}
+          </div>
+          <div class="obs col-md-8">
+            {{ result.user.username }}
+            <a href="{{ path('ocnao_observation', {'id': result.id }) }}">Voir l'observation</a>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
 

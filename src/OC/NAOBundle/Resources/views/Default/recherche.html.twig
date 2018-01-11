@@ -5,45 +5,153 @@
 <div class="container">
   <div class="row">
     <div class="formulaire col-md-12">
-    <h1>Recherche</h1>
+      <div class="rechercheTitle col-md-5">RECHERCHER UNE ESPÈCE D'OISEAU
+      </div>
+      <div class="col-md-5">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
 
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-      {{ form_errors(form) }}
-
-      {{ form_row(form.espece, {
-        'label': "Nom de l'espece",
-        'attr': {
-					'data-id': 'listedesespeces',
-					'data-url': path('ocnao_autocomplete')
-          }
-        })
-      }}
-
-      {{ form_row(form.submit, {'label': 'Envoyer'}) }}
-      {{ form_end(form) }}
+        {{ form_widget(form.espece, {
+          'attr': {
+  					'data-id': 'listedesespeces',
+  					'data-url': path('ocnao_autocomplete')
+            }
+          })
+        }}
+      </div>
+      <div class="col-md-2">
+        {{ form_row(form.submit, {'label': 'Rechercher'}) }}
+        {{ form_end(form) }}
+      </div>
     </div>
-    <div class="lastObs">
-      <h1>Dernières observations publiées</h1>
-      {% for obs in lastObs %}
-        <div class="col-md-4 well">
-          <div class="title center">
-            {% if obs.picture.image is defined %}
-              <div class="picture center">
-                <img class="lastObsPic" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+  </div>
+  <div class="lastObs">
+    <h2 class="center">Nos dernières observations publiées.</h2>
+    <div class="bandeau col-md-8">
+      <h3 class="center white">CARTE INTERACTIVE</h3>
+    </div>
+    <div class="bandeau col-md-4">
+      <h3 class="center white">LISTE</h3>
+    </div>
+    <div class="row">
+      <div id="Carte" class="col-md-8 col-xs-12">
+        <div id="map">
+        </div>
+      </div>
+      <div class="Liste col-md-4">
+        {% for obs in lastObs %}
+        <div class="row">
+          <div class="observation">
+            <div class="photo col-md-3">
+              {% if obs.picture.image is defined %}
+                <div class="picture center">
+                  <img class="photoObs" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+                </div>
+              {% endif %}
+            </div>
+            <div class="description col-md-9">
+              <div class="title center">
+                <h3>{{ obs.taxrefname }}</h3>
+                <h5>Observé par {{ obs.user.username }}</h5>
+                <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
               </div>
-            {% endif %}
-            <h3>{{ obs.taxrefname }}</h3>
-            <h5>Observé par {{ obs.user.username }}</h5>
-            <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
+            </div>
           </div>
         </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
 
+<div id="coordonnees" class="hidden">
+  {% for obs in lastObs %}
+    {% if obs.picture.image is defined %}
+    <div data-latitude="{{ obs.latitude }}"
+         data-longitude="{{ obs.longitude }}"
+         data-username="{{ obs.user.username }}"
+         data-espece="{{ obs.taxrefname }}"
+         data-src="{{ asset('uploads/picture/' ~ obs.picture.image) }}">
+    </div>
+    {% else %}
+    <div data-latitude="{{ obs.latitude }}"
+         data-longitude="{{ obs.longitude }}"
+         data-username="{{ obs.user.username }}"
+         data-espece="{{ obs.taxrefname }}"
+         data-src="{{ asset('assets/images/logo_nao.png') }}">
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<script>
+var resultArray = (function getGeoDataArray() {
+  var $coords = $('#coordonnees').find('div');
+  var resultsArray = [];
+  for (var i = 0; i < $coords.length; i++) {
+      var lat = $($coords[i]).data('latitude');
+      var lng = $($coords[i]).data('longitude');
+      var src = $($coords[i]).data('src').toString();
+
+      var content = '<div class="row"><div class="miniObs"><div class="photo col-md-5"><img class="miniPic" src="'+ src + '"></div>'
+      + '<div class="description col-md-7"><p class="center">' + $($coords[i]).data("espece") + '</p>' + '<p>' + $($coords[i]).data("username") + '.' + '</p></div></div></div>';
+
+
+      var coord = [lat, lng, content];
+      resultsArray.push(coord);
+  }
+  return resultsArray;
+})();
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 5,
+    center: { lat: 46.52863469527167, lng: 2.43896484375 }
+  });
+
+  for (var i = 0; i < resultArray.length; i++) {
+      var result = resultArray[i];
+      var infowindow = new google.maps.InfoWindow({
+        content: result[2],
+        minWidth: 300,
+      });
+      var marker = new google.maps.Marker({
+          position: {lat: result[0], lng: result[1]},
+          map: map,
+      });
+      google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+          return function() {
+              infowindow.setContent(content);
+              infowindow.open(map,marker);
+          };
+      })(marker,content,infowindow));
+  }
+}
+
+if($(window).width()<=767) {
+  $('#Carte').addClass('hidden');
+  $('.btnListe').removeClass('hidden');
+  $('.btnCarte').removeClass('hidden');
+}
+
+$('.btnListe').click(function() {
+  if ($('#Observations').hasClass("hidden")) {
+    $('#Observations').removeClass('hidden');
+    $('#Carte').addClass('hidden');
+  }
+});
+
+$('.btnCarte').click(function() {
+  if ($('#Carte').hasClass("hidden")) {
+    $('#Observations').addClass('hidden');
+    $('#Carte').removeClass('hidden');
+    initMap();
+  }
+});
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
 <script src="{{asset("assets/js/autocomplete.js")}}"></script>
-</body>
 
 {% endblock %}
