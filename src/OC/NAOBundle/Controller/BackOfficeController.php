@@ -57,7 +57,7 @@ class BackOfficeController extends Controller
               //break;
 
           case 'ROLE_ADMIN':
-          echo "admin a faire";
+echo "admin a faire";
               break;
       }
 
