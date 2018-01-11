@@ -46,6 +46,7 @@ body {
 }
 
 .photoObs {
+  object-fit: cover;
   width: 120px;
   height: 120px;
   padding-left: 0px;
@@ -71,11 +72,4 @@ body {
 
 .obs {
   margin-left: 10px;
-}
-
-.lastObsPic {
-  object-fit: cover;
-  width: 120px;
-  height: 120px;
-  float: left;
 }

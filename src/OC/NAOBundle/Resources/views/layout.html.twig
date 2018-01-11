@@ -28,43 +28,66 @@
     <nav class="navbar navbar-default navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
+         <button type="button" id="popover" class="navbar-toggle collapsed" data-toggle="popover" data-placement="bottom" >
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+         </button>
+         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+           <button type="button" id="popoverUser" class="navbar-toggle collapsed" data-toggle="popoverUser" data-placement="bottom" >
+             <span class="glyphicon glyphicon glyphicon-user"></span>
+           </button>
+         {% else %}
+             <a class="btn btn-default navbar-toggle" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+             <a class="btn btn-default navbar-toggle" href="{{ path('fos_user_security_login') }}" >Connexion</a>
+         {% endif %}
          <a class="navbar-brand" href="#">Nos Amis les Oiseaux</a>
        </div>
-       <ul class="nav navbar-nav">
-         <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche une observation</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">Ajouter une observation</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
-         <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Profil</a></li>
-         <li role="presentation">
-               <a id="popover" class="btn" data-toggle="popover" data-placement="bottom" >
-                    <span class="glyphicon glyphicon glyphicon-user"></span>
-                  test
-              </a>
-        </li>
-       </ul>
-       <ul class="nav navbar-nav navbar-right">
-         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-         <li role="presentation" class="text-right"><a href="{{ path('ocnao_backoffice') }}"><span class="glyphicon glyphicon-user"> {{ app.user.username }}</span></a></li>
-         <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-         {% else %}
-          <li role="presentation"><a href="{{ path('fos_user_security_login') }}" >Connexion</a></li>
-         <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
-         {% endif %}
-       </ul>
-     </div>
-   </nav>
+       <div>
+          <ul class="collapse navbar-collapse nav navbar-nav">
+              <li role="presentation"><a href="{{ path('ocnao_homepage') }}">Home</a></li>
+              <li role="presentation"><a href="{{ path('ocnao_recherche') }}">Recherche une observation</a></li>
+              <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">Ajouter une observation</a></li>
+              <li role="presentation"><a href="{{ path('ocnao_contact') }}">Contact</a></li>
+              <li role="presentation"><a href="{{ path('ocnao_backoffice') }}">Profil</a></li>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li role="presentation"><a href="{{ path('ocnao_backoffice') }}"><span class="glyphicon glyphicon-user"> {{ app.user.username }}</span></a></li>
+                <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li role="presentation"><a href="{{ path('fos_user_security_login') }}" >Connexion</a></li>
+                <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
 
 
 <!-- popover -->
+   <div id="popoverUser-content" class="list-group" style="display: none">
+     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+       <a class="list-group-item" href="{{ path('ocnao_backoffice') }}"><span class="glyphicon glyphicon-user"> {{ app.user.username }}</span></a>
+       <a class="list-group-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+     {% endif %}
+   </div>
+
    <div id="popover-content" class="list-group" style="display: none">
-     <a href="#" class="list-group-item">First item</a>
-     <a href="#" class="list-group-item">Second item</a>
-     <a href="#" class="list-group-item">Third item</a>
+     <a class="list-group-item" href="{{ path('ocnao_homepage') }}">Home</a>
+     <a class="list-group-item" href="{{ path('ocnao_recherche') }}">Recherche une observation</a>
+     <a class="list-group-item" href="{{ path('ocnao_addObservation') }}">Ajouter une observation</a>
+     <a class="list-group-item" href="{{ path('ocnao_contact') }}">Contact</a>
+     <a class="list-group-item" href="{{ path('ocnao_backoffice') }}">Profil</a>
    </div>
 
 <!-- code js pour le test popover -->
 <script type="text/javascript">
+$(function() {
+  $('[data-toggle="popoverUser"]').popover({
+        html: true,
+        content: function() {
+            return $('#popoverUser-content').html();
+        }
+  });
+});
 $(function() {
   $('[data-toggle="popover"]').popover({
         html: true,
