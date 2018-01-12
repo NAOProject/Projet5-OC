@@ -1,7 +1,3 @@
-body {
-  padding-top: 50px;
-}
-
 .container {
   width: 100%;
   padding-left: 0px;
@@ -72,4 +68,21 @@ body {
 
 .obs {
   margin-left: 10px;
+}
+
+@media screen and (max-width:767px) {
+  .rechercheTitle {
+    text-align: center;
+  }
+  .rechercheBoutton {
+    align-items: center;
+    text-align: center;
+  }
+  .bandeau {
+    display: none;
+  }
+  .affichageXs {
+    height: 40px;
+    border: 2px solid black;
+  }
 }
