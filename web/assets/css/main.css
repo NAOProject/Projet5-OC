@@ -11,6 +11,25 @@ body {
   text-align: right;
 }
 
+.footer {
+  height: 300px;
+  width: 100%;
+  background-color: #888888;
+}
+
+.footer a {
+  color: black;
+}
+
+.border_side {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.fab {
+  color: black;
+}
+
 .rechercheTitle {
   font-size: 22px;
   text-align: right;

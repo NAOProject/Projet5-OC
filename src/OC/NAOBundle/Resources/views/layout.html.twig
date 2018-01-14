@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.theme.css")}}">
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <!-- JS -->
 
   {% endblock %}
 
@@ -168,11 +170,27 @@
       {% endif %}
   </div>
 
-  <div class="footer hidden-xs"> <!-- Footer du site -->
+  <div class="footer container"> <!-- Footer du site -->
     <div class="col-md-offset-4 col-md-4">
-      <div class="row"> <!-- reseaux sociaux -->
-        <div class="center">
-
+      <div class="center"> <!-- reseaux sociaux -->
+        <div class="row">
+          <a href="facebook.com" target="_blank"><img src="{{ asset("assets/images/fb_logo.png")}}"></img></a>
+          <a href="twitter.com" target="_blank"><img src="{{ asset("assets/images/twitter_logo.png")}}"></img></a>
+        </div>
+        <div class="row">
+          <p>ABONNEZ-VOUS À NOTRE NEWSLETTER</p>
+          <input type="email" name="email" value=""></input>
+        </div>
+        <div class="row col-md-12 col-xs-12">
+          <div class="col-xs-4">
+            <a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a>
+          </div>
+          <div class="col-xs-4 border_side">
+            <a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a>
+          </div>
+          <div class="col-xs-4">
+            <a href="#">MENTION LÉGALES</a>
+          </div>
         </div>
       </div>
     </div>
