@@ -1,6 +1,14 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .center {
   text-align: center;
   align-content: center;
+}
+
+.right {
+  text-align: right;
 }
 
 .rechercheTitle {
@@ -15,6 +23,11 @@
 
 .miniObs {
   width: 300px;
+}
+
+.navigation {
+  align-items: center;
+  vertical-align: middle;
 }
 
 .miniPic {

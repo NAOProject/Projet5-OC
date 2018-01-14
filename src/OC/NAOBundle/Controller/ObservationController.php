@@ -91,10 +91,9 @@ class ObservationController extends Controller
 
         $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
 
-        var_dump($results);
-
         if($results) {
           return $this->render('OCNAOBundle:Default:results.html.twig', array(
+            'form' => $form->createView(),
             'results' => $results,
           ));
         }else{
@@ -117,7 +116,6 @@ class ObservationController extends Controller
   public function ObservationAction($id)
   {
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-    var_dump($observation);
     return $this->render('OCNAOBundle:Default:observation.html.twig', array(
       'observation' => $observation,
     ));
