@@ -91,13 +91,14 @@ class ObservationController extends Controller
         $_SESSION['espece'] = $espece;
         return $this->redirectToRoute('ocnao_results');
       }
-
+    $_SESSION['espece'] = null;
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
       'lastObs' => $lastObs,
+      'session' => $_SESSION,
     ));
   }
 
@@ -120,6 +121,7 @@ class ObservationController extends Controller
       return $this->render('OCNAOBundle:Default:results.html.twig', array(
         'form' => $form->createView(),
         'results' => $results,
+        'session' => $_SESSION,
       ));
     }else{
       $this->addFlash('info', 'Aucune observation trouvé pour cette éspèce.');
@@ -133,6 +135,7 @@ class ObservationController extends Controller
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
     return $this->render('OCNAOBundle:Default:observation.html.twig', array(
       'observation' => $observation,
+      'session' => $_SESSION,
     ));
   }
 }
