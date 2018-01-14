@@ -10,6 +10,9 @@ ocnao_observation:
 ocnao_recherche:
     path:     /recherche
     defaults: { _controller: OCNAOBundle:Observation:recherche }
+ocnao_results:
+    path:     /results
+    defaults: { _controller: OCNAOBundle:Observation:results }
 ocnao_backoffice:
     path:     /backoffice
     defaults: { _controller: OCNAOBundle:BackOffice:index }
