@@ -30,6 +30,13 @@ class Observation
   	 */
   	private $user;
 
+    /**
+  	 *
+  	 * @ORM\ManyToOne(targetEntity="OC\UserBundle\Entity\User")
+  	 * @ORM\JoinColumn(name="uservalidator", nullable=true)
+  	 *
+  	 */
+  	private $uservalidator;
 
     //Ancien parametres
     // @ORM\ManyToOne(targetEntity="OC\NAOBundle\Entity\Taxref")
