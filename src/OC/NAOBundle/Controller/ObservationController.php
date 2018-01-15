@@ -27,8 +27,10 @@ class ObservationController extends Controller
         $user = $this->getUser();
         if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
           $observation->setStatus(true);
+          $observation->setUserValidator($user);
         } else {
           $observation->setStatus(false);
+          $observation->setUserValidator(null);
         }
         $date = new \DateTime();
         $observation->setDatetime($date);
@@ -46,7 +48,6 @@ class ObservationController extends Controller
           $picture = $observation->getPicture()->setImage($fileName);
           $observation->setPicture($picture);
         }
-
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($observation);
@@ -77,6 +78,20 @@ class ObservationController extends Controller
           //$response->headers->set('Content-Type', 'application/json');
           return $response;
       }
+  }
+
+  //Fonction validation des observations des observateurs
+  public function validateAction($id)
+  {
+    $user = $this->getUser();
+    $em = $this->getDoctrine()->getManager();
+    
+    $obs = $em->getRepository('OCNAOBundle:Observation')->observation($id);
+    $obs->setStatus(true);
+    $obs->setUserValidator($user);
+
+    $em->persist($obs);
+    $em->flush();
   }
 
   //Fonction permettant la recherche d'observations
