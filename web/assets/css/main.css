@@ -1,16 +1,33 @@
 body {
-  padding-top: 50px;
-}
-
-.container {
-  width: 100%;
-  padding-left: 0px;
-  padding-right: 0px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .center {
   text-align: center;
   align-content: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.footer {
+  height: 300px;
+  width: 100%;
+  background-color: #888888;
+}
+
+.footer a {
+  color: black;
+}
+
+.border_side {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.fab {
+  color: black;
 }
 
 .rechercheTitle {
@@ -25,6 +42,11 @@ body {
 
 .miniObs {
   width: 300px;
+}
+
+.navigation {
+  align-items: center;
+  vertical-align: middle;
 }
 
 .miniPic {
@@ -72,4 +94,21 @@ body {
 
 .obs {
   margin-left: 10px;
+}
+
+@media screen and (max-width:767px) {
+  .rechercheTitle {
+    text-align: center;
+  }
+  .rechercheBoutton {
+    align-items: center;
+    text-align: center;
+  }
+  .bandeau {
+    display: none;
+  }
+  .affichageXs {
+    height: 40px;
+    border: 2px solid black;
+  }
 }

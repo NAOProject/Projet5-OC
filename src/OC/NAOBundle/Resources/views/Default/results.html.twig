@@ -1,42 +1,93 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<div class="container">
+<div class="">
   <div class="row">
-    <h1>Resultats de la recherche</h1>
-
-    <button type="button" class="btnListe hidden">Liste</button>
-    <button type="button" class="btnCarte hidden">Carte</button>
-
-    <div id='Observations' class="col-md-6 col-xs-12">
-      {% for result in results %}
-      <div class="row">
-        <div class="observation col-md-12">
-          <div class="photoObs col-md-4">
-            {% if result.picture.image is defined %}
-              <img class="lastObsPic" src=" {{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/>
-            {% endif %}
-          </div>
-          <div class="obs col-md-8">
-            {{ result.user.username }}
-            <a href="{{ path('ocnao_observation', {'id': result.id }) }}">Voir l'observation</a>
-          </div>
-        </div>
+    <div class="formulaire col-md-12">
+      <div class="rechercheTitle col-md-4 col-xs-12">RECHERCHER UNE ESPÈCE D'OISEAU
       </div>
-      {% endfor %}
-    </div>
+      <div class="col-xs-10 col-xs-offset-1  col-md-offset-0 col-md-5">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
 
-    <div id="coordonnees" class="hidden">
-      {% for result in results %}
-        <div data-latitude="{{ result.latitude }}" data-longitude="{{ result.longitude }}" data-username="{{ result.user.username }}"></div>
-      {% endfor %}
-    </div>
-
-    <div id="Carte" class="col-md-6 col-xs-12">
-      <div id="map">
+        {{ form_widget(form.espece, {
+          'attr': {
+  					'data-id': 'listedesespeces',
+  					'data-url': path('ocnao_autocomplete')
+            }
+          })
+        }}
+      </div>
+      <div class="col-md-2 col-xs-12 rechercheBoutton">
+        {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
+        {{ form_end(form) }}
       </div>
     </div>
   </div>
+  <div class="lastObs">
+    <h3 class="center">Résultat(s) de votre recherche: {{ results.0.taxrefname }}</h3>
+    <div class="affichageXs hidden row">
+      <div class="">
+      <p class="col-xs-offset-1 col-xs-8 ">Affichage</p>
+      <div class="col-xs-1"><button class="btn btnCarte"><span class="glyphicon glyphicon-map-marker"></span></button></div>
+      <div class="col-xs-1"><button class="btn btnListe"><span class="glyphicon glyphicon-tasks"></span></button></div>
+      </div>
+    </div>
+    <div class="bandeau col-md-8">
+      <h3 class="center white">CARTE INTERACTIVE</h3>
+    </div>
+    <div class="bandeau col-md-4">
+      <h3 class="center white">LISTE</h3>
+    </div>
+    <div class="row">
+      <div id="Carte" class="col-md-8 col-xs-12">
+        <div id="map">
+        </div>
+      </div>
+      <div class="Liste col-md-4 col-xs-12">
+        {% for result in results %}
+        <div class="row">
+          <div class="observation">
+            <div class="photo col-md-3">
+              {% if result.picture.image is defined %}
+                <div class="picture center">
+                  <img class="photoObs" src=" {{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/>
+                </div>
+              {% endif %}
+            </div>
+            <div class="description col-md-9">
+              <div class="title center">
+                <h3>{{ result.taxrefname }}</h3>
+                <h5>Observé par {{ result.user.username }}</h5>
+                <a href="{{ path('ocnao_observation', {'id': result.id }) }}">Voir l'observation</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="coordonnees" class="hidden">
+  {% for result in results %}
+    {% if result.picture.image is defined %}
+    <div data-latitude="{{ result.latitude }}"
+         data-longitude="{{ result.longitude }}"
+         data-username="{{ result.user.username }}"
+         data-espece="{{ result.taxrefname }}"
+         data-src="{{ asset('uploads/picture/' ~ result.picture.image) }}">
+    </div>
+    {% else %}
+    <div data-latitude="{{ result.latitude }}"
+         data-longitude="{{ result.longitude }}"
+         data-username="{{ result.user.username }}"
+         data-espece="{{ result.taxrefname }}"
+         data-src="{{ asset('assets/images/logo_nao.png') }}">
+    </div>
+    {% endif %}
+  {% endfor %}
 </div>
 
 <script>
@@ -46,7 +97,12 @@ var resultArray = (function getGeoDataArray() {
   for (var i = 0; i < $coords.length; i++) {
       var lat = $($coords[i]).data('latitude');
       var lng = $($coords[i]).data('longitude');
-      var content = "Observation de " + $($coords[i]).data('username') + "."
+      var src = $($coords[i]).data('src').toString();
+
+      var content = '<div class="row"><div class="miniObs"><div class="photo col-md-5"><img class="miniPic" src="'+ src + '"></div>'
+      + '<div class="description col-md-7"><p class="center">' + $($coords[i]).data("espece") + '</p>' + '<p>' + $($coords[i]).data("username") + '.' + '</p></div></div></div>';
+
+
       var coord = [lat, lng, content];
       resultsArray.push(coord);
   }
@@ -62,34 +118,37 @@ function initMap() {
   for (var i = 0; i < resultArray.length; i++) {
       var result = resultArray[i];
       var infowindow = new google.maps.InfoWindow({
-        content: result[2]
+        content: result[2],
+        minWidth: 300,
       });
       var marker = new google.maps.Marker({
           position: {lat: result[0], lng: result[1]},
           map: map,
       });
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      });
+      google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+          return function() {
+              infowindow.setContent(content);
+              infowindow.open(map,marker);
+          };
+      })(marker,content,infowindow));
   }
 }
 
 if($(window).width()<=767) {
-  $('#Carte').addClass('hidden');
-  $('.btnListe').removeClass('hidden');
-  $('.btnCarte').removeClass('hidden');
+  $('.Liste').addClass('hidden');
+  $('.affichageXs').removeClass('hidden');
 }
 
 $('.btnListe').click(function() {
-  if ($('#Observations').hasClass("hidden")) {
-    $('#Observations').removeClass('hidden');
+  if ($('.Liste').hasClass("hidden")) {
+    $('.Liste').removeClass('hidden');
     $('#Carte').addClass('hidden');
   }
 });
 
 $('.btnCarte').click(function() {
   if ($('#Carte').hasClass("hidden")) {
-    $('#Observations').addClass('hidden');
+    $('.Liste').addClass('hidden');
     $('#Carte').removeClass('hidden');
     initMap();
   }
@@ -98,5 +157,6 @@ $('.btnCarte').click(function() {
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
+<script src="{{asset("assets/js/autocomplete.js")}}"></script>
 
 {% endblock %}

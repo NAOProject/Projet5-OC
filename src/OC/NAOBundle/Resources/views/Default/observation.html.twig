@@ -9,7 +9,11 @@
     <button type="button" class="btnCarte hidden">Carte</button>
 
     <div id='Observations' class="col-md-6 col-xs-12">
-
+      {% if session.espece == null %}
+        <input type="button" value="Retour au dernieres observations publiée" onClick="document.location.href = document.referrer" />
+      {% else %}
+        <input type="button" value="Retour aux resultats de la recherche" onClick="document.location.href = document.referrer" />
+      {% endif %}
     </div>
 
     <div id="coordonnees" class="hidden">

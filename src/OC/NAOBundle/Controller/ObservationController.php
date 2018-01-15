@@ -88,38 +88,54 @@ class ObservationController extends Controller
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
-
-        $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
-
-        var_dump($results);
-
-        if($results) {
-          return $this->render('OCNAOBundle:Default:results.html.twig', array(
-            'results' => $results,
-          ));
-        }else{
-          $this->addFlash('info', 'Aucune observation trouvé pour cette éspèce.');
-          return $this->redirectToRoute('ocnao_recherche');
-        }
+        $_SESSION['espece'] = $espece;
+        return $this->redirectToRoute('ocnao_results');
       }
-
+    $_SESSION['espece'] = null;
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
-
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
       'lastObs' => $lastObs,
+      'session' => $_SESSION,
     ));
   }
 
+  //Affiche la liste des resultats pour la recherche
+  public function resultsAction(Request $request)
+  {
+    $recherche = new Recherche();
+    $form = $this->createForm(RechercheType::class, $recherche);
+
+    $form->handleRequest($request);
+      if($form->isSubmitted() && $form->isValid()){
+        $espece = $recherche->getEspece();
+        $_SESSION['espece'] = $espece;
+        return $this->redirectToRoute('ocnao_results');
+      }
+    $espece = $_SESSION['espece'];
+    $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
+
+    if($results) {
+      return $this->render('OCNAOBundle:Default:results.html.twig', array(
+        'form' => $form->createView(),
+        'results' => $results,
+        'session' => $_SESSION,
+      ));
+    }else{
+      $this->addFlash('info', 'Aucune observation trouvé pour cette éspèce.');
+      return $this->redirectToRoute('ocnao_recherche');
+    }
+  }
+
   //Afficher une observation, en fonction de son id
-  public function ObservationAction($id)
+  public function observationAction($id)
   {
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-    var_dump($observation);
     return $this->render('OCNAOBundle:Default:observation.html.twig', array(
       'observation' => $observation,
+      'session' => $_SESSION,
     ));
   }
 }
