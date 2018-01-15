@@ -239,13 +239,13 @@ class Observation
     }
 
     /**
-     * Get uservalidator
+     * Get user
      *
      * @return \OC\UserBundle\Entity\User
      */
-    public function getUserValidator()
+    public function getUser()
     {
-        return $this->uservalidator;
+        return $this->user;
     }
 
     /**
@@ -255,7 +255,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setUserValidator(\OC\UserBundle\Entity\User $uservalidator)
+    public function setUserValidator(\OC\UserBundle\Entity\User $uservalidator = null)
     {
         $this->uservalidator = $uservalidator;
 
@@ -263,13 +263,13 @@ class Observation
     }
 
     /**
-     * Get user
+     * Get uservalidator
      *
      * @return \OC\UserBundle\Entity\User
      */
-    public function getUser()
+    public function getUserValidator()
     {
-        return $this->user;
+        return $this->uservalidator;
     }
 
     /**

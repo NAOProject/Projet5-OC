@@ -3,6 +3,9 @@
 namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
@@ -81,17 +84,23 @@ class ObservationController extends Controller
   }
 
   //Fonction validation des observations des observateurs
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
   public function validateAction($id)
   {
     $user = $this->getUser();
     $em = $this->getDoctrine()->getManager();
-    
-    $obs = $em->getRepository('OCNAOBundle:Observation')->observation($id);
-    $obs->setStatus(true);
-    $obs->setUserValidator($user);
 
-    $em->persist($obs);
+    $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+    $obs[0]->setStatus(true);
+    $obs[0]->setUserValidator($user);
+
+    $em->persist($obs[0]);
     $em->flush();
+
+    $this->addFlash('succes', 'Observation validée et publiée.');
+    return $this->redirectToRoute('ocnao_homepage');
   }
 
   //Fonction permettant la recherche d'observations
@@ -106,7 +115,9 @@ class ObservationController extends Controller
         $_SESSION['espece'] = $espece;
         return $this->redirectToRoute('ocnao_results');
       }
+
     $_SESSION['espece'] = null;
+
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
@@ -147,10 +158,18 @@ class ObservationController extends Controller
   //Afficher une observation, en fonction de son id
   public function observationAction($id)
   {
+    $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
-      'observation' => $observation,
-      'session' => $_SESSION,
-    ));
+
+    //Si l'observation est publié ou role naturalist ou admin
+    if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
+      return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+        'observation' => $observation,
+        'session' => $_SESSION,
+      ));
+    } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
+      $this->addFlash('danger', 'Observation non validée !');
+      return $this->redirectToRoute('ocnao_homepage');
+    }
   }
 }

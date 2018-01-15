@@ -22,7 +22,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
   <!-- JS -->
   <script src="{{asset("assets/js/adaptation.js")}}"></script>
-  
+
   {% endblock %}
 
 </head>
@@ -132,7 +132,7 @@
     </nav> <!-- Fin navbar sur Smartphone -->
 
 <div class="container" style="margin-top:50px"> <!-- Messages d'informations -->
-  {% for label, messages in app.flashes(['info', 'success']) %}
+  {% for label, messages in app.flashes(['info', 'success', 'danger']) %}
     {% for message in messages %}
       <div class="alert alert-{{ label }}">
         {{ message }}

@@ -31,4 +31,12 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
     return $qb->getQuery()->getResult();
   }
+
+  public function observationAValider($id)
+  {
+    $qb = $this->createQueryBuilder('ob');
+    $qb->select('ob')->where('ob.id = :id')->setParameter('id', $id)->andWhere('ob.status = 0');
+
+    return $qb->getQuery()->getResult();
+  }
 }
