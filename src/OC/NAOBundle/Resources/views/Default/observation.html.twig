@@ -1,36 +1,101 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<div class="container">
-  <div class="row">
-    <h1>Resultats de la recherche</h1>
+<style>
+#photo { cursor:zoom-in; }
+#photo:-webkit-full-screen { cursor:zoom-out; }
+#photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
+#photo:-ms-fullscreen { cursor:zoom-out; }
+#photo:fullscreen { cursor:zoom-out; }
+</style>
 
-    <button type="button" class="btnListe hidden">Liste</button>
-    <button type="button" class="btnCarte hidden">Carte</button>
 
-    <div id='Observations' class="col-md-6 col-xs-12">
-      {% if session.espece == null %}
-        <input type="button" value="Retour au dernieres observations publiée" onClick="document.location.href = document.referrer" />
-      {% else %}
-        <input type="button" value="Retour aux resultats de la recherche" onClick="document.location.href = document.referrer" />
-      {% endif %}
-      {% if observation.0.status == 0 %}
-        <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
-      {% endif %}
+<div class="row visible-xs">
+  <div class="return">
+    <a class="btn" onClick="javascript:window.history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> RETOUR EN ARRIÈRE.</a>
+    {% if observation.0.status == 0 %}
+      <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="observation">
+  <div class="container">
+    <div class="row hidden-xs">
+      <div class="return">
+        <a class="btn" onClick="javascript:window.history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> RETOUR EN ARRIÈRE.</a>
+        {% if observation.0.status == 0 %}
+          <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
+        {% endif %}
+      </div>
     </div>
-
-    <div id="coordonnees" class="hidden">
-        <div data-latitude="{{ observation.0.latitude }}" data-longitude="{{ observation.0.longitude }}" data-username="{{ observation.0.user.username }}"></div>
+    <div class="row hidden-xs">
+      <div class="col-xs-12"> <!-- Titre -->
+        <h2>{{ observation.0.taxrefname }}</h2>
+        <!-- FAMILLE A AJOUTER -->
+      </div>
     </div>
+    <div class="row-fluid">
+      <div class="col-md-6 col-xs-12"> <!-- observateur -->
+        <div class="obs_user">
+          <p><span class="glyphicon glyphicon-user"></span>{{ observation.0.user.username }}</p>
+          <!-- NOMBRE D'OBSERVATION A AJOUTER -->
+        </div>
+        <div class="photo">
+          {% if observation.0.picture.image is defined %}
+            <img id="photo" class="photoObservation" src=" {{ asset('uploads/picture/' ~ observation.0.picture.image) }}" alt="Photo de l'observation"/>
+          {% endif %}
+        </div>
+        <div class="center visible-xs"> <!-- Titre -->
+          <h2>{{ observation.0.taxrefname }}</h2>
+          <!-- FAMILLE A AJOUTER -->
+        </div>
+      </div>
 
-    <div id="Carte" class="col-md-6 col-xs-12">
-      <div id="map">
+      <div class="col-md-6 col-xs-12">
+        <div id="map">
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 
+<div id="coordonnees" class="hidden">
+    <div data-latitude="{{ observation.0.latitude }}" data-longitude="{{ observation.0.longitude }}" data-username="{{ observation.0.user.username }}"></div>
+</div>
+
+<script>
+function toggleFullscreen(elem) {
+  elem = elem || document.documentElement;
+  if (!document.fullscreenElement && !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+document.getElementById('photo').addEventListener('click', function() {
+  toggleFullscreen(this);
+});
+</script>
 <script src="{{asset("assets/js/mapObs.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">

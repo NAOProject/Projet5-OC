@@ -21,7 +21,6 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
   <!-- JS -->
-  <script src="{{asset("assets/js/adaptation.js")}}"></script>
 
   {% endblock %}
 
@@ -41,7 +40,7 @@
                   {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
                     <li role="presentation"><a href="#">OBSERVATIONS À VALIDER</a></li>
                   {% endif %}
-                  <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a></li>
+                  <li role="presentation"><a href="#">COMMENT CA MARCHE ?</a></li>
                   <li role="presentation"><a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
                </ul>
             </div>
@@ -106,7 +105,7 @@
                  {% if is_granted("ROLE_ADMIN") %}
                   <li role="presentation"><a href="#">OBSERVATIONS À VALIDER</a></li>
                  {% endif %}
-                 <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a></li>
+                 <li role="presentation"><a href="#">COMMENT CA MARCHE ?</a></li>
                  <li role="presentation"><a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
                </ul>
             </div>
@@ -151,7 +150,7 @@
 </div>
 
 
-
+<script src="{{asset("assets/js/adaptation.js")}}"></script>
 </body>
 <footer>
   <div class="container"> <!-- A supprimer a la fin du dev -->

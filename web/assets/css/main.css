@@ -77,6 +77,14 @@ body {
   border-right: 2px solid black;
 }
 
+.photoObservation {
+  background-color: #555555;
+  width: 100%;
+  padding: 5% 5% 5% 5%;
+  height: auto;
+  object-fit: cover;
+}
+
 .lastObs {
   padding-top: 20px;
 }
@@ -96,10 +104,43 @@ body {
   margin-left: 10px;
 }
 
+.obs_user {
+  padding-top: 20px;
+}
+
+.observation .col-md-6 {
+  padding: 0 0 0 0;
+}
+
+.return a {
+  margin-top: 15px;
+  height: 30px;
+  color: black;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
 @media screen and (max-width:767px) {
   .rechercheTitle {
     text-align: center;
   }
+
+  .observation .col-xs-12 {
+    width: 100%;
+    padding: 0 0 0 0;
+  }
+
+  .return {
+    height: 60px;
+    background-color: #AAAAAA;
+  }
+
+  .observation .container {
+    width: 100%;
+    padding: 0 0 0 0;
+  }
+
   .rechercheBoutton {
     align-items: center;
     text-align: center;

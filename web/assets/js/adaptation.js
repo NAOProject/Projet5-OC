@@ -1,21 +1,19 @@
 //Script d'adaptation de la carte et liste sur mobile
 
 if($(window).width()<=767) {
-  $('#Carte').addClass('hidden');
-  $('.btnListe').removeClass('hidden');
-  $('.btnCarte').removeClass('hidden');
+  $('.Liste').addClass('hidden');
 }
 
 $('.btnListe').click(function() {
-  if ($('#Observations').hasClass("hidden")) {
-    $('#Observations').removeClass('hidden');
+  if ($('.Liste').hasClass("hidden")) {
+    $('.Liste').removeClass('hidden');
     $('#Carte').addClass('hidden');
   }
 });
 
 $('.btnCarte').click(function() {
   if ($('#Carte').hasClass("hidden")) {
-    $('#Observations').addClass('hidden');
+    $('.Liste').addClass('hidden');
     $('#Carte').removeClass('hidden');
     initMap();
   }

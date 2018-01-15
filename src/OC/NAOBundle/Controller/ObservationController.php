@@ -99,7 +99,7 @@ class ObservationController extends Controller
     $em->persist($obs[0]);
     $em->flush();
 
-    $this->addFlash('succes', 'Observation validée et publiée.');
+    $this->addFlash('success', 'Observation validée et publiée.');
     return $this->redirectToRoute('ocnao_homepage');
   }
 
@@ -160,7 +160,7 @@ class ObservationController extends Controller
   {
     $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-
+    
     //Si l'observation est publié ou role naturalist ou admin
     if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
       return $this->render('OCNAOBundle:Default:observation.html.twig', array(
