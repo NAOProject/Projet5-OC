@@ -44,9 +44,9 @@
         <div id="map">
         </div>
       </div>
-      <div class="Liste col-md-4 col-xs-12">
+      <div class="row Liste">
         {% for result in results %}
-        <div class="row">
+        <div class="col-md-2 col-xs-6">
           <div class="observation">
             <div class="photo col-md-3">
               {% if result.picture.image is defined %}
