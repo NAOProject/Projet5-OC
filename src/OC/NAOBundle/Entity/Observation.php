@@ -92,6 +92,20 @@ class Observation
      */
     private $status;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="notconforme", type="boolean")
+     */
+    private $notconforme;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notconformetext", type="string", length=255, nullable=true)
+     */
+    private $notconformetext;
+
 
 
     /**
@@ -222,6 +236,54 @@ class Observation
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set notconforme
+     *
+     * @param boolean $notconforme
+     *
+     * @return Observation
+     */
+    public function setNotconforme($notconforme)
+    {
+        $this->notconforme = $notconforme;
+
+        return $this;
+    }
+
+    /**
+     * Get notconforme
+     *
+     * @return boolean
+     */
+    public function getNotconforme()
+    {
+        return $this->notconforme;
+    }
+
+    /**
+     * Set notconformetext
+     *
+     * @param string $notconformetext
+     *
+     * @return Observation
+     */
+    public function setNotconformetext($notconformetext)
+    {
+        $this->notconformetext = $notconformetext;
+
+        return $this;
+    }
+
+    /**
+     * Get notconformetext
+     *
+     * @return string
+     */
+    public function getNotconformetext()
+    {
+        return $this->notconformetext;
     }
 
     /**
