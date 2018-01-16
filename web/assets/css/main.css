@@ -113,12 +113,9 @@ body {
 }
 
 .return a {
-  margin-top: 15px;
-  height: 30px;
   color: black;
   font-size: 1.5em;
   font-weight: bold;
-  padding-left: 20px;
 }
 
 @media screen and (max-width:767px) {

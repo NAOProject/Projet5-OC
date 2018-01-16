@@ -14,7 +14,9 @@
   <div class="return">
     <a class="btn" onClick="javascript:window.history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> RETOUR EN ARRIÈRE.</a>
     {% if observation.0.status == 0 %}
-      <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
+      <button type="button" class="btn btn-light">
+        <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
+      <a href="#">Non conforme</a>
     {% endif %}
   </div>
 </div>
@@ -25,7 +27,14 @@
       <div class="return">
         <a class="btn" onClick="javascript:window.history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> RETOUR EN ARRIÈRE.</a>
         {% if observation.0.status == 0 %}
-          <a href="{{ path('ocnao_validate', {'id': observation.0.id }) }}">Valider l'observation</a>
+          <a class="btn btn-success" href="{{ path('ocnao_validate', {'id': observation.0.id }) }}" role="button">Valider l'observation</a>
+          <a class="btn btn-danger notconforme" role="button">Non conforme</a>
+          <div class="notconformzone hidden">
+            <form action="{{ path('ocnao_notconforme', {'id': observation.0.id }) }}" method="post">
+              <input type="text" name="notconformetext" placeholder="Entrez ici le motif de non conformité."><br>
+              <input type="submit" value="Envoyer">
+            </form>
+          </div>
         {% endif %}
       </div>
     </div>
@@ -92,9 +101,13 @@ function toggleFullscreen(elem) {
   }
 }
 
-document.getElementById('photo').addEventListener('click', function() {
-  toggleFullscreen(this);
-});
+//document.getElementById('photo').addEventListener('click', function() {
+  //toggleFullscreen(this);
+//});
+
+$(".notconforme").click(function() {
+  $(".notconformzone").removeClass("hidden");
+})
 </script>
 <script src="{{asset("assets/js/mapObs.js")}}"></script>
 <script async defer

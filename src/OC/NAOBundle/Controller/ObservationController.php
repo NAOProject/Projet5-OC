@@ -103,6 +103,31 @@ class ObservationController extends Controller
     return $this->redirectToRoute('ocnao_homepage');
   }
 
+  //Fonction reffusant des observations des observateurs
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
+  public function notconformeAction($id)
+  {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $user = $this->getUser();
+      $content = $_POST["notconformetext"];
+
+      $em = $this->getDoctrine()->getManager();
+
+      $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+      $obs[0]->setNotconforme(true);
+      $obs[0]->setNotconformetext($content);
+      $obs[0]->setUserValidator($user);
+
+      $em->persist($obs[0]);
+      $em->flush();
+
+      $this->addFlash('info', 'L\'observation à été déclaré non conforme.');
+      return $this->redirectToRoute('ocnao_homepage');
+    }
+  }
+
   //Fonction permettant la recherche d'observations
   public function rechercheAction(Request $request)
   {
@@ -160,7 +185,7 @@ class ObservationController extends Controller
   {
     $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-    
+
     //Si l'observation est publié ou role naturalist ou admin
     if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
       return $this->render('OCNAOBundle:Default:observation.html.twig', array(
