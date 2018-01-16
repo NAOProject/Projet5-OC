@@ -12,7 +12,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
   public function lastObs() {
     $qb = $this->createQueryBuilder('e');
-    $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(5);
+    $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(10);
 
     return $qb->getQuery()->getResult();
   }

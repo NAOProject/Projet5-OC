@@ -1,3 +1,9 @@
+#photo { cursor:zoom-in; }
+#photo:-webkit-full-screen { cursor:zoom-out; }
+#photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
+#photo:-ms-fullscreen { cursor:zoom-out; }
+#photo:fullscreen { cursor:zoom-out; }
+
 body {
   font-family: 'Roboto', sans-serif;
 }

@@ -1,14 +1,6 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block body %}
-<style>
-#photo { cursor:zoom-in; }
-#photo:-webkit-full-screen { cursor:zoom-out; }
-#photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
-#photo:-ms-fullscreen { cursor:zoom-out; }
-#photo:fullscreen { cursor:zoom-out; }
-</style>
-
 
 <div class="row visible-xs">
   <div class="return">
@@ -26,7 +18,7 @@
     <div class="row hidden-xs">
       <div class="return">
         <a class="btn" onClick="javascript:window.history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> RETOUR EN ARRIÈRE.</a>
-        {% if observation.0.status == 0 %}
+        {% if observation.0.status == 0 and observation.0.notconforme == 0 %}
           <a class="btn btn-success" href="{{ path('ocnao_validate', {'id': observation.0.id }) }}" role="button">Valider l'observation</a>
           <a class="btn btn-danger notconforme" role="button">Non conforme</a>
           <div class="notconformzone hidden">
@@ -34,6 +26,10 @@
               <input type="text" name="notconformetext" placeholder="Entrez ici le motif de non conformité."><br>
               <input type="submit" value="Envoyer">
             </form>
+          </div>
+        {% elseif observation.0.notconforme == 1 %}
+          <div class="notconformezone">
+            Cette observation à été declaré non conforme pour la raison suivante : {{ observation.0.notconformetext }}
           </div>
         {% endif %}
       </div>
@@ -74,41 +70,6 @@
     <div data-latitude="{{ observation.0.latitude }}" data-longitude="{{ observation.0.longitude }}" data-username="{{ observation.0.user.username }}"></div>
 </div>
 
-<script>
-function toggleFullscreen(elem) {
-  elem = elem || document.documentElement;
-  if (!document.fullscreenElement && !document.mozFullScreenElement &&
-    !document.webkitFullscreenElement && !document.msFullscreenElement) {
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
-  }
-}
-
-//document.getElementById('photo').addEventListener('click', function() {
-  //toggleFullscreen(this);
-//});
-
-$(".notconforme").click(function() {
-  $(".notconformzone").removeClass("hidden");
-})
-</script>
 <script src="{{asset("assets/js/mapObs.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">

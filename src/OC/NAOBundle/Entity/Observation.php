@@ -95,7 +95,7 @@ class Observation
     /**
      * @var bool
      *
-     * @ORM\Column(name="notconforme", type="boolean")
+     * @ORM\Column(name="notconforme", type="boolean", nullable=true)
      */
     private $notconforme;
 
