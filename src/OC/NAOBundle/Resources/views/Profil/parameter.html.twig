@@ -2,8 +2,25 @@
 
 
 {% block body %}
+<div class="container">
+  <div class="text-center">
+    <h3>Parametre du compte</h3>
+<p>Votre Pseudo: <b>{{ user.username }}</b>   <a href="/profile/edit">changer</a></p>
+<p>Votre email: <b><a href="/profile/edit">{{ user.email }}</a></b></p>
+<p><a href="/profile/change-password">Je ve changer mon mot de passe</a></p>
+    <br>
+
+    <form action="">
+     <input type="checkbox" name="news" value="true" checked>Nous suivre<br>
+     <input type="submit" value="Submit">
+   </form>
+
+    <br>
+    <button type="submit" href="" name="button" >Je ve devenir naturalist</button>
+    modal
+  </div>
+
+</div>
 
 
-<button type="submit" href="" name="button" href>Je ve devenir naturalist</button>
-modal
 {% endblock %}

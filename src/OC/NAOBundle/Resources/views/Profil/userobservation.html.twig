@@ -13,33 +13,52 @@
     {% endif %}
   </ul>
 
-<div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
-      <h3>Observation publier</h3>
-    {% if observationList|length < 1 %}
-    Vous n'avez rien publier pour l'instant
-    {% else %}
-      <table class="table" style="width:30%;margin:auto">
-         <tr>
-           <th>date</th>
-           <th>Nom</th>
-         </tr>
-         {% for observation in observationList %}
-         <tr>
-           <td>{{ observation.datetime|date("d/m/Y") }}</td>
-           <td>{{ observation.taxrefname }}</td>
-         </tr>
-         {% endfor %}
-      </table>
-    {% endif %}
+
+
+      <div class="row Liste">
+      {% for obs in observationList %}
+      <div {% if obs.notconforme == true %}class=".bg-danger"{% endif %}>
+      <div class="col-md-3 col-xs-6">
+        <div class="observation">
+
+          <div class="photo col-md-12">
+            {% if obs.picture.image is defined %}
+              <div class="picture center">
+                <img class="photoObs" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+              </div>
+            {% endif %}
+          </div>
+          <div class="description col-md-12">
+            <div class="title center">
+              <h3>{{ obs.taxrefname }}</h3>
+              <h5>Observé par {{ obs.user.username }}</h5>
+              <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
+
+
 
 <div class="text-center">
   <ul class="pagination">
     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
     {% for p in range(1, nbPages) %}
+
       <li{% if p == page %} class="active"{% endif %}>
-        <a href="{{ path('ocnao_userobservation', {'page': p}) }}">{{ p }}</a>
+      {% if route == 1 %}
+          <a href="{{ path('ocnao_userobservation', {'page': p}) }}">{{ p }}</a>
+      {% endif %}
+      {% if route == 2 %}
+          <a href="{{ path('ocnao_pendingobservation', {'page': p}) }}">{{ p }}</a>
+      {% endif %}
+      {% if route == 3 %}
+          <a href="{{ path('ocnao_observationvalidate', {'page': p}) }}">{{ p }}</a>
+      {% endif %}
       </li>
     {% endfor %}
   </ul>

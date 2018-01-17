@@ -7,6 +7,12 @@ ocnao_addObservation:
 ocnao_observation:
     path:     /observation/{id}
     defaults: { _controller: OCNAOBundle:Observation:observation }
+ocnao_validate:
+    path:     /validate/{id}
+    defaults: { _controller: OCNAOBundle:Observation:validate }
+ocnao_notconforme:
+    path:     /notconforme/{id}
+    defaults: { _controller: OCNAOBundle:Observation:notconforme }
 ocnao_recherche:
     path:     /recherche
     defaults: { _controller: OCNAOBundle:Observation:recherche }

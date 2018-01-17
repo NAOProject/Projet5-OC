@@ -13,7 +13,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
   public function lastObs() {
     $qb = $this->createQueryBuilder('e');
-    $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(5);
+    $qb->select('e')->where('e.status = 1')->leftJoin('e.picture', 'picture')->addSelect('picture')->orderBy('e.datetime', 'DESC')->setMaxResults(10);
 
     return $qb->getQuery()->getResult();
   }
@@ -33,6 +33,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getResult();
   }
 
+  public function observationAValider($id)
+  {
+    $qb = $this->createQueryBuilder('ob');
+    $qb->select('ob')->where('ob.id = :id')->setParameter('id', $id)->andWhere('ob.status = 0');
+
+    return $qb->getQuery()->getResult();
+  }
   //la liste des observation valider pour un Utilisateur
   public function userObservation($user, $page, $nbPerPage)
   {

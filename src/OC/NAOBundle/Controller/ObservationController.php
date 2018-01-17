@@ -3,6 +3,9 @@
 namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
@@ -27,10 +30,13 @@ class ObservationController extends Controller
         $user = $this->getUser();
         if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
           $observation->setStatus(true);
+          $observation->setUserValidator($user);
         } else {
           $observation->setStatus(false);
+          $observation->setUserValidator(null);
         }
         $date = new \DateTime();
+        $same = false;
         $observation->setDatetime($date);
         $observation->setUser($user);
 
@@ -47,18 +53,34 @@ class ObservationController extends Controller
           $observation->setPicture($picture);
         }
 
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($observation);
-        $em->flush();
 
-        if($observation->getStatus() == true) {
-          $this->addFlash('success', 'Votre observation à été publiée.');
-        }else {
-          $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+        //Ajout securité si le nom d'oiseau rentré correspond a une espece d'oiseau dans la base de données TAXREF
+        $oiseau = $observation->getTaxrefname();
+        $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
+        for ($i=0; $i < sizeof($listeEspece) ; $i++) {
+          $espece = $listeEspece[$i]['nomVern'];
+          if ( trim($espece) === trim($oiseau)) { //si espece du formulaire = espece dans la BDD TAXREF
+            $same = true;
+          }
         }
 
-        return $this->redirectToRoute('ocnao_homepage');
+        if ($same == true) { //Si meme nom d'espece
+          $em->persist($observation);
+          $em->flush();
+
+          if($observation->getStatus() == true) {
+            $this->addFlash('success', 'Votre observation à été publiée.');
+          }else {
+            $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+          }
+
+          return $this->redirectToRoute('ocnao_homepage');
+        }
+        else { //sinon 
+          $this->addFlash('info', 'Mauvais nom de l\'espece.');
+          return $this->redirectToRoute('ocnao_addObservation');
+        }
       }
 
     return $this->render('OCNAOBundle:Default:addObservation.html.twig', array(
@@ -79,6 +101,51 @@ class ObservationController extends Controller
       }
   }
 
+  //Fonction validation des observations des observateurs
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
+  public function validateAction($id)
+  {
+    $user = $this->getUser();
+    $em = $this->getDoctrine()->getManager();
+
+    $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+    $obs[0]->setStatus(true);
+    $obs[0]->setUserValidator($user);
+
+    $em->persist($obs[0]);
+    $em->flush();
+
+    $this->addFlash('success', 'Observation validée et publiée.');
+    return $this->redirectToRoute('ocnao_homepage');
+  }
+
+  //Fonction reffusant des observations des observateurs
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
+  public function notconformeAction($id)
+  {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $user = $this->getUser();
+      $content = $_POST["notconformetext"];
+
+      $em = $this->getDoctrine()->getManager();
+
+      $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+      $obs[0]->setNotconforme(true);
+      $obs[0]->setNotconformetext($content);
+      $obs[0]->setUserValidator($user);
+
+      $em->persist($obs[0]);
+      $em->flush();
+
+      $this->addFlash('info', 'L\'observation à été déclaré non conforme.');
+      return $this->redirectToRoute('ocnao_homepage');
+    }
+  }
+
   //Fonction permettant la recherche d'observations
   public function rechercheAction(Request $request)
   {
@@ -91,7 +158,9 @@ class ObservationController extends Controller
         $_SESSION['espece'] = $espece;
         return $this->redirectToRoute('ocnao_results');
       }
+
     $_SESSION['espece'] = null;
+
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
@@ -132,10 +201,23 @@ class ObservationController extends Controller
   //Afficher une observation, en fonction de son id
   public function observationAction($id)
   {
+    $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
-    return $this->render('OCNAOBundle:Default:observation.html.twig', array(
-      'observation' => $observation,
-      'session' => $_SESSION,
-    ));
+
+    //Si l'observation est publié ou role naturalist ou admin
+    if ($user) {
+      if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
+        return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+          'observation' => $observation,
+          'session' => $_SESSION,
+        ));
+      } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
+        $this->addFlash('danger', 'L\'observation n\'existe pas');
+        return $this->redirectToRoute('ocnao_homepage');
+      }
+    } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
+      $this->addFlash('danger', 'L\'observation n\'existe pas');
+      return $this->redirectToRoute('ocnao_homepage');
+    }
   }
 }

@@ -11,7 +11,7 @@ use OC\UserBundle\Entity\Observation;
 
 class ProfilController extends Controller
 {
-const nbPerPage = 3;
+const nbPerPage = 4;
 
   /**
    *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -37,12 +37,15 @@ const nbPerPage = 3;
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-
+    //$route = 'ocnao_userobservation';
+    $route = 1;
     // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
+      'route' => $route,
+
     ));
   }
 
@@ -69,11 +72,14 @@ const nbPerPage = 3;
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
 
+    //$route = 'ocnao_pendingrobservation';
+    $route = 2;
     // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
+      'route' => $route,
     ));
   }
 
@@ -101,12 +107,15 @@ const nbPerPage = 3;
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-
+    //$route = 'ocnao_observationvalidate';
+    $route = 3;
     // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
+      'route' => $route,
+
     ));
   }
 
@@ -134,7 +143,6 @@ const nbPerPage = 3;
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-
     // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Default:observationatvalidate.html.twig', array(
       'observationList' => $observationList,
@@ -183,18 +191,32 @@ const nbPerPage = 3;
      */
     public function ParameterAction()
     {
+      $user = $this->getUser();
+        return $this->render('OCNAOBundle:Profil:parameter.html.twig', array(
+            'user' => $user,
 
-        return $this->render('OCNAOBundle:Profil:parameter.html.twig');
+          ));;
     }
 
 
     /**
      *@Security("has_role('ROLE_ADMIN')")
      */
-    public function UsersAction()
-    {
+    public function UsersAction(){
+      $result = false;
+      if (($request->isMethod('POST'))) {
+        $username = $this->get('request')->request->get('pseudo');
 
-        return $this->render('OCNAOBundle:Profil:users.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('OCNAOBundle:Observation');
+        $result = true;
+      }
+
+        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+            'user' => $user,
+            'result' => $result,
+
+          ));
     }
 
     /**

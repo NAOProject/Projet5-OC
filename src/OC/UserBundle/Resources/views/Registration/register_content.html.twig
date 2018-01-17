@@ -2,7 +2,10 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
+        En cliquant sur Créer un compte, vous acceptez nos <a href="#">Conditions d'utilisation</a>.
     <div>
         <input type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
+    <br>
+    En cliquant sur Créer un compte, vous acceptez nos <a href="#">Conditions d'utilisation</a>.
 {{ form_end(form) }}

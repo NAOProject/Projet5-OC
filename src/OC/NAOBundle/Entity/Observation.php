@@ -92,6 +92,20 @@ class Observation
      */
     private $status;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="notconforme", type="boolean", nullable=true)
+     */
+    private $notconforme;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notconformetext", type="string", length=255, nullable=true)
+     */
+    private $notconformetext;
+
 
     /**
      * Get id
@@ -224,6 +238,54 @@ class Observation
     }
 
     /**
+     * Set notconforme
+     *
+     * @param boolean $notconforme
+     *
+     * @return Observation
+     */
+    public function setNotconforme($notconforme)
+    {
+        $this->notconforme = $notconforme;
+
+        return $this;
+    }
+
+    /**
+     * Get notconforme
+     *
+     * @return boolean
+     */
+    public function getNotconforme()
+    {
+        return $this->notconforme;
+    }
+
+    /**
+     * Set notconformetext
+     *
+     * @param string $notconformetext
+     *
+     * @return Observation
+     */
+    public function setNotconformetext($notconformetext)
+    {
+        $this->notconformetext = $notconformetext;
+
+        return $this;
+    }
+
+    /**
+     * Get notconformetext
+     *
+     * @return string
+     */
+    public function getNotconformetext()
+    {
+        return $this->notconformetext;
+    }
+
+    /**
      * Set user
      *
      * @param \OC\UserBundle\Entity\User $user
@@ -245,6 +307,30 @@ class Observation
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set uservalidator
+     *
+     * @param \OC\UserBundle\Entity\User $uservalidator
+     *
+     * @return Observation
+     */
+    public function setUserValidator(\OC\UserBundle\Entity\User $uservalidator = null)
+    {
+        $this->uservalidator = $uservalidator;
+
+        return $this;
+    }
+
+    /**
+     * Get uservalidator
+     *
+     * @return \OC\UserBundle\Entity\User
+     */
+    public function getUserValidator()
+    {
+        return $this->uservalidator;
     }
 
     /**
