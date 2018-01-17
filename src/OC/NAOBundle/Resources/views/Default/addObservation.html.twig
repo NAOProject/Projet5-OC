@@ -27,6 +27,9 @@
         <div class="Coordonnees">
           <label>Coordonnees GPS:</label>
           <h6>Cliquez sur la carte afin de remplir les coordonnées automatiquement</h6>
+          <form>
+            <input type="text" class="form-control" id="observation_ville" name="ville" value="" readonly>
+          </form>
           {{ form_row(form.latitude, {'label': "Latitude" }) }}
           {{ form_row(form.longitude, {'label': "Longitude" }) }}
         </div>

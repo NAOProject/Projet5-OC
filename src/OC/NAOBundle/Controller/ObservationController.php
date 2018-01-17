@@ -77,7 +77,7 @@ class ObservationController extends Controller
 
           return $this->redirectToRoute('ocnao_homepage');
         }
-        else { //sinon 
+        else { //sinon
           $this->addFlash('info', 'Mauvais nom de l\'espece.');
           return $this->redirectToRoute('ocnao_addObservation');
         }
@@ -110,7 +110,7 @@ class ObservationController extends Controller
     $user = $this->getUser();
     $em = $this->getDoctrine()->getManager();
 
-    $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+    $obs = $em->getRepository('OCNAOBundle:Observation')->validationObservation($id);
     $obs[0]->setStatus(true);
     $obs[0]->setUserValidator($user);
 
@@ -133,7 +133,7 @@ class ObservationController extends Controller
 
       $em = $this->getDoctrine()->getManager();
 
-      $obs = $em->getRepository('OCNAOBundle:Observation')->observationAValider($id);
+      $obs = $em->getRepository('OCNAOBundle:Observation')->validationObservation($id);
       $obs[0]->setNotconforme(true);
       $obs[0]->setNotconformetext($content);
       $obs[0]->setUserValidator($user);
@@ -151,6 +151,9 @@ class ObservationController extends Controller
   {
     $recherche = new Recherche();
     $form = $this->createForm(RechercheType::class, $recherche);
+
+    $user = $this->getUser();
+    var_dump($user);
 
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
@@ -215,9 +218,16 @@ class ObservationController extends Controller
         $this->addFlash('danger', 'L\'observation n\'existe pas');
         return $this->redirectToRoute('ocnao_homepage');
       }
-    } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
-      $this->addFlash('danger', 'L\'observation n\'existe pas');
-      return $this->redirectToRoute('ocnao_homepage');
+    } else { //redirection pour un visiteur
+      if ($observation[0]->getStatus() == 1) {
+        return $this->render('OCNAOBundle:Default:observation.html.twig', array(
+          'observation' => $observation,
+          'session' => $_SESSION,
+        ));
+      } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
+        $this->addFlash('danger', 'L\'observation n\'existe pas');
+        return $this->redirectToRoute('ocnao_homepage');
+      }
     }
   }
 }

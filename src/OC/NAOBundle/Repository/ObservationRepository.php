@@ -33,7 +33,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getResult();
   }
 
-  public function observationAValider($id)
+  public function validationObservation($id)
   {
     $qb = $this->createQueryBuilder('ob');
     $qb->select('ob')->where('ob.id = :id')->setParameter('id', $id)->andWhere('ob.status = 0');
