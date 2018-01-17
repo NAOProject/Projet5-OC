@@ -2,6 +2,7 @@
 
 namespace OC\NAOBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * ObservationRepository
  *
@@ -31,4 +32,85 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
     return $qb->getQuery()->getResult();
   }
+
+  //la liste des observation valider pour un Utilisateur
+  public function userObservation($user, $page, $nbPerPage)
+  {
+    $qb = $this->createQueryBuilder('userobservation');
+    $qb->where('userobservation.user = :user')
+          ->setParameter('user', $user)
+      ->andWhere('userobservation.status = 1')
+      ->orderBy('userobservation.datetime', 'DESC')
+      ;
+    $qb
+      // On définit l'annonce à partir de laquelle commencer la liste
+      ->setFirstResult(($page-1) * $nbPerPage)
+      // Ainsi que le nombre d'annonce à afficher sur une page
+      ->setMaxResults($nbPerPage)
+    ;
+
+    // On retourne l'objet Paginator correspondant à la requête construite
+    return new Paginator($qb, true);
+  }
+
+  //la liste des observation en attente pour un Observateur
+  public function userPendingObservation($user, $page, $nbPerPage)
+  {
+    $qb = $this->createQueryBuilder('userpendingobservation');
+    $qb->where('userpendingobservation.user = :user')
+          ->setParameter('user', $user)
+      ->andWhere('userpendingobservation.status = 0')
+      ->orderBy('userpendingobservation.datetime', 'DESC')
+      ;
+    $qb
+      // On définit l'annonce à partir de laquelle commencer la liste
+      ->setFirstResult(($page-1) * $nbPerPage)
+      // Ainsi que le nombre d'annonce à afficher sur une page
+      ->setMaxResults($nbPerPage)
+    ;
+
+    // On retourne l'objet Paginator correspondant à la requête construite
+    return new Paginator($qb, true);
+  }
+
+  //la liste des observation en attente pour un Observateur
+  public function userObservationValidate($user, $page, $nbPerPage)
+  {
+    $qb = $this->createQueryBuilder('userobservationvalidate');
+    $qb->where('userobservationvalidate.uservalidator = :uservalidator')
+          ->setParameter('uservalidator', $user)
+      ->andWhere('userobservationvalidate.user != :user')
+        ->setParameter('user', $user)
+      ->orderBy('userobservationvalidate.datetime', 'DESC')
+      ;
+    $qb
+      // On définit l'annonce à partir de laquelle commencer la liste
+      ->setFirstResult(($page-1) * $nbPerPage)
+      // Ainsi que le nombre d'annonce à afficher sur une page
+      ->setMaxResults($nbPerPage)
+    ;
+
+    // On retourne l'objet Paginator correspondant à la requête construite
+    return new Paginator($qb, true);
+  }
+
+  //la liste des observation en attente pour un Observateur
+  public function ObservationAtValidate($user, $page, $nbPerPage)
+  {
+    $qb = $this->createQueryBuilder('observationatvalidate');
+    $qb->where('observationatvalidate.status = 0')
+        ->orderBy('observationatvalidate.datetime', 'DESC')
+      ;
+    $qb
+      // On définit l'annonce à partir de laquelle commencer la liste
+      ->setFirstResult(($page-1) * $nbPerPage)
+      // Ainsi que le nombre d'annonce à afficher sur une page
+      ->setMaxResults($nbPerPage)
+    ;
+
+    // On retourne l'objet Paginator correspondant à la requête construite
+    return new Paginator($qb, true);
+  }
+
+
 }

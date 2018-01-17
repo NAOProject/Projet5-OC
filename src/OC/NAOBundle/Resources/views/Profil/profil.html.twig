@@ -1,0 +1,111 @@
+{% extends 'OCNAOBundle::layout.html.twig' %}
+
+
+{% block body %}
+
+  <div class="text-center">
+    <h1>backoffice</h1>
+    {% if is_granted('ROLE_OBSERVER') %}
+    <h2>Observateur</h2>
+    {% endif %}
+    {% if is_granted('ROLE_NATURALIST') %}
+    <h2>Naturaliste</h2>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN')%}
+    <h2>Administrateur</h2>
+    {% endif %}
+
+
+    <br>
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Observation publier</a></li>
+      {% if is_granted('ROLE_OBSERVER') %}
+      <li><a data-toggle="tab" href="#menu1">Observation en attente</a></li>
+      {% endif %}
+      {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
+      <li><a data-toggle="tab" href="#menu2">Obervation validé</a></li>
+      {% endif %}
+    </ul>
+
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+          <h3>Observation publier</h3>
+        {% if observationList|length < 1 %}
+        Vous n'avez rien publier pour l'instant
+        {% else %}
+          <table class="table" style="width:30%;margin:auto">
+             <tr>
+               <th>date</th>
+               <th>Nom</th>
+             </tr>
+             {% for observation in observationList %}
+             <tr>
+               <td>{{ observation.datetime|date("d/m/Y") }}</td>
+               <td>{{ observation.taxrefname }}</td>
+             </tr>
+             {% endfor %}
+          </table>
+        {% endif %}
+      </div>
+
+      {% if is_granted('ROLE_OBSERVER') %}
+      <div id="menu1" class="tab-pane fade">
+        <h3>Observation en attente</h3>
+        {% if pendingObservationList|length < 1 %}
+        Vous n'avez pas d'observation en attente de validation
+        {% else %}
+          <table class="table" style="width:30%;margin:auto">
+             <tr>
+               <th>date</th>
+               <th>Nom</th>
+             </tr>
+             {% for observation in pendingObservationList %}
+             <tr>
+               <td>{{ observation.datetime|date("d/m/Y") }}</td>
+               <td>{{ observation.taxrefname }}</td>
+             </tr>
+             {% endfor %}
+          </table>
+        {% endif %}
+
+      </div>
+      {% endif %}
+
+
+      {% endfor %}
+        {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
+        <div id="menu2" class="tab-pane fade">
+          <h3>Observation que vous avez validée</h3>
+          {% if observationValidateList|length < 1 %}
+          Vous n'avez rien publier pour l'instant
+          {% else %}
+            <table class="table" style="width:30%;margin:auto">
+               <tr>
+                 <th>date</th>
+                 <th>Nom</th>
+                 <th>Nom</th>
+               </tr>
+               {% for observation in observationValidateList %}
+               <tr>
+                 <td>{{ observation.datetime|date("d/m/Y") }}</td>
+                 <td>{{ observation.taxrefname }}</td>
+                 <td>
+        <form class="" action="{{ path('ocnao_profil_validate', {'id': observation.id})}}" method="post">
+          <button type="submit" name="button">Valider</button>
+        </form>
+                   </td>
+               </tr>
+               {% endfor %}
+            </table>
+          {% endif %}
+        </div>
+        {% endif %}
+
+</div>
+
+</div>
+</br>
+
+
+{% endblock %}

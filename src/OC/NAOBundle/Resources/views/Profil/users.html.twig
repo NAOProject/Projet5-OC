@@ -1,0 +1,26 @@
+{% extends 'OCNAOBundle::layout.html.twig' %}
+
+
+{% block body %}
+<table class="table" style="width:30%;margin:auto">
+   <tr>
+     <th>date</th>
+     <th>Nom</th>
+     <th>Role</th>
+   </tr>
+   {% for user in observationValidateList %}
+   <tr>
+     <td>{{ user.datetime|date("d/m/Y") }}</td>
+     <td>{{ user.taxrefname }}</td>
+     <td>{{ user.Roles }}</td>
+     <td>
+<form class="" action="" method="post">
+<button type="submit" name="button">devenir naturalist</button>
+</form>
+       </td>
+   </tr>
+   {% endfor %}
+</table>
+
+
+{% endblock %}

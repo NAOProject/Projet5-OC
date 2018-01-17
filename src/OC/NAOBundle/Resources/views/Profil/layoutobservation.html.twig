@@ -1,0 +1,22 @@
+{% extends 'OCNAOBundle::layout.html.twig' %}
+
+
+{% block body %}
+
+<!-- <ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Observation publier</a></li>
+  {% if is_granted('ROLE_OBSERVER') %}
+  <li><a data-toggle="tab" href="#menu1">Observation en attente</a></li>
+  {% endif %}
+  {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
+  <li><a data-toggle="tab" href="#menu2">Obervation validé</a></li>
+  {% endif %}
+</ul> -->
+
+{% block observationlist %}
+
+
+{% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'OCNAOBundle:Profil:layoutobservation.html.twig' %}
+
+{% block observationlist %}
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li><a href="{{ path('ocnao_userobservation') }}">Observation publier</a></li>
+    {% if is_granted('ROLE_OBSERVER') %}
+    <li><a  href="{{ path('ocnao_pendingobservation') }}">Observation en attente</a></li>
+    {% endif %}
+    {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
+    <li><a  href="{{ path('ocnao_observationvalidate') }}">Obervation validé</a></li>
+    {% endif %}
+  </ul>
+
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+      <h3>Observation publier</h3>
+    {% if observationList|length < 1 %}
+    Vous n'avez rien publier pour l'instant
+    {% else %}
+      <table class="table" style="width:30%;margin:auto">
+         <tr>
+           <th>date</th>
+           <th>Nom</th>
+         </tr>
+         {% for observation in observationList %}
+         <tr>
+           <td>{{ observation.datetime|date("d/m/Y") }}</td>
+           <td>{{ observation.taxrefname }}</td>
+         </tr>
+         {% endfor %}
+      </table>
+    {% endif %}
+  </div>
+
+<div class="text-center">
+  <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('ocnao_userobservation', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+</div>
+{% endblock %}

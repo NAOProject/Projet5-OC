@@ -93,7 +93,6 @@ class Observation
     private $status;
 
 
-
     /**
      * Get id
      *

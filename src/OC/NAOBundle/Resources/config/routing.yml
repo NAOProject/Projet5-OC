@@ -13,9 +13,37 @@ ocnao_recherche:
 ocnao_results:
     path:     /results
     defaults: { _controller: OCNAOBundle:Observation:results }
-ocnao_backoffice:
-    path:     /backoffice
-    defaults: { _controller: OCNAOBundle:BackOffice:index }
+ocnao_profil:
+    path:     /profil
+    defaults: { _controller: OCNAOBundle:Profil:index }
+ocnao_userobservation:
+    path:     /profil/userobs/{page}
+    defaults:
+        _controller: OCNAOBundle:Profil:userObservation
+        page:        1
+    requirements:
+        page: \d*
+ocnao_pendingobservation:
+    path:     /profil/pendingobs/{page}
+    defaults:
+        _controller: OCNAOBundle:Profil:pendingObservation
+        page:        1
+    requirements:
+        page: \d*
+ocnao_observationvalidate:
+    path:     /profil/obsvalidate/{page}
+    defaults:
+        _controller: OCNAOBundle:Profil:observationValidate
+        page:        1
+    requirements:
+        page: \d*
+ocnao_observationatvalidate:
+    path:     /obsatvalidate/{page}
+    defaults:
+        _controller: OCNAOBundle:Profil:observationAtValidate
+        page:        1
+    requirements:
+        page: \d*
 ocnao_contact:
     path:     /contact
     defaults: { _controller: OCNAOBundle:Contact:contact }
@@ -24,20 +52,26 @@ ocnao_autocomplete:
     defaults: { _controller: OCNAOBundle:Observation:autocomplete }
     requirements:
       _method: POST
-ocnao_backoffice_naturalist:
-    path:     /backoffice/naturalist
-    defaults: { _controller: OCNAOBundle:BackOffice:naturalist }
+ocnao_profil_naturalist:
+    path:     /profil/naturalist
+    defaults: { _controller: OCNAOBundle:Profil:naturalist }
+ocnao_profil_validate:
+    path:     /profil/validate/{id}
+    defaults: { _controller: OCNAOBundle:Profil:validate }
+ocnao_profil_parameter:
+    path:     /profil/parameter
+    defaults: { _controller: OCNAOBundle:Profil:parameter }
+ocnao_profil_users:
+    path:     /profil/users
+    defaults: { _controller: OCNAOBundle:Profil:users }
     # a supprimer
-ocnao_backoffice_nat:
-    path:     /backoffice/nat
-    defaults: { _controller: OCNAOBundle:BackOffice:nat }
-ocnao_backoffice_adm:
-    path:     /backoffice/adm
-    defaults: { _controller: OCNAOBundle:BackOffice:adm }
-ocnao_backoffice_obs:
-    path:     /backoffice/obs
-    defaults: { _controller: OCNAOBundle:BackOffice:obs }
+ocnao_profil_nat:
+    path:     /profil/nat
+    defaults: { _controller: OCNAOBundle:Profil:nat }
+ocnao_profil_adm:
+    path:     /profil/adm
+    defaults: { _controller: OCNAOBundle:Profil:adm }
+ocnao_profil_obs:
+    path:     /profil/obs
+    defaults: { _controller: OCNAOBundle:Profil:obs }
 #  fin suppresion
-ocnao_backoffice_validate:
-    path:     /backoffice/validate/{id}
-    defaults: { _controller: OCNAOBundle:BackOffice:validate }

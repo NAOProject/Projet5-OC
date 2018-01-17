@@ -112,3 +112,12 @@ body {
     border: 2px solid black;
   }
 }
+
+.nav-tabs > li {
+    float:none;
+    display:inline-block;
+}
+
+.nav-tabs {
+    text-align:center;
+}
