@@ -11,10 +11,8 @@ $('#observation_notsur').change(function() {
 
 var inputLatitude = document.getElementById("observation_latitude");
 var inputLongitude = document.getElementById("observation_longitude");
-var ville = document.getElementById("observation_ville");
 inputLatitude.value = null;
 inputLongitude.value = null;
-ville.value = null;
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -44,7 +42,6 @@ function geocodeLatLng(geocoder, map, infowindow, latLng) {
   geocoder.geocode({'location': latlng}, function(results, status) {
     if (status === 'OK') {
       if (results[1]) {
-        map.setZoom(11);
         if(marker) {
           marker.setPosition(latLng);
         }else{
@@ -56,7 +53,7 @@ function geocodeLatLng(geocoder, map, infowindow, latLng) {
         map.panTo(latLng);
         inputLatitude.value = latLng.lat();
         inputLongitude.value = latLng.lng();
-        ville.value = results[1].formatted_address;
+        $("#observation_ville").html(results[1].formatted_address);
         infowindow.setContent(results[1].formatted_address);
         infowindow.open(map, marker);
       } else {

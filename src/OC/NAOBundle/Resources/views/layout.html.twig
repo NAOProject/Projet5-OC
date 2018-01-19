@@ -57,7 +57,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
               {% if is_granted("ROLE_ADMIN") %}
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_users') }}">LISTE DES UTILISATEURS</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
               {% endif %}
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_userobservation') }}">MES OBSERVATIONS</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
@@ -114,7 +114,7 @@
               <h3 class="collapse-header">PANEL UTILISATEUR</h3>
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {% if is_granted("ROLE_ADMIN") %}
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_users') }}">LISTE DES UTILISATEURS</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
                 {% endif %}
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_userobservation') }}">MES OBSERVATIONS</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>

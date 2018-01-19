@@ -3,43 +3,51 @@
 {% block body %}
 
 <div class="container">
+  <h1>AJOUTER UNE OBSERVATION</h1>
   <div class="row">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="formulaire col-md-6">
-    <h1>Observation</h1>
+    <div class="formulaire col-md-6 col-xs-12">
 
-    {{ form_start(form) }}
-      {{ form_errors(form) }}
-
-        {{ form_row(form.taxrefname, {
-          'label': "Nom de l'espece",
-          'attr': {
-  					'data-id': 'listedesespeces',
-  					'data-url': path('ocnao_autocomplete')
-            }
-          })
-        }}
-        {{ form_row(form.notsur, {'label': "Pas sûr de moi ? (À cocher si vous n'êtes pas sûr de l'espèce d'oiseau, cocher la case rend la photo obligatoire.)"  }) }}
-
-        {{ form_row(form.picture, {'label': "Photo de l'observation" }) }}
+      {{ form_start(form) }}
+        {{ form_errors(form) }}
 
 
-        <div class="Coordonnees">
-          <label>Coordonnees GPS:</label>
-          <h6>Cliquez sur la carte afin de remplir les coordonnées automatiquement</h6>
-          <form>
-            <input type="text" class="form-control" id="observation_ville" name="ville" value="" readonly>
-          </form>
-          {{ form_row(form.latitude, {'label': "Latitude" }) }}
-          {{ form_row(form.longitude, {'label': "Longitude" }) }}
+
+        <div class="imageForm col-xs-12">
+          <label class="photoFileLabel col-md-6 control-label" for="observation_picture_image">
+            <img id="blah" src="/Projet5-OC/web/assets/images/choosePic.png" onclick="javascript:readURL();" alt=""></img>
+          </label>
+          {{ form_widget(form.picture.image, {'attr': {'class': 'hidden'}} ) }}
         </div>
 
-      {{ form_row(form.submit, {'label': 'Envoyer'}) }}
-      {{ form_end(form) }}
+      {{ form_row(form.taxrefname, {
+        'label': "Nom de l'espece",
+        'attr': {
+        'data-id': 'listedesespeces',
+        'data-url': path('ocnao_autocomplete')
+        }
+        })
+      }}
+      {{ form_row(form.notsur, {'label': "Pas sûr de moi ? (À cocher si vous n'êtes pas sûr de l'espèce d'oiseau, cocher la case rend la photo obligatoire.)"  }) }}
     </div>
 
-    <div class="carte">
-      <div id="map"></div>
+    <div class="carte col-md-6 col-xs-12">
+      <div id="map">
+      </div>
+      <div class="Coordonnees">
+        <p>Emplacement: <span id="observation_ville"></span></p>
+        <div class="col-md-6">
+        {{ form_row(form.latitude, {'label': "Latitude"}) }}
+        </div>
+        <div class="col-md-6">
+        {{ form_row(form.longitude, {'label': "Longitude"}) }}
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xs-12 submitBtn">
+      {{ form_row(form.submit, {'label': 'Envoyer'}) }}
+      {{ form_end(form) }}
     </div>
     {% else %}
     <p>Vous devez être connecté pour acceder à cette partie du site</p>
@@ -49,6 +57,24 @@
   </div>
 </div>
 
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+            $('.image').removeClass('hidden');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#observation_picture_image").change(function(){
+    readURL(this);
+});
+</script>
 <script src="{{asset("assets/js/mapAddObs.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">

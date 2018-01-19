@@ -124,6 +124,43 @@ body {
   font-weight: bold;
 }
 
+.image {
+  background-color: #555555;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.photoFileLabel {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+.photoFileLabel:focus,
+.photoFileLabel:hover {
+    background-color: grey;
+}
+
+.photoFileLabel {
+	cursor: pointer; /* "hand" cursor */
+}
+
+#blah {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 500px;
+  position: relative;
+  z-index: 1;
+}
+
+.submitBtn {
+  padding-top: 20px;
+  text-align: center;
+}
+
 @media screen and (max-width:767px) {
   .rechercheTitle {
     text-align: center;
