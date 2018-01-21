@@ -21,15 +21,26 @@ use FOS\UserBundle\Model\User as BaseUser;
     */
    protected $id;
 
+   /**
+    * @var bool
+    *
+    * @ORM\Column(name="news", type="boolean", nullable=false)
+    */
+   private $status;
+
+   /**
+    * @var bool
+    *
+    * @ORM\Column(name="newsletter", type="boolean", nullable=false)
+    */
+   private $newsletter;
+
 
   public function __construct()
   {
       parent::__construct();
+       $this->roles = array('ROLE_OBSERVER');
+       $this->status = false;
   }
-
-   /**
-    * @ORM\OneToMany(targetEntity="NAOBundle\Entity\Observation", mappedBy="user", cascade={"persist", "remove"})
-    */
-    private $observation;
 
 }

@@ -4,85 +4,108 @@ namespace OC\NAOBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use OC\UserBundle\Entity\User;
 use OC\UserBundle\Entity\Observation;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfilController extends Controller
 {
 const nbPerPage = 4;
 
+  //récupére est affiche la liste des observations publiée et validée de l'utilisateur
   /**
    *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
    */
   public function UserObservationAction($page)
   {
 
+
       if ($page < 1) {
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
+
     $nbPerPage = SELF::nbPerPage;
+    $user = $this->getUser();
+    $route = 'ocnao_profil_userobservation';
+
     $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('OCNAOBundle:Observation');
-    $user = $this->getUser();
-
-    // On récupère notre objet Paginator
-    $observationList = $repository->userObservation($user, $page, $nbPerPage);
+    $observationList = $repository->userObservation($user, $page, $nbPerPage);// On récupère notre objet Paginator
 
     // On calcule le nombre total de pages
     $nbPages = ceil(count($observationList) / $nbPerPage);
 
+    if ( $nbPages == 0) {
+      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
+        'notobs' => true,
+        'route' => $route,
+      ));
+    }
     // Si la page n'existe pas, on retourne une 404
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-    //$route = 'ocnao_userobservation';
-    $route = 1;
+
     // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
       'route' => $route,
+      'notobs' => false,
 
     ));
   }
 
+  //récupére est affiche la liste des observations en attente de validation de l'utilisateur(observateur)
   /**
    *@Security("has_role('ROLE_OBSERVER')")
    */
   public function PendingObservationAction($page)
   {
     if ($page < 1) {
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
+
     $nbPerPage = SELF::nbPerPage;
+    $user = $this->getUser();
+    $route = 'ocnao_profil_pendingobservation';
+
     $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('OCNAOBundle:Observation');
-    $user = $this->getUser();
-    // On récupère notre objet Paginator
     $observationList = $repository->userPendingObservation($user, $page, $nbPerPage);
 
-    // On calcule le nombre total de pages
-    $nbPages = ceil(count($observationList) / $nbPerPage);
 
-    // Si la page n'existe pas, on retourne une 404
+    $nbPages = ceil(count($observationList) / $nbPerPage);
+    if ( $nbPages == 0) {
+      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
+        'notobs' => true,
+        'route' => $route,
+      ));
+    }
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
 
-    //$route = 'ocnao_pendingrobservation';
-    $route = 2;
-    // On donne toutes les informations nécessaires à la vue
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
       'route' => $route,
+      'notobs' => false,
     ));
   }
 
+  //récupére est affiche la liste des observations validée par l'utilisateur(naturaliste ou administrateur)
   /**
    *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
    */
@@ -93,32 +116,36 @@ const nbPerPage = 4;
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
     $nbPerPage = SELF::nbPerPage;
+    $user = $this->getUser();
+    $route = 'ocnao_profil_observationvalidate';
+
     $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('OCNAOBundle:Observation');
-    $user = $this->getUser();
-
-    // On récupère notre objet Paginator
     $observationList = $repository->userObservationValidate($user, $page, $nbPerPage);
 
-    // On calcule le nombre total de pages
     $nbPages = ceil(count($observationList) / $nbPerPage);
 
-    // Si la page n'existe pas, on retourne une 404
+    if ( $nbPages == 0) {
+      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
+        'notobs' => true,
+        'route' => $route,
+      ));
+    }
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-    //$route = 'ocnao_observationvalidate';
-    $route = 3;
-    // On donne toutes les informations nécessaires à la vue
+
     return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
       'route' => $route,
+      'notobs' => false,
 
     ));
   }
 
+  //récupére est affiche la liste des observations en attente de validation par l'utilisateur(naturaliste ou administrateur)
   /**
    *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
    */
@@ -128,64 +155,27 @@ const nbPerPage = 4;
       if ($page < 1) {
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
+
     $nbPerPage = SELF::nbPerPage;
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('OCNAOBundle:Observation');
     $user = $this->getUser();
 
-    // On récupère notre objet Paginator
+    $em = $this->getDoctrine()->getManager();
+    $repository = $em->getRepository('OCNAOBundle:Observation');
     $observationList = $repository->ObservationAtValidate($user, $page, $nbPerPage);
 
-    // On calcule le nombre total de pages
     $nbPages = ceil(count($observationList) / $nbPerPage);
-
-    // Si la page n'existe pas, on retourne une 404
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
-    // On donne toutes les informations nécessaires à la vue
+
     return $this->render('OCNAOBundle:Default:observationatvalidate.html.twig', array(
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
     ));
   }
-  // /**
-  //  *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-  //  */
-  //   public function indexAction()
-  //   {
-  //     $em = $this->getDoctrine()->getManager();
-  //     $repository = $em->getRepository('OCNAOBundle:Observation');
-  //     $user = $this->getUser();
-  //     $role = $user->getRoles()[0];
-  //     // dump($role);
-  //     // exit;
-  //     $observationList = $repository->userObservation($user);
-  //     // dump($observationList);
-  //     // exit;
-  //
-  //     if ($role == 'ROLE_OBSERVER') {
-  //
-  //       $pendingObservationList = $repository->userPendingObservation($user);
-  //
-  //       return $this->render('OCNAOBundle:Profil:profil.html.twig', array(
-  //         'user' => $user,
-  //         'observationList' => $observationList,
-  //         'pendingObservationList' => $pendingObservationList,
-  //       ));
-  //     }else {
-  //
-  //       $observationValidateList = $repository->userObservationvalidate($user);
-  //
-  //       return $this->render('OCNAOBundle:Profil:profil.html.twig', array(
-  //         'user' => $user,
-  //         'observationList' => $observationList,
-  //         'observationValidateList' => $observationValidateList,
-  //       ));
-  //     }
-  //   }
 
+    // affiche les paramètres de l'utilisateur
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
      */
@@ -194,7 +184,6 @@ const nbPerPage = 4;
       $user = $this->getUser();
         return $this->render('OCNAOBundle:Profil:parameter.html.twig', array(
             'user' => $user,
-
           ));;
     }
 
@@ -202,44 +191,114 @@ const nbPerPage = 4;
     /**
      *@Security("has_role('ROLE_ADMIN')")
      */
-    public function UsersAction(){
-      $result = false;
-      if (($request->isMethod('POST'))) {
-        $username = $this->get('request')->request->get('pseudo');
+    public function UsersAction(Request $request){
 
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('OCNAOBundle:Observation');
-        $result = true;
-      }
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+       ->add('name', TextType::class)
+       ->add('submit', SubmitType::class)
+       ->getForm();
 
-        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-            'user' => $user,
-            'result' => $result,
+       $form->handleRequest($request);
 
-          ));
+         if ($form->isSubmitted() && $form->isValid()) {
+
+           $em = $this->getDoctrine()->getManager();
+           $repository = $em->getRepository('OCUserBundle:User');
+           $data = $form->getData()['name'];
+           $user = $repository->findBy(array('username' => $data));
+           $result = true;
+          //  dump($user);
+          //  exit;
+           return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+               'user' => $user[0],
+               'result' => $result,
+             ));
+         }
+//faire recherche pour nombre utilisateur, obs,nat,adm
+       $result = false;
+       return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+           'form' => $form->createView(),
+           'result' => $result,
+         ));
+
     }
 
-    /**
-     *@Security("has_role('ROLE_ADMIN')")
-     */
-    public function naturalistAction()
+    //Pour l'autocompletion du champ recherche utilisateur
+    public function userAutoCompAction(Request $request)
     {
-      // obtenir role naturalist
-      //$username =
-      // $userManager = $this->get('fos_user.user_manager');//recuperre le service
-      // $user = $userManager->findUserBy(array('username' => $username ));
-      // $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
-      // $userManager->updateUser($user);
-      //
-      //   return $this->render('OCNAOBundle:Profil:profil.html.twig');
+        if($request->isXmlHttpRequest())
+        {
+            $username = $request->get('username');
+
+            $em = $this->getDoctrine()->getManager();
+            $username = $em->getRepository('OCUserBundle:User')->getUsersList($username);
+
+            $response = new Response(json_encode($username));
+            return $response;
+        }
+    }
+
+    //Pour changer de role
+    // /**
+    //  *@Security("has_role('ROLE_ADMIN')")
+    //  */
+    public function RoleAction(Request $request)
+    {
+
+      $username = $request->get('username');
+      $role = $request->get('role');
+
+
+      $userManager = $this->get('fos_user.user_manager');//recuperre le service
+      $user = $userManager->findUserBy(array('username' => $username ));
+      $user->setStatus(false);
+      $user->setRoles(array($role));// enregistre le role naturalist
+      $userManager->updateUser($user);
+
+        switch ($role) {
+          case 'ROLE_OBSERVER':
+            $rolename = 'Observateur';
+            break;
+          case 'ROLE_NATURALIST':
+            $rolename = 'Naturaliste';
+            break;
+          case 'ROLE_ADMIN':
+            $rolename = 'Administrateur';
+            break;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('OCUserBundle:User');
+        $user = $repository->findBy(array('username' => $username));
+
+        $this->addFlash('info', "$username, a obtenu le role $rolename, un email lui a était envoyer pour le prevenir");
+        //faire email
+        //  //envoi email
+        //  $content = "???????????";
+         //
+        //  $mailer = $this->container->get('mailer');
+        //  $message =  \Swift_Message::newInstance($object)
+        //    ->setTo($user->getEmail())
+        //    ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+        //    ->setBody($content, 'text/html')
+        //    ;
+        //  $mailer->send($message);
+
+        $result = true;
+        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+            'user' => $user[0],
+            'result' => $result,
+          ));
     }
 
    public function ObserverAction()
    {
+     echo "devenir naturalist, email a mettre";
     //  //demande pour de venir naturalist
     //  //envoi email administrateur
     //  $userManager = $this->get('fos_user.user_manager');//recuperre le service
-    //  $user = $this->setStatus('demande');
+    //  $user = $this->setStatus(true);
     //  $userManager->updateUser($user);
      //
     //  //envoi email administrateur
@@ -254,7 +313,7 @@ const nbPerPage = 4;
     //  $mailer->send($message);
      //
     //  $this->addFlash('info', 'La demande est en cours un administrateur vous contactera pas email');
-    //  return $this->redirectToRoute('ocnao_profil');
+    //  return $this->redirectToRoute('ocnao_profil_parameter');
 
    }
 
@@ -276,7 +335,7 @@ const nbPerPage = 4;
       $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->redirectToRoute('ocnao_profil');
+        return $this->redirectToRoute('ocnao_homepage');
     }
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -286,12 +345,10 @@ const nbPerPage = 4;
       // obtenir role administrateur
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $this->getUser();
-      dump($user);
-      exit;
       $user->setRoles(array('ROLE_ADMIN'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->redirectToRoute('ocnao_profil');
+        return $this->redirectToRoute('ocnao_homepage');
     }
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -304,6 +361,6 @@ const nbPerPage = 4;
       $user->setRoles(array('ROLE_OBSERVER'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->redirectToRoute('ocnao_profil');
+        return $this->redirectToRoute('ocnao_homepage');
     }
 }

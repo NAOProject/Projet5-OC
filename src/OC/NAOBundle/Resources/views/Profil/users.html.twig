@@ -2,12 +2,98 @@
 
 
 {% block body %}
-{% if result == false %}
-<form method="post" action="{{ path('ocnao_profil_users') }}">
-   <p><input type="text" name="pseudo" /></p>
+<div class="container">
+
+  {% if result == false %}
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <h3>rechercher un utilisateur</h3>
+    </div>
+    <!-- </div>
+    <div class="row"> -->
+    <div class="col-md-offset-4 col-md-3">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+          {{ form_errors(form) }}
+          {{ form_widget(form.name, {
+            'attr': {
+              'data-id': 'username',
+              'data-url': path('ocnao_profil_autocomplete')
+              }
+            })
+          }}
+      </div>
+
+      <div class="col-md-1 ">
+          {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
+          {{ form_end(form) }}
+      </div>
+
+
+  </div>
+  {% else %}
+  <h3>{{user.username}}</h3>
+
+  email : {{user.email}}
+
+  {{user.roles[0]}}
+  dfdf
+{% for user in user.roles %}
+      role : {{user}}
+{% endfor %}
+
+
+<form class="" action="{{path('ocnao_profil_role')}}" method="post">
+<select class="" name="role">
+  <option value="ROLE_OBSERVER">Observateur</option>
+  <option value="ROLE_NATURALIST">Naturaliste</option>
+  <option value="ROLE_ADMIN">Administrateur</option>
+</select>
+  <input type="hidden" name="username" value="{{user.username}}">
+  <input type="submit" value="Valider">
 </form>
-{% else %}
-<h3>{{user.username}}</h3>
-{% endif %}
+
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+$("input[data-id=username]").autocomplete({
+    source: function (request, response) {
+        var username = $("input[data-id=username]").val();
+        var objData = 'username=' + username;
+        var url = $(this.element).attr('data-url');
+
+        $.ajax({
+            url: url,
+            dataType: "json",
+            data : objData,
+            type: 'POST',
+            success: function (data) {
+                response($.map(data, function (user) {
+                    return {
+                    label: user.username
+                    }
+                }));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+  })
+  //Affichage et récupération de la valeur sélectionnée
+  $("input[data-id=username]").on('autocompleteselect',function(event, ui) {
+
+    event.preventDefault();
+
+      var contact = ui.item.label;
+          id = ui.item.value;
+      console.log('Event: ', event);
+      console.log('UI :', ui.item);
+      $(event.currentTarget).val(contact);
+
+  });
+</script>
+
+
 
 {% endblock %}

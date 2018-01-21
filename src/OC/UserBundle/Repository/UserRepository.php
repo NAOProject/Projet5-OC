@@ -13,4 +13,19 @@ use Doctrine\ORM\QueryBuilder;
  */
 class UserRepository extends EntityRepository
 {
+  public function getUsersList($username)
+  {
+    $qb = $this->createQueryBuilder('e');
+    $qb->select('DISTINCT  e.username')->where('e.username LIKE :username')->setParameter('username', $username.'%');
+
+    $arrayQb = $qb->getQuery()->getArrayResult();
+
+    $array = array();
+
+    foreach ($arrayQb as $value) {
+      $array[] = $value;
+    }
+
+    return $array;
+  }
 }

@@ -38,7 +38,7 @@
                   <li role="presentation"><a href="{{ path('ocnao_recherche') }}">RECHERCHER UNE OBSERVATION</a></li>
                   <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">AJOUTER UNE OBSERVATION</a></li>
                   {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
-                    <li role="presentation"><a href="{{ path('ocnao_observationatvalidate') }}">OBSERVATIONS À VALIDER</a></li>
+                    <li role="presentation"><a href="{{ path('ocnao_profil_observationatvalidate') }}">OBSERVATIONS À VALIDER</a></li>
                   {% endif %}
                   <li role="presentation"><a href="#">COMMENT CA MARCHE ?</a></li>
                   <li role="presentation"><a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
@@ -59,7 +59,7 @@
               {% if is_granted("ROLE_ADMIN") %}
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
               {% endif %}
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_userobservation') }}">MES OBSERVATIONS</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_userobservation') }}">MES OBSERVATIONS</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
             </ul>
@@ -116,7 +116,7 @@
                 {% if is_granted("ROLE_ADMIN") %}
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
                 {% endif %}
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_userobservation') }}">MES OBSERVATIONS</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_userobservation') }}">MES OBSERVATIONS</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
                 <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
               {% else %}
@@ -143,7 +143,7 @@
 {% block body %}{% endblock %}
 
 
-<div class="container"> <!-- A supprimer a la fin du dev -->
+<div class="container">
   <div >
     {% block user %}{% endblock %}
   </div>
@@ -153,22 +153,7 @@
 <script src="{{asset("assets/js/adaptation.js")}}"></script>
 </body>
 <footer>
-  <div class="container"> <!-- A supprimer a la fin du dev -->
-    <h3>Dev</h3>
-      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        Connecté en tant que {{ app.user.username }}
 
-        <p>etape 1 cliquer sur le role voulu</p>
-          <a href="{{ path('ocnao_profil_obs') }}">devenir observateur</a>
-          <a href="{{ path('ocnao_profil_nat') }}">devenir naturalist</a>
-          <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
-        <p>etape 2 ce deconnecte</p>
-        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-      {% else %}
-        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-        <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-      {% endif %}
-  </div>
 
   <div class="footer container"> <!-- Footer du site -->
     <div class="col-md-offset-4 col-md-4">

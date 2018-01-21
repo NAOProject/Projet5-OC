@@ -10,11 +10,11 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //   $builder
-        // ->add('news', CheckboxType::class, array(
-        //   'label' => 'Je souhaite m'incrire à la newsletter',
-        //   'required' => false,
-        // ));
+          $builder
+        ->add('news', CheckboxType::class, array(
+          'label' => 'Je souhaite m\'incrire à la newsletter',
+          'required' => false,
+        ));
   }
     }
 

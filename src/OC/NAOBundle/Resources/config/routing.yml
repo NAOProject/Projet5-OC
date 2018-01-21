@@ -1,6 +1,9 @@
 ocnao_homepage:
     path:     /
     defaults: { _controller: OCNAOBundle:Home:index }
+ocnao_contact:
+    path:     /contact
+    defaults: { _controller: OCNAOBundle:Contact:contact }
 ocnao_addObservation:
     path:     /addObservation
     defaults: { _controller: OCNAOBundle:Observation:addObservation }
@@ -19,57 +22,59 @@ ocnao_recherche:
 ocnao_results:
     path:     /results
     defaults: { _controller: OCNAOBundle:Observation:results }
-ocnao_profil:
-    path:     /profil
-    defaults: { _controller: OCNAOBundle:Profil:index }
-ocnao_userobservation:
+ocnao_autocomplete:
+    path:     /autocomplete
+    defaults: { _controller: OCNAOBundle:Observation:autocomplete }
+    requirements:
+      _method: POST
+ocnao_profil_userobservation:
     path:     /profil/userobs/{page}
     defaults:
         _controller: OCNAOBundle:Profil:userObservation
         page:        1
     requirements:
         page: \d*
-ocnao_pendingobservation:
+ocnao_profil_pendingobservation:
     path:     /profil/pendingobs/{page}
     defaults:
         _controller: OCNAOBundle:Profil:pendingObservation
         page:        1
     requirements:
         page: \d*
-ocnao_observationvalidate:
+ocnao_profil_observationvalidate:
     path:     /profil/obsvalidate/{page}
     defaults:
         _controller: OCNAOBundle:Profil:observationValidate
         page:        1
     requirements:
         page: \d*
-ocnao_observationatvalidate:
+ocnao_profil_observationatvalidate:
     path:     /obsatvalidate/{page}
     defaults:
         _controller: OCNAOBundle:Profil:observationAtValidate
         page:        1
     requirements:
         page: \d*
-ocnao_contact:
-    path:     /contact
-    defaults: { _controller: OCNAOBundle:Contact:contact }
-ocnao_autocomplete:
-    path:     /autocomplete
-    defaults: { _controller: OCNAOBundle:Observation:autocomplete }
-    requirements:
-      _method: POST
-ocnao_profil_naturalist:
-    path:     /profil/naturalist
-    defaults: { _controller: OCNAOBundle:Profil:naturalist }
+ocnao_profil_role:
+    path:     /profil/role
+    defaults: { _controller: OCNAOBundle:Profil:role }
 ocnao_profil_validate:
     path:     /profil/validate/{id}
     defaults: { _controller: OCNAOBundle:Profil:validate }
 ocnao_profil_parameter:
     path:     /profil/parameter
     defaults: { _controller: OCNAOBundle:Profil:parameter }
+ocnao_profil_obsnat:
+    path:     /profil/observer
+    defaults: { _controller: OCNAOBundle:Profil:observer }
 ocnao_profil_users:
     path:     /profil/users
     defaults: { _controller: OCNAOBundle:Profil:users }
+ocnao_profil_autocomplete:
+    path:     /profil/autocomplete
+    defaults: { _controller: OCNAOBundle:Profil:userAutoComp }
+    requirements:
+      _method: POST
     # a supprimer
 ocnao_profil_nat:
     path:     /profil/nat
