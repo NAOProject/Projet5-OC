@@ -44,22 +44,28 @@
         <div id="map">
         </div>
       </div>
-      <div class="row Liste">
+      <div class="row Liste col-md-4 col-xs-12">
         {% for result in results %}
-        <div class="col-md-2 col-xs-6">
+        <div class="col-md-6 col-xs-6">
           <div class="observation">
-            <div class="photo col-md-3">
+            <div class="photo col-md-12">
               {% if result.picture.image is defined %}
                 <div class="picture center">
-                  <img class="photoObs" src=" {{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/>
+                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/></a>
+                </div>
+              {% else %}
+                <div class="picture center">
+                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
                 </div>
               {% endif %}
             </div>
-            <div class="description col-md-9">
-              <div class="title center">
-                <h3>{{ result.taxrefname }}</h3>
-                <h5>Observé par {{ result.user.username }}</h5>
-                <a href="{{ path('ocnao_observation', {'id': result.id }) }}">Voir l'observation</a>
+            <div class="description col-md-12 col-xs-12">
+              <h4 class="center">{{ result.taxrefname }}</h4>
+              <div class="col-md-6 col-xs-6">
+                <h5>{{ result.user.username }}</h5>
+              </div>
+              <div class="col-md-6 col-xs-6">
+                <h5>{{ result.datetime.date|date("d/m/Y") }}</h5>
               </div>
             </div>
           </div>
@@ -77,6 +83,7 @@
          data-longitude="{{ result.longitude }}"
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
+         data-date="{{ result.datetime.date|date("d/m/Y") }}"
          data-src="{{ asset('uploads/picture/' ~ result.picture.image) }}">
     </div>
     {% else %}
@@ -84,6 +91,7 @@
          data-longitude="{{ result.longitude }}"
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
+         data-date="{{ result.datetime.date|date("d/m/Y") }}"
          data-src="{{ asset('assets/images/logo_nao.png') }}">
     </div>
     {% endif %}
@@ -91,6 +99,11 @@
 </div>
 
 <script src="{{asset("assets/js/mapmarkers.js")}}"></script>
+
+<script>
+</script>
+
+
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>

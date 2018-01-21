@@ -121,7 +121,7 @@ class ObservationController extends Controller
     return $this->redirectToRoute('ocnao_homepage');
   }
 
-  //Fonction reffusant des observations des observateurs
+  //Fonction refusant des observations des observateurs
   /**
    *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
    */
@@ -152,9 +152,6 @@ class ObservationController extends Controller
     $recherche = new Recherche();
     $form = $this->createForm(RechercheType::class, $recherche);
 
-    $user = $this->getUser();
-    var_dump($user);
-
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
@@ -162,15 +159,12 @@ class ObservationController extends Controller
         return $this->redirectToRoute('ocnao_results');
       }
 
-    $_SESSION['espece'] = null;
-
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
       'lastObs' => $lastObs,
-      'session' => $_SESSION,
     ));
   }
 
@@ -183,9 +177,9 @@ class ObservationController extends Controller
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
-        $_SESSION['espece'] = $espece;
         return $this->redirectToRoute('ocnao_results');
       }
+
     $espece = $_SESSION['espece'];
     $results = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->listeObsEspece($espece);
 
@@ -193,7 +187,6 @@ class ObservationController extends Controller
       return $this->render('OCNAOBundle:Default:results.html.twig', array(
         'form' => $form->createView(),
         'results' => $results,
-        'session' => $_SESSION,
       ));
     }else{
       $this->addFlash('info', 'Aucune observation trouvé pour cette éspèce.');
@@ -212,7 +205,6 @@ class ObservationController extends Controller
       if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
-          'session' => $_SESSION,
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');
@@ -222,7 +214,6 @@ class ObservationController extends Controller
       if ($observation[0]->getStatus() == 1) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
-          'session' => $_SESSION,
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');

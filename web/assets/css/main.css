@@ -1,11 +1,22 @@
-#photo { cursor:zoom-in; }
-#photo:-webkit-full-screen { cursor:zoom-out; }
-#photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
-#photo:-ms-fullscreen { cursor:zoom-out; }
-#photo:fullscreen { cursor:zoom-out; }
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* CSS COMMUN */
+
+.nav-tabs > li {
+    float:none;
+    display:inline-block;
+}
+
+.nav-tabs {
+    text-align:center;
+}
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+.navigation {
+  align-items: center;
+  vertical-align: middle;
 }
 
 .center {
@@ -15,6 +26,17 @@ body {
 
 .right {
   text-align: right;
+}
+
+.white {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.row {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .footer {
@@ -27,13 +49,25 @@ body {
   color: black;
 }
 
+.fab {
+  color: black;
+}
+
 .border_side {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
-.fab {
-  color: black;
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*CSS Page recherche.html.twig ET results.html.twig */
+.lastObs {
+  padding-top: 20px;
+}
+
+.bandeau {
+  height: 60px;
+  background-color: #AAAAAA;
 }
 
 .rechercheTitle {
@@ -46,90 +80,64 @@ body {
   padding-right: 0px;
 }
 
-.miniObs {
-  width: 300px;
+.description {
+  background-color: #AAAAAA;
+  color: white;
+  padding-left: 10px;
 }
 
-.navigation {
-  align-items: center;
-  vertical-align: middle;
+.descriptionMini {
+  padding: 5 5 5 10;
+  margin-left: 100px;
 }
 
 .miniPic {
   object-fit: cover;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   float: left;
 }
 
-.row {
-  margin-top: 10px;
-  margin-left: 0px;
-  margin-right: 0px;
+.miniObs {
+  width: 350px;
+  height: 100px;
 }
 
-.Liste .row {
-  border-width: 2px;
-  border-style: solid;
+.gm-style-iw {
+   width: 350px !important;
+   top: 15px !important;
+   left: 0 !important;
+   background-color: #fff;
+   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+   border: 1px solid rgba(72, 181, 233, 0.6);
+   border-radius: 2px 2px 10px 10px;
+}
+
+.picture {
+  overflow: hidden;
+  background: black;
+  height: 150px;
 }
 
 .photoObs {
-  object-fit: cover;
-  width: 120px;
-  height: 120px;
-  padding-left: 0px;
-  padding-right: 0px;
-  float: left;
-  border-right: 2px solid black;
-}
-
-.photoObservation {
-  background-color: #555555;
   width: 100%;
-  padding: 5% 5% 5% 5%;
   height: auto;
+  max-height: 100%;
   object-fit: cover;
 }
 
-.lastObs {
-  padding-top: 20px;
+.Liste {
+  height: 600px;
+  overflow: scroll;
 }
 
-.bandeau {
-  width: 100%
-  height: 60px;
-  background-color: #AAAAAA;
+.Liste .col-md-6 {
+  padding: 5 0 5 10;
 }
 
-.white {
-  color: #FFFFFF;
-  font-weight: bold;
-}
 
-.obs {
-  margin-left: 10px;
-}
-
-.obs_user {
-  padding-top: 20px;
-}
-
-.observation .col-md-6 {
-  padding: 0 0 0 0;
-}
-
-.return a {
-  color: black;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.image {
-  background-color: #555555;
-  border: 1px solid black;
-  text-align: center;
-}
-
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* CSS Page addObservation.html.twig */
 .photoFileLabel {
     font-size: 1.25em;
     font-weight: 700;
@@ -144,7 +152,7 @@ body {
 }
 
 .photoFileLabel {
-	cursor: pointer; /* "hand" cursor */
+	cursor: pointer;
 }
 
 #blah {
@@ -160,6 +168,40 @@ body {
   padding-top: 20px;
   text-align: center;
 }
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* CSS Page observation.html.twig */
+.photoObservation {
+  width: 100%;
+  padding: 5% 5% 5% 5%;
+  height: auto;
+  object-fit: cover;
+}
+
+.return a {
+  color: black;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#photo { cursor:zoom-in; }
+#photo:-webkit-full-screen { cursor:zoom-out; }
+#photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
+#photo:-ms-fullscreen { cursor:zoom-out; }
+#photo:fullscreen { cursor:zoom-out; }
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+.obs {
+  margin-left: 10px;
+}
+
+.obs_user {
+  padding-top: 20px;
+}
+
 
 @media screen and (max-width:767px) {
   .rechercheTitle {
@@ -192,13 +234,4 @@ body {
     height: 40px;
     border: 2px solid black;
   }
-}
-
-.nav-tabs > li {
-    float:none;
-    display:inline-block;
-}
-
-.nav-tabs {
-    text-align:center;
 }
