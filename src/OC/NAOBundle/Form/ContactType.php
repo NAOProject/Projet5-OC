@@ -5,7 +5,9 @@ namespace OC\NAOBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -22,7 +24,11 @@ class ContactType extends AbstractType
         ->add('prename', TextType::class)
         ->add('email', EmailType::class)
         ->add('object', TextType::class)
-        ->add('message', TextType::class);
+        ->add('message', TextareaType::class, array(
+        'attr' => array('rows' => '6')
+      ))
+        ->add('submit', SubmitType::class, array(
+          'label' => 'Envoyer'));
     }
 
     /**

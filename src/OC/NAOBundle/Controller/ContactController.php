@@ -21,24 +21,29 @@ class ContactController extends Controller
           $email = $contact->getEmail();
           $object = $contact->getObject();
 
-          //**************A faire*************************
-          $content = $this->twig->render(
+
+          $content = $this->renderView(
             'OCNAOBundle:Contact:email.html.twig',
             array('contact' => $contact
             ));
 
           $mailer = $this->container->get('mailer');
+
           $message =  \Swift_Message::newInstance($object)
-            ->setTo('EmailDestinataire')
-            ->setFrom($email, 'Nos Amis les Oiseaux')
+            ->setTo('pierrecitizen@hotmail.fr')
+            ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
             ->setBody($content, 'text/html')
             ;
           $mailer->send($message);
 
+// $spool = $mailer->getTransport()->getSpool();
+// $transport = $this->get('swiftmailer.transport.real');
+// $spool->flushQueue($transport);
+
           $this->addFlash('info', 'Votre message a bien été envoyé');
-          return $this->redirectToRoute('ocnao_contact');// ***************** ou la page accueil ?????????????
+          return $this->redirectToRoute('ocnao_contact');
         }
-        //**************A faire*************************
+
       return $this->render('OCNAOBundle:Contact:contact.html.twig', array(
           'form' => $form->createView()
       ));
