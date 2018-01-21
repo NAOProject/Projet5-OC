@@ -127,8 +127,8 @@ body {
 }
 
 .Liste {
-  height: 600px;
-  overflow: scroll;
+  height: 590px;
+  overflow: auto;
 }
 
 .Liste .col-md-6 {
@@ -230,8 +230,30 @@ body {
   .bandeau {
     display: none;
   }
+
+  .Liste {
+    height: auto;
+    overflow: auto;
+  }
+
   .affichageXs {
     height: 40px;
-    border: 2px solid black;
+    display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .glyphicon-map-marker, .glyphicon-tasks {
+    font-size: 25px;
+  }
+
+  .btnListe:focus, .btnCarte:focus,
+  .btnListe:hover, .btnCarte:hover {
+    background: #FFF;
+  }
+
+  .affichageXs button {
+    border: 0;
+    height: 38px;
   }
 }
