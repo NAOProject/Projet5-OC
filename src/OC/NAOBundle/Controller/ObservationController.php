@@ -35,7 +35,6 @@ class ObservationController extends Controller
           $observation->setStatus(false);
           $observation->setUserValidator(null);
         }
-        var_dump($form);
         $date = new \DateTime();
         $same = false;
         $observation->setDatetime($date);

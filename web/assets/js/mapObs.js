@@ -14,7 +14,7 @@ var resultArray = (function getGeoDataArray() {
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
+    zoom: 16,
     center: { lat: 46.52863469527167, lng: 2.43896484375 }
   });
 
@@ -24,11 +24,26 @@ function initMap() {
           position: {lat: result[0], lng: result[1]},
           map: map,
       });
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      });
+      var geocoder = new google.maps.Geocoder;
+      var lat = result[0];
+      var lng = result[1];
+      geocodeLatLng(geocoder, map, lat, lng);
   }
 }
+
+var marker
+function geocodeLatLng(geocoder, map, lat, lng) {
+  var latlng = {lat: lat, lng: lng};
+  map.panTo(latlng);
+  geocoder.geocode({'location': latlng}, function(results, status) {
+    $(".obsPlaceText").html("<p class='bold'>" + results[1].formatted_address +
+    "</p><p class='italic'>" +
+    "long: " + lng + ", lat: " + lat );
+  });
+}
+
+var divHeight = $('.obsUser').height();
+$('.obsPlace').css('min-height', divHeight+2+'px');
 
 $(".notconforme").click(function() {
   $(".notconformzone").removeClass("hidden");

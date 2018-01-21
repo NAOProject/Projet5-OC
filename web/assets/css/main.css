@@ -14,6 +14,24 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-weight: lighter;
+  font-style: italic;
+}
+
+.userIcone {
+  height: 20px;
+  width: auto;
+}
+
+.noPad {
+  padding: 0;
+}
+
 .navigation {
   align-items: center;
   vertical-align: middle;
@@ -116,7 +134,7 @@ body {
 .picture {
   overflow: hidden;
   background: black;
-  height: 150px;
+  height: 160px;
 }
 
 .photoObs {
@@ -166,21 +184,12 @@ body {
   border-radius: 2px 2px 10px 10px;
 }
 
-.bold {
-  font-weight: bold;
-}
-
-.italic {
-  font-weight: lighter;
-  font-style: italic;
-}
-
 .submitBtn {
   padding-top: 20px;
   text-align: center;
 }
 
-#map {
+.carte #map {
   height: 450px;
 }
 
@@ -191,11 +200,57 @@ body {
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /* CSS Page observation.html.twig */
+.Obs {
+  padding-top: 20px;
+}
+
+.obsTitle {
+  border: 1px solid black;
+}
+
+.obsUser, .obsPicture {
+  border: 1px solid black;
+  border-top: 0;
+  padding: 0;
+}
+
+.obsPlace {
+  border: 1px solid black;
+  border-left: 0;
+}
+
+.obsPlaceText p {
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.userIconeObs {
+  height: 40px;
+  width: auto;
+  margin-top: 5px;
+  padding-right: 0;
+}
+
+.user {
+  padding-right: 0;
+  margin-top: 5px;
+}
+
 .photoObservation {
-  width: 100%;
-  padding: 5% 5% 5% 5%;
-  height: auto;
-  object-fit: cover;
+  padding: 2% 2% 2% 2%;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 550px;
+  position: relative;
+  z-index: 1;
+  background-color: #CCC;
+}
+
+.carteObs #map {
+  max-height: 550px;
+  border-right: 1px solid black;
 }
 
 .return a {
@@ -209,6 +264,19 @@ body {
 #photo:-moz-full-screen { cursor:zoom-out; padding: 0 0 0 0;}
 #photo:-ms-fullscreen { cursor:zoom-out; }
 #photo:fullscreen { cursor:zoom-out; }
+
+.conformeZone {
+  padding: 0;
+  padding-top: 20px;
+}
+
+.notconformzone {
+  margin-top: 20px;
+  background-color: #FFC3A1;
+  width: 100%;
+  height: auto;
+  padding: 30px;
+}
 
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -233,7 +301,7 @@ body {
   }
 
   .return {
-    height: 60px;
+    height: 40px;
     background-color: #AAAAAA;
   }
 
@@ -274,5 +342,20 @@ body {
   .affichageXs button {
     border: 0;
     height: 38px;
+  }
+
+  .photoObservation {
+    height: auto;
+  }
+
+  .Obs, .obsTitle, .obsUser, .obsPicture, .obsPlace {
+    border: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .btnSubmitConforme {
+    text-align: right;
   }
 }

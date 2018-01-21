@@ -21,11 +21,9 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
   <!-- DatePicker -->
-  <link rel="stylesheet" href="{{asset("assets/datepicker/css/bootstrap-datepicker.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/datepicker/css/bootstrap-datepicker3.min.css")}}">
   <script src="{{asset("assets/datepicker/js/bootstrap-datepicker.js")}}"></script>
   <script src="{{asset("assets/datepicker/locales/bootstrap-datepicker.fr.min.js")}}"></script>
-
-
 
   {% endblock %}
 
@@ -58,7 +56,7 @@
           </ul>
           <div class="dropdown nav navbar-nav navbar-right">
             <button class="btn navbar-btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
-              <span class="glyphicon glyphicon-user"> {{ app.user.username }}</span>
+              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" /> {{ app.user.username }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
               {% if is_granted("ROLE_ADMIN") %}
@@ -93,7 +91,7 @@
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <a class="btn btn-default navbar-toggle" href="#">Faire un don</a>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".user" aria-expanded="false" data-placement="bottom" >
-                  <span class="glyphicon glyphicon glyphicon-user"></span>
+                  <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
                 </button>
               {% else %}
                   <a class="btn btn-default navbar-toggle" href="#">Faire un don</a>
@@ -135,7 +133,7 @@
       </div>
     </nav> <!-- Fin navbar sur Smartphone -->
 
-<div class="container" style="margin-top:50px"> <!-- Messages d'informations -->
+<div class="container" style="margin-top:30px"> <!-- Messages d'informations -->
   {% for label, messages in app.flashes(['info', 'success', 'danger']) %}
     {% for message in messages %}
       <div class="alert alert-{{ label }}">
@@ -145,17 +143,17 @@
   {% endfor %}
 </div>
 
-{% block body %}{% endblock %}
-
-
-<div class="container">
-  <div >
-    {% block user %}{% endblock %}
+{% block body %}
+  {% if block("user") is defined %}
+  <div class="container">
+    <div >
+      {% block user %}{% endblock %}
+    </div>
   </div>
-</div>
-
-
+  {% endif %}
+{% endblock %}
 <script src="{{asset("assets/js/adaptation.js")}}"></script>
+
 </body>
 <footer>
 
