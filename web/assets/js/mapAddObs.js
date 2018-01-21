@@ -30,14 +30,13 @@ function initMap() {
       })
     }
   var geocoder = new google.maps.Geocoder;
-  var infowindow = new google.maps.InfoWindow;
   map.addListener('click', function(e) {
-    geocodeLatLng(geocoder, map, infowindow, e.latLng);
+    geocodeLatLng(geocoder, map, e.latLng);
   });
 }
 
 var marker
-function geocodeLatLng(geocoder, map, infowindow, latLng) {
+function geocodeLatLng(geocoder, map, latLng) {
   var latlng = {lat: latLng.lat(), lng: latLng.lng()};
   geocoder.geocode({'location': latlng}, function(results, status) {
     if (status === 'OK') {
@@ -53,9 +52,9 @@ function geocodeLatLng(geocoder, map, infowindow, latLng) {
         map.panTo(latLng);
         inputLatitude.value = latLng.lat();
         inputLongitude.value = latLng.lng();
-        $("#observation_ville").html(results[1].formatted_address);
-        infowindow.setContent(results[1].formatted_address);
-        infowindow.open(map, marker);
+        $("#observation_ville").html("<p class='bold'>" + results[1].formatted_address +
+        "</p><p class='italic'>" +
+        "long: " + inputLongitude.value + ", lat: " + inputLatitude.value );
       } else {
         window.alert('No results found');
       }

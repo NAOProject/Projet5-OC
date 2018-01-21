@@ -3,48 +3,58 @@
 {% block body %}
 
 <div class="container">
-  <h1>AJOUTER UNE OBSERVATION</h1>
-  <div class="row">
+  <h2>AJOUTER UNE OBSERVATION</h2>
+  <div class="row form">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <div class="formulaire col-md-6 col-xs-12">
 
       {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        <div class="imageForm col-xs-12">
-          <label class="photoFileLabel col-md-6 control-label" for="observation_picture_image">
+        <div class="imageForm">
+          <h4>PHOTO DE L'OISEAU OBSERVÉ</h4>
+          <label class="photoFileLabel col-md-12 control-label center" for="observation_picture_image">
             <img id="blah" src="/Projet5-OC/web/assets/images/choosePic.png" onclick="javascript:readURL();" alt=""></img>
           </label>
           {{ form_widget(form.picture.image, {'attr': {'class': 'hidden'}} ) }}
         </div>
 
-      {{ form_row(form.taxrefname, {
-        'label': "Nom de l'espece",
+      <h4>NOM DE L'ÉSPÈCE OBSERVÉE</h4>
+      {{ form_widget(form.taxrefname, {
         'attr': {
         'data-id': 'listedesespeces',
         'data-url': path('ocnao_autocomplete')
         }
         })
       }}
-      {{ form_row(form.notsur, {'label': "Pas sûr de moi ? (À cocher si vous n'êtes pas sûr de l'espèce d'oiseau, cocher la case rend la photo obligatoire.)"  }) }}
+      <div class="col-xs-10">
+        <h5>Je ne suis pas sûr(e) de moi</h5>
+      </div>
+      <div class="col-xs-2">
+        {{ form_widget(form.notsur) }}
+      </div>
+      <div class="col-xs-6">
+        <h5>DATE DE L'OBSERVATION</h5>
+      </div>
+      <div class="col-xs-6">
+        {{ form_widget(form.dateObs) }}
+      </div>
     </div>
 
     <div class="carte col-md-6 col-xs-12">
+      <h4>EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
       <div id="map">
       </div>
       <div class="Coordonnees">
-        <p>Emplacement: <span id="observation_ville"></span></p>
-        <div class="col-md-6">
+        <span id="observation_ville"></span>
+        <div class="hidden">
         {{ form_row(form.latitude, {'label': "Latitude"}) }}
-        </div>
-        <div class="col-md-6">
         {{ form_row(form.longitude, {'label': "Longitude"}) }}
         </div>
-
       </div>
     </div>
     <div class="col-xs-12 submitBtn">
-      {{ form_row(form.submit, {'label': 'Envoyer'}) }}
+      {{ form_row(form.submit, {'label': 'Envoyer', 'attr': {'class': 'col-xs-offset-3 col-xs-6 col-md-offset-4 col-md-4'}}) }}
       {{ form_end(form) }}
     </div>
     {% else %}
@@ -72,6 +82,16 @@ function readURL(input) {
 $("#observation_picture_image").change(function(){
     readURL(this);
 });
+
+$('#observation_dateObs').datepicker({
+  format: "dd MM yyyy",
+  endDate: '0',
+  todayBtn: true,
+  language: "fr",
+  autoclose: true,
+  todayHighlight: true,
+});
+
 </script>
 <script src="{{asset("assets/js/mapAddObs.js")}}"></script>
 <script async defer

@@ -127,8 +127,8 @@ body {
 }
 
 .Liste {
-  height: 600px;
-  overflow: scroll;
+  height: 590px;
+  overflow: auto;
 }
 
 .Liste .col-md-6 {
@@ -138,35 +138,54 @@ body {
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /* CSS Page addObservation.html.twig */
+.form {
+  padding-top: 20px;
+}
+
 .photoFileLabel {
     font-size: 1.25em;
     font-weight: 700;
     color: white;
-    background-color: black;
     display: inline-block;
-}
-
-.photoFileLabel:focus,
-.photoFileLabel:hover {
-    background-color: grey;
 }
 
 .photoFileLabel {
 	cursor: pointer;
+  margin-bottom: 20px;
 }
 
 #blah {
   width: auto;
-  height: auto;
+  height: 350px;
   max-width: 100%;
-  max-height: 500px;
+  max-height: 350px;
   position: relative;
   z-index: 1;
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  border: 1px solid rgba(72, 181, 233, 0.6);
+  border-radius: 2px 2px 10px 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-weight: lighter;
+  font-style: italic;
 }
 
 .submitBtn {
   padding-top: 20px;
   text-align: center;
+}
+
+#map {
+  height: 450px;
+}
+
+.container h2 {
+  margin: 0;
 }
 
 
@@ -230,8 +249,30 @@ body {
   .bandeau {
     display: none;
   }
+
+  .Liste {
+    height: auto;
+    overflow: auto;
+  }
+
   .affichageXs {
     height: 40px;
-    border: 2px solid black;
+    display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .glyphicon-map-marker, .glyphicon-tasks {
+    font-size: 25px;
+  }
+
+  .btnListe:focus, .btnCarte:focus,
+  .btnListe:hover, .btnCarte:hover {
+    background: #FFF;
+  }
+
+  .affichageXs button {
+    border: 0;
+    height: 38px;
   }
 }
