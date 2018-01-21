@@ -64,10 +64,18 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datetime", type="datetime")
+     * @ORM\Column(name="date_ajout", type="datetime")
      * @Assert\DateTime()
      */
     private $datetime;
+
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="date_Obs", type="date")
+     * @Assert\DateTime()
+     */
+    private $dateObs;
 
     /**
      * @var string
@@ -163,6 +171,30 @@ class Observation
     public function getDatetime()
     {
         return $this->datetime;
+    }
+
+    /**
+     * Set dateObs
+     *
+     * @param date $dateObs
+     *
+     * @return Observation
+     */
+    public function setDateObs($dateObs)
+    {
+        $this->dateObs = $dateObs;
+
+        return $this;
+    }
+
+    /**
+     * Get dateObs
+     *
+     * @return date
+     */
+    public function getDateObs()
+    {
+        return $this->dateObs;
     }
 
     /**

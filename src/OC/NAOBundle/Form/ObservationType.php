@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,9 +26,15 @@ class ObservationType extends AbstractType
         ->add('taxrefname', TextType::class)
         ->add('notsur', CheckboxType::class, array(
           "required" => false,
+          "label" => false,
         ))
         ->add('picture', PictureType::class, array(
           "required" => false,
+        ))
+        ->add('dateObs', DateType::class, array(
+          'label' => false,
+          'widget' => 'single_text',
+          'format' => 'dd/MM/yyyy',
         ))
         ->add('latitude', TextType::class, array(
           'attr' => array(
