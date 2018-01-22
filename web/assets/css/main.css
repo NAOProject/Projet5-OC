@@ -206,6 +206,7 @@ body {
 
 .obsTitle {
   border: 1px solid black;
+  height: 50px;
 }
 
 .obsUser, .obsPicture {
