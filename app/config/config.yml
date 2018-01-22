@@ -78,6 +78,8 @@ fos_user:
     from_email:
         address: firoche2@mail.com
         sender_name: you
-    # registration:
+    registration:
+        form:
+            type: OC\UserBundle\Form\RegistrationType
     #     confirmation:
     #         enabled: true

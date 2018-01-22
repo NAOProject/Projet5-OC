@@ -1,11 +1,13 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
+<div class="col-md-offset-4 col-md-4">
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
-        En cliquant sur Créer un compte, vous acceptez nos <a href="#">Conditions d'utilisation</a>.
+
     <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        <input class="btn btn-primary"type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
     <br>
     En cliquant sur Créer un compte, vous acceptez nos <a href="#">Conditions d'utilisation</a>.
 {{ form_end(form) }}
+
+</div>

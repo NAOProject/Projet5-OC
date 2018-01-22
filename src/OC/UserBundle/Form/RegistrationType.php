@@ -5,17 +5,17 @@ namespace OC\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
           $builder
-        ->add('news', CheckboxType::class, array(
+        ->add('newsletter', CheckboxType::class, array(
           'label' => 'Je souhaite m\'incrire à la newsletter',
           'required' => false,
         ));
-  }
     }
 
     public function getParent()
