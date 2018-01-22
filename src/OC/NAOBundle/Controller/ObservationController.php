@@ -101,6 +101,40 @@ class ObservationController extends Controller
       }
   }
 
+  //Fonction changer le nom de l'espece
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
+  public function changeTaxrefnameAction($id)
+  {
+    $same = false;
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $taxrefname = $_POST["taxrefname"];
+      $em = $this->getDoctrine()->getManager();
+      $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($taxrefname);
+      for ($i=0; $i < sizeof($listeEspece) ; $i++) {
+        $espece = $listeEspece[$i]['nomVern'];
+        if ( trim($espece) === trim($taxrefname)) { //si espece du formulaire = espece dans la BDD TAXREF
+          $same = true;
+        }
+      }
+
+      if ($same == true) { //Si meme nom d'espece
+        $obs = $em->getRepository('OCNAOBundle:Observation')->validationObservation($id);
+        $obs[0]->setTaxrefname($taxrefname);
+        $em->persist($obs[0]);
+        $em->flush();
+
+        return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
+      }
+      else { //sinon
+        $this->addFlash('info', 'Mauvais nom de l\'espece.');
+        return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
+      }
+    }
+  }
+
   //Fonction validation des observations des observateurs
   /**
    *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -199,12 +233,16 @@ class ObservationController extends Controller
   {
     $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
+    $famille = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Taxref')->famille($observation[0]->getTaxrefname());
+    $nbObsUser = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->nbObsUser($observation[0]->getUser()->getId());
 
     //Si l'observation est publié ou role naturalist ou admin
     if ($user) {
       if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
+          'nbObs' => $nbObsUser,
+          'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');
@@ -214,6 +252,8 @@ class ObservationController extends Controller
       if ($observation[0]->getStatus() == 1) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
+          'nbObs' => $nbObsUser,
+          'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');

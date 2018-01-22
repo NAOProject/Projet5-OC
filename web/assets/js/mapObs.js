@@ -42,6 +42,12 @@ function geocodeLatLng(geocoder, map, lat, lng) {
   });
 }
 
+$(".changeTaxrefname").click(function() {
+  $(".changeName").removeClass("hidden");
+  $('.changeBtn').addClass("hidden");
+})
+
+
 var divHeight = $('.obsUser').height();
 $('.obsPlace').css('min-height', divHeight+1+'px');
 

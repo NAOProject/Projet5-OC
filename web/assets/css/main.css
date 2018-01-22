@@ -209,6 +209,15 @@ body {
   height: 50px;
 }
 
+.obsTaxref {
+  margin: 0;
+}
+
+.obsFamille {
+  margin: 0;
+  margin-top: 5px;
+}
+
 .obsUser, .obsPicture {
   border: 1px solid black;
   border-top: 0;
@@ -277,6 +286,10 @@ body {
   width: 100%;
   height: auto;
   padding: 30px;
+}
+
+.changeName {
+  padding-top: 6px;
 }
 
 

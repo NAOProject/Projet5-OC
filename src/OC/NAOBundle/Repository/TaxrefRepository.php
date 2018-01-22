@@ -28,4 +28,12 @@ class TaxrefRepository extends \Doctrine\ORM\EntityRepository
 
     return $array;
   }
+
+  public function famille($espece)
+  {
+    $qb = $this->createQueryBuilder('e');
+    $qb->select('DISTINCT e.famille')->where('e.nomVern = :espece')->setParameter('espece', $espece);
+
+    return $qb->getQuery()->getSingleScalarResult();
+  }
 }
