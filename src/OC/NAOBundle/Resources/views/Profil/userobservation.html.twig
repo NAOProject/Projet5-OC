@@ -1,4 +1,4 @@
-{% extends 'OCNAOBundle:Profil:layoutobservation.html.twig' %}
+{% extends 'OCNAOBundle::layout.html.twig' %}
 
 {% block observationlist %}
 
@@ -10,6 +10,9 @@
     {% if is_granted('ROLE_OBSERVER') %}
     <li {% if route == 'ocnao_profil_pendingobservation' %}class='active'{% endif %}>
       <a  href="{{ path('ocnao_profil_pendingobservation') }}">Observation en attente</a>
+    </li>
+    <li {% if route == 'ocnao_profil_pendingobservation' %}class='active'{% endif %}>
+      <a  href="{{ path('ocnao_profil_pendingobservation') }}">Observation Non comforme</a>
     </li>
     {% endif %}
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
@@ -30,30 +33,36 @@ vous n'avez pas observation pour l'instant
 
 
       <div class="row Liste">
+
       {% for obs in observationList %}
       <div {% if obs.notconforme == true %}class=".bg-danger"{% endif %}>
-      <div class="col-md-3 col-xs-6">
-        <div class="observation">
-
-          <div class="photo col-md-12">
-            {% if obs.picture.image is defined %}
-              <div class="picture center">
-                <img class="photoObs" src=" {{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+        <div class="col-md-3 col-xs-6">
+          <div class="observation">
+            <div class="photo col-md-12">
+              {% if obs.picture.image is defined %}
+                <div class="picture center">
+                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
+                </div>
+              {% else %}
+                <div class="picture center">
+                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
+                </div>
+              {% endif %}
+            </div>
+            <div class="description col-md-12 col-xs-12">
+              <h4 class="center">{{ obs.taxrefname }}</h4>
+              <div class="col-md-3 col-xs-6">
+                <h5>{{ obs.user.username }}</h5>
               </div>
-            {% endif %}
-          </div>
-          <div class="description col-md-12">
-            <div class="title center">
-              <h3>{{ obs.taxrefname }}</h3>
-              <h5>Observé par {{ obs.user.username }}</h5>
-              <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">Voir l'observation</a>
+              <div class="col-md-3 col-xs-6">
+                <h5>{{ obs.datetime.date|date("d/m/Y") }}</h5>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        </div>
+</div>
       {% endfor %}
-    </div>
+
   </div>
 
 

@@ -14,7 +14,7 @@
         <div class="imageForm">
           <h4>PHOTO DE L'OISEAU OBSERVÉ</h4>
           <label class="photoFileLabel col-md-12 control-label center" for="observation_picture_image">
-            <img id="blah" src="/Projet5-OC/web/assets/images/choosePic.png" onclick="javascript:readURL();" alt=""></img>
+            <img id="blah" src="{{asset("assets/images/choosePic.png")}}" onclick="javascript:readURL();" alt=""></img>
           </label>
           {{ form_widget(form.picture.image, {'attr': {'class': 'hidden'}} ) }}
         </div>

@@ -69,14 +69,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
       ->andWhere('userpendingobservation.status = 0')
       ->orderBy('userpendingobservation.datetime', 'DESC')
       ;
-    $qb
-      // On définit l'annonce à partir de laquelle commencer la liste
-      ->setFirstResult(($page-1) * $nbPerPage)
-      // Ainsi que le nombre d'annonce à afficher sur une page
-      ->setMaxResults($nbPerPage)
-    ;
 
-    // On retourne l'objet Paginator correspondant à la requête construite
+    $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
+
     return new Paginator($qb, true);
   }
 
@@ -90,14 +85,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter('user', $user)
       ->orderBy('userobservationvalidate.datetime', 'DESC')
       ;
-    $qb
-      // On définit l'annonce à partir de laquelle commencer la liste
-      ->setFirstResult(($page-1) * $nbPerPage)
-      // Ainsi que le nombre d'annonce à afficher sur une page
-      ->setMaxResults($nbPerPage)
-    ;
 
-    // On retourne l'objet Paginator correspondant à la requête construite
+    $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
+
     return new Paginator($qb, true);
   }
 
@@ -108,14 +98,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     $qb->where('observationatvalidate.status = 0')
         ->orderBy('observationatvalidate.datetime', 'DESC')
       ;
-    $qb
-      // On définit l'annonce à partir de laquelle commencer la liste
-      ->setFirstResult(($page-1) * $nbPerPage)
-      // Ainsi que le nombre d'annonce à afficher sur une page
-      ->setMaxResults($nbPerPage)
-    ;
 
-    // On retourne l'objet Paginator correspondant à la requête construite
+    $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
+
     return new Paginator($qb, true);
   }
 
