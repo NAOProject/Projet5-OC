@@ -30,7 +30,7 @@
 
 </head>
   <body>
-    <nav class="navbar navbar-default hidden-xs navbar-fixed-top"> <!-- Navbar sur ordinateur -->
+    <nav class="navbar navbar-default visible-lg navbar-fixed-top"> <!-- Navbar sur ordinateur -->
       <div class="navigation">
         <div class="col-md-9">
           <div class="container-fluid">
@@ -53,11 +53,11 @@
         <div class="col-md-3">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
           <ul class="nav navbar-nav navbar-right">
-            <li role="presentation"><a href="#">Faire un don</a></li>
+            <li role="presentation"><a class="don" href="#">Faire un don</a></li>
           </ul>
           <div class="dropdown nav navbar-nav navbar-right">
-            <button class="btn navbar-btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
-              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" /> {{ app.user.username }}
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
               {% if is_granted("ROLE_ADMIN") %}
@@ -70,16 +70,16 @@
           </div>
           {% else %}
           <ul class="nav navbar-nav navbar-right">
-            <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-            <li role="presentation"><a href="{{ path('fos_user_security_login') }}" >Se connecter</a></li>
-            <li role="presentation"><a href="#">Faire un don</a></li>
+            <li role="presentation"><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+            <li role="presentation"><a class="connexion" href="{{ path('fos_user_security_login') }}" >Se connecter</a></li>
+            <li role="presentation"><a class="don" href="#">Faire un don</a></li>
           </ul>
           {% endif %}
         </div>
       </div>
     </nav> <!-- Fin navbar sur ordinateur -->
 
-    <nav class="nav navbar navbar-default visible-xs navbar-fixed-top"> <!-- Navbar sur Smartphone -->
+    <nav class="nav navbar navbar-default hidden-lg navbar-fixed-top"> <!-- Navbar sur Smartphone -->
       <div class="">
         <div class="col-xs-12">
           <div class="container-fluid">
@@ -88,18 +88,23 @@
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
               </button>
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a class="btn btn-default navbar-toggle" href="#">Faire un don</a>
+                <a class="navbar-toggle don" href="#">Faire un don</a>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".user" aria-expanded="false" data-placement="bottom" >
-                  <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
+                  <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
                 </button>
               {% else %}
-                  <a class="btn btn-default navbar-toggle" href="#">Faire un don</a>
-                  <a class="btn btn-default navbar-toggle" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
-                  <a class="btn btn-default navbar-toggle" href="{{ path('fos_user_security_login') }}" >Se connecter</a>
+                  <a class="navbar-toggle don" href="#">Faire un don</a>
+                  <a class="navbar-toggle connexion" href="{{ path('fos_user_security_login') }}" >Se connecter</a>
+                  <a class="navbar-toggle inscription" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
               {% endif %}
+<<<<<<< HEAD
               <a href="{{ path('ocnao_homepage') }}"><img class="logomenu" src="{{ asset("assets/images/Logomenu2.png")}}"/></a>
+=======
+              <a class="" href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/logoMenu.png")}}" /></a>
+>>>>>>> 580217630977258d520d0d40a8bf1361b079e1f3
             </div>
             <div class="collapse navbar-collapse menu center">
                <ul class="nav navbar-nav">

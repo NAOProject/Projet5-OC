@@ -1,3 +1,11 @@
+/*Couleur
+Orange : #ff5b00;
+brun : #493c32;
+turquoise foncé : #00ac98;
+turquoise clair : #00c4b6;
+gris clair : #e4e4db;
+gris foncé : #747473;
+
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /* CSS COMMUN */
 
@@ -10,8 +18,63 @@
     text-align:center;
 }
 
+html {
+  font-size: 62.5%;
+}
+
+h1 {
+  font-size: 2.7REM;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 2REM;
+  font-weight: 700;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+.logoMenu {
+  width: auto;
+  height: 50px;
+}
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(100, 100, 100, 0.9);
+}
+
+.navbar-btn, .nav > .btn {
+  background-color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: black;
+  font-weight: bold;
+}
+
+.inscription, .connexion, .don {
+  padding: 2 15 0 15 !important;
+  height: 25px;
+  margin-top: 15px;
+  margin-right: 10px;
+  font-weight: normal!important;
+  color: #fff!important;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.inscription {
+  background-color: #ff5b00;
+}
+
+.connexion {
+  background-color: #747473;
+}
+
+.don {
+  background-color: #00c4b6;
 }
 
 .bold {
@@ -24,8 +87,13 @@ body {
 }
 
 .userIcone {
-  height: 20px;
+  height: 36px;
   width: auto;
+  background-color: #fff;
+}
+
+.user > ul {
+  margin: 0!important;
 }
 
 .noPad {
@@ -44,6 +112,7 @@ body {
 
 .right {
   text-align: right;
+  padding-right: 5px;
 }
 
 .white {
@@ -85,12 +154,19 @@ body {
 
 .bandeau {
   height: 60px;
-  background-color: #AAAAAA;
+  background-color: #00ac98;
 }
 
 .rechercheTitle {
-  font-size: 22px;
-  text-align: right;
+  color: #00c4b6;
+}
+
+#recherche_submit {
+  background-color: #ff5b00;
+  width: 200px;
+  color: #fff;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 2px 2px 6px 1px rgba(90, 90, 90, 0.6);
 }
 
 .photo,.description,#Carte{
@@ -99,9 +175,11 @@ body {
 }
 
 .description {
-  background-color: #AAAAAA;
+  background-color: #493c32;
   color: white;
   padding-left: 10px;
+  padding-right: 10px;
+  height: 85px;
 }
 
 .descriptionMini {
@@ -109,16 +187,23 @@ body {
   margin-left: 100px;
 }
 
+.descriptionMini > h4 {
+  margin-bottom: 5px;
+}
+
 .miniPic {
   object-fit: cover;
   width: 100px;
   height: 100px;
   float: left;
+  border-right: 1px solid #493c32;
 }
 
 .miniObs {
   width: 350px;
   height: 100px;
+  background-color: #ff5b00;
+  color: white;
 }
 
 .gm-style-iw {
@@ -126,31 +211,30 @@ body {
    top: 15px !important;
    left: 0 !important;
    background-color: #fff;
-   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-   border: 1px solid rgba(72, 181, 233, 0.6);
-   border-radius: 2px 2px 10px 10px;
+   border: 1px solid #493c32;
+   border-radius: 2px 2px 2px 2px;
 }
 
 .picture {
   overflow: hidden;
   background: black;
-  height: 160px;
+  height: 180px;
 }
 
 .photoObs {
   width: 100%;
-  height: auto;
-  max-height: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .Liste {
   height: 590px;
   overflow: auto;
+  padding: 0 5 0 0;
 }
 
 .Liste .col-md-6 {
-  padding: 5 0 5 10;
+  padding: 0 0 5 5;
 }
 
 
@@ -305,8 +389,25 @@ body {
 
 
 @media screen and (max-width:767px) {
+  h1 {
+    font-size: 2.1REM;
+  }
+
+  h4 {
+    font-size: 1.7REM;
+  }
+
   .rechercheTitle {
     text-align: center;
+  }
+
+  .userIcone {
+    height: 20px;
+    width: auto;
+  }
+
+  .navbar-header > button {
+    margin-right: 5px;
   }
 
   .observation .col-xs-12 {
@@ -372,4 +473,48 @@ body {
   .btnSubmitConforme {
     text-align: right;
   }
+}
+
+@media (max-width: 1199px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .userIcone {
+      height: 20px;
+      width: auto;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
 }

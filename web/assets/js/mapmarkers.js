@@ -11,7 +11,7 @@ var resultArray = (function getGeoDataArray() {
 
       var content = '<div class="miniObs"><img class="miniPic" src="'+ src + '">'
       + '<div class="descriptionMini"><h4>' + $($coords[i]).data("espece") + '</h4>' + '<div class="col-md-6 col-xs-6"><h5>'
-      + $($coords[i]).data("username") + '.' + '</h5></div><div class="col-md-6 col-xs-6"><h5>'
+      + $($coords[i]).data("username") + '.' + '</h5></div><div class="col-md-6 col-xs-6"><h5 class="italic">'
       + date + '.' + '</h5></div></div></div>';
 
       var coord = [lat, lng, content];
@@ -62,13 +62,17 @@ function setMarkers(map) {
               // Remove the white background DIV
               iwBackground.children(':nth-child(4)').css({'display' : 'none'});
               // Moves the infowindow 115px to the right.
-              iwOuter.parent().parent().css({left: '115px'});
+              iwOuter.parent().parent().css({left: '15px'});
 
               // Moves the shadow of the arrow 76px to the left margin
-              iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+              iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 176px !important;'});
 
               // Moves the arrow 76px to the left margin
-              iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+              iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 176px !important;'});
+              iwBackground.children(':nth-child(3)').children(':nth-child(2)').children(':nth-child(1)').css('background-color', '#ff5b00');
+              iwBackground.children(':nth-child(3)').children(':nth-child(1)').children(':nth-child(1)').css('background-color', '#ff5b00');
+              //iwOuter.children(':nth-child(1)').css('height', '100px');
+              //iwOuter.children(':nth-child(1)').css('overflow', 'hidden');
               // Taking advantage of the already established reference to
               // div .gm-style-iw with iwOuter variable.
               // You must set a new variable iwCloseBtn.
@@ -78,7 +82,7 @@ function setMarkers(map) {
 
               // Apply the desired effect to the close button
               iwCloseBtn.css({
-                opacity: '1', // by default the close button has an opacity of 0.7
+                opacity: '0.7', // by default the close button has an opacity of 0.7
                 right: '60px', top: '20px', // button repositioning
                 });
 

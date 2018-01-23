@@ -106,6 +106,42 @@ class ObservationController extends Controller
       }
   }
 
+
+  //Fonction changer le nom de l'espece
+  /**
+   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
+  public function changeTaxrefnameAction($id)
+  {
+    $same = false;
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $taxrefname = $_POST["taxrefname"];
+      $em = $this->getDoctrine()->getManager();
+      $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($taxrefname);
+      for ($i=0; $i < sizeof($listeEspece) ; $i++) {
+        $espece = $listeEspece[$i]['nomVern'];
+        if ( trim($espece) === trim($taxrefname)) { //si espece du formulaire = espece dans la BDD TAXREF
+          $same = true;
+        }
+      }
+
+      if ($same == true) { //Si meme nom d'espece
+        $obs = $em->getRepository('OCNAOBundle:Observation')->validationObservation($id);
+        $obs[0]->setTaxrefname($taxrefname);
+        $em->persist($obs[0]);
+        $em->flush();
+
+        return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
+      }
+      else { //sinon
+        $this->addFlash('info', 'Mauvais nom de l\'espece.');
+        return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
+      }
+    }
+  }
+
+
   //Fonction validation des observations des observateurs
   /**
    *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")

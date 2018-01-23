@@ -9,10 +9,22 @@
     <div class="formulaire col-md-6 col-xs-12">
 
       {{ form_start(form) }}
-        {{ form_errors(form) }}
+        {% if form_errors(form.picture.image) or form_errors(form.taxrefname) or form_errors(form.latitude) %}
+          <div class="alert alert-danger">
+            {{ form_errors(form) }}
+            {{ form_errors(form.picture.image) }}
+            {{ form_errors(form.taxrefname) }}
+            {% if form_errors(form.latitude) %}
+              Merci de cliquez sur la carte pour definir l'emplacement de votre observation.
+            {% endif %}
+          </div>
+        {% endif %}
+
+
 
         <div class="imageForm">
           <h4>PHOTO DE L'OISEAU OBSERVÉ</h4>
+
           <label class="photoFileLabel col-md-12 control-label center" for="observation_picture_image">
             <img id="blah" src="{{asset("assets/images/choosePic.png")}}" onclick="javascript:readURL();" alt=""></img>
           </label>
@@ -43,6 +55,7 @@
 
     <div class="carte col-md-6 col-xs-12">
       <h4>EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
+      <h6 class="italic">Cliquez sur l'emplacement de la carte pour remplir les coordonnées automatiquement.</h6>
       <div id="map">
       </div>
       <div class="Coordonnees">
