@@ -67,14 +67,15 @@
           </div>
       </div>
   </div>
-
   </form>
 
 
 
 <div>
-
-
+  <form action="{{path('ocnao_profil_removeuser')}}">
+    <input type="hidden" name="usernameremove" value="{{user.username}}">
+  <input type="submit" value="Suprimer le compte"> modal de confirmaion
+  </form>
 </div>
 
 </div>

@@ -1,0 +1,35 @@
+.pagination>li>a,
+.pagination>li>span {
+  color: orange;
+  border: 1px solid orange;*
+}
+.pagination>li.active>a {
+  background: orange;
+  color: #fff;
+  border: 1px solid orange;
+}
+.pagination>li>a:hover{
+  color: red;
+  border: 1px solid orange;
+}
+.pagination>li.active>a:hover {
+  background: pink;
+  color: #fff;
+  border: 1px solid orange;
+}
+
+.nav-tabs > li.active >a {
+    float:none;
+    display:inline-block;
+    background: orange;
+}
+
+.nav-tabs > li.active >a {
+    float:none;
+    display:inline-block;
+
+}
+
+.nav-tabs {
+    text-align:center;
+}

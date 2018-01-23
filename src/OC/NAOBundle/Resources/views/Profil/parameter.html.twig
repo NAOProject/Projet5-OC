@@ -10,21 +10,45 @@
 <p><a href="/profile/change-password">Je ve changer mon mot de passe</a></p>
     <br>
 
-
 {% if user.newsletter == true %}
-<form action="">
+<form action="{{path('ocnao_profil_newsletter')}}">
   <input type="hidden" name="newsletter" value="false">
 <input type="submit" value="Ne plus suivre la newsletter">
 </form>
 {% else %}
-    <form action="">
+    <form action="{{path('ocnao_profil_newsletter')}}">
 <input type="hidden" name="newsletter" value="true">
 <input type="submit" value="Suivre la newsletter">
    </form>
 {% endif %}
+
+
   </div>
 
 </div>
+<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#confirm-delete">supprimer mon compte</button>
+
+<div class="modal fade" id="confirm-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h3>Confirmation</h3>
+            </div>
+            <div class="modal-body">
+              Etes vous sur de vouloir supprimer votre compte ?
+              ceci est definitif
+            </div>
+            <div class="modal-footer">
+              <form action="{{path('ocnao_profil_removeuser')}}">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">NON</button>
+                <input type="submit" class="btn btn-danger" value="supprimer">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 {% endblock %}

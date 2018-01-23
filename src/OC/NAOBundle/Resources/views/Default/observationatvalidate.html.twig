@@ -3,28 +3,39 @@
 {% block body %}
 <div class="container">
 
+        <div class="row Liste">
 
-<div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
-      <h3>Observation</h3>
-    {% if observationList|length < 1 %}
-    Vous n'avez rien publier pour l'instant
-    {% else %}
-      <table class="table" style="width:30%;margin:auto">
-         <tr>
-           <th>date</th>
-           <th>Nom</th>
-         </tr>
-         {% for observation in observationList %}
-         <tr>
-           <td>{{ observation.datetime|date("d/m/Y") }}</td>
-           <td>{{ observation.taxrefname }}</td>
-         </tr>
-         {% endfor %}
-      </table>
-    {% endif %}
+        {% for obs in observationList %}
+        <div {% if obs.notconforme == true %}class=".bg-danger"{% endif %}>
+          <div class="col-md-3 col-xs-6">
+            <div class="observation">
+              <div class="photo col-md-12">
+                {% if obs.picture.image is defined %}
+                  <div class="picture center">
+                    <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
+                  </div>
+                {% else %}
+                  <div class="picture center">
+                    <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="description col-md-12 col-xs-12">
+                <h4 class="center">{{ obs.taxrefname }}</h4>
+                <div class="col-md-3 col-xs-6">
+                  <h5>{{ obs.user.username }}</h5>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <h5>{{ obs.datetime.date|date("d/m/Y") }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
   </div>
-</div>
+        {% endfor %}
+
+    </div>
+
 <div class="text-center">
   <ul class="pagination">
     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}

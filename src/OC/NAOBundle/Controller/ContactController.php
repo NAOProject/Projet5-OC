@@ -29,7 +29,7 @@ class ContactController extends Controller
 
           $mailer = $this->container->get('mailer');
 
-          $message =  \Swift_Message::newInstance($object)
+          $message = (new \Swift_Message($object))
             ->setTo('pierrecitizen@hotmail.fr')
             ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
             ->setBody($content, 'text/html')

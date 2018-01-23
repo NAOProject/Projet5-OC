@@ -195,12 +195,11 @@ const nbPerPage = 4;
 
         $defaultData = array('message' => 'Type your message here');
         $form = $this->createFormBuilder($defaultData)
-       ->add('name', TextType::class)
-       ->add('submit', SubmitType::class)
-       ->getForm();
+                 ->add('name', TextType::class)
+                 ->add('submit', SubmitType::class)
+                 ->getForm();
 
        $form->handleRequest($request);
-
          if ($form->isSubmitted() && $form->isValid()) {
 
            $em = $this->getDoctrine()->getManager();
@@ -208,8 +207,6 @@ const nbPerPage = 4;
            $data = $form->getData()['name'];
            $user = $repository->findBy(array('username' => $data));
            $result = true;
-          //  dump($user);
-          //  exit;
            return $this->render('OCNAOBundle:Profil:users.html.twig', array(
                'user' => $user[0],
                'result' => $result,
@@ -249,11 +246,10 @@ const nbPerPage = 4;
       $username = $request->get('username');
       $role = $request->get('role');
 
-
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $userManager->findUserBy(array('username' => $username ));
       $user->setStatus(false);
-      $user->setRoles(array($role));// enregistre le role naturalist
+      $user->setRoles(array($role));// enregistre le role
       $userManager->updateUser($user);
 
         switch ($role) {
@@ -317,7 +313,47 @@ const nbPerPage = 4;
 
    }
 
+   /**
+    *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+    */
+   public function removeAction(Request $request)
+   {
+     $user = $request->get('usernameremove');
 
+     if (empty($user)) {
+        $user = $this->getUser();
+        $this->addFlash('info', "Votre compte a été supprimé");
+    }else {
+        $username = $user->getUsername();
+        $this->addFlash('info', "Le compte $username a été supprimé");
+    }
+    $this->addFlash('info', "la supression est desactiver pour le dev");
+      //$userManager->deleteUser($user);
+       return $this->redirectToRoute('ocnao_homepage');
+   }
+
+
+   /**
+    *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+    */
+   public function newsletterAction(Request $request)
+   {
+
+     $userManager = $this->get('fos_user.user_manager');//recuperre le service
+     $news = $request->get('newsletter');
+     $user = $this->getUser();
+
+     if ($news == "true") {
+       $user->setNewsletter(true);
+       $this->addFlash('info', "Vous venez de vous inscrire à la newletter, merci.");
+     }else {
+       $user->setNewsletter(false);
+       $this->addFlash('info', "Vous venez de vous désinscrire de la newletter.");
+     }
+      $userManager->updateUser($user);
+
+      return $this->redirectToRoute('ocnao_profil_parameter');
+   }
 
 
 

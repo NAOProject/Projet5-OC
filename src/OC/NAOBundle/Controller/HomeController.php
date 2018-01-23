@@ -10,4 +10,8 @@ class HomeController extends Controller
     {
         return $this->render('OCNAOBundle:Default:index.html.twig');
     }
+    public function LandingPageAction()
+    {
+        return $this->render('OCNAOBundle::landingpage.html.twig');
+    }
 }

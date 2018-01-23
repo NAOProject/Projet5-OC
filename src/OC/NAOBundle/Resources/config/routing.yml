@@ -75,6 +75,15 @@ ocnao_profil_autocomplete:
     defaults: { _controller: OCNAOBundle:Profil:userAutoComp }
     requirements:
       _method: POST
+ocnao_profil_removeuser:
+    path:     /profil/removeuser
+    defaults: { _controller: OCNAOBundle:Profil:remove }
+ocnao_profil_newsletter:
+    path:     /profil/newsletter
+    defaults: { _controller: OCNAOBundle:Profil:newsletter }
+ocnao_landingpage:
+    path:     /landingpage
+    defaults: { _controller: OCNAOBundle:Home:landingPage }
     # a supprimer
 ocnao_profil_nat:
     path:     /profil/nat
