@@ -65,7 +65,7 @@
                 <h5>{{ result.user.username }}</h5>
               </div>
               <div class="col-md-6 col-xs-6">
-                <h5>{{ result.datetime.date|date("d/m/Y") }}</h5>
+                <h5>{{ result.dateObs.date|date("d/m/Y") }}</h5>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@
          data-longitude="{{ result.longitude }}"
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
-         data-date="{{ result.datetime.date|date("d/m/Y") }}"
+         data-date="{{ result.dateObs.date|date("d/m/Y") }}"
          data-src="{{ asset('uploads/picture/' ~ result.picture.image) }}">
     </div>
     {% else %}
@@ -91,7 +91,7 @@
          data-longitude="{{ result.longitude }}"
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
-         data-date="{{ result.datetime.date|date("d/m/Y") }}"
+         data-date="{{ result.dateObs.date|date("d/m/Y") }}"
          data-src="{{ asset('assets/images/logo_nao.png') }}">
     </div>
     {% endif %}

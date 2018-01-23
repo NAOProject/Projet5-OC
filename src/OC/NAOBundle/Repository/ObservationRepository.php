@@ -25,6 +25,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getResult();
   }
 
+  public function nbObsUser($user) {
+    $qb = $this->createQueryBuilder('u');
+    $qb->select('COUNT(u)')->where('u.user = :user')->setParameter('user', $user)->andWhere('u.status = 1');
+
+    return $qb->getQuery()->getSingleScalarResult();
+  }
+
   public function observation($id)
   {
     $qb = $this->createQueryBuilder('ob');

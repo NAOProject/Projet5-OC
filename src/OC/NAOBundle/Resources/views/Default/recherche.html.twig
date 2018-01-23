@@ -66,7 +66,7 @@
                 <h5>{{ obs.user.username }}</h5>
               </div>
               <div class="col-md-6 col-xs-6">
-                <h5>{{ obs.datetime.date|date("d/m/Y") }}</h5>
+                <h5>{{ obs.dateObs.date|date("d/m/Y") }}</h5>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
          data-longitude="{{ obs.longitude }}"
          data-username="{{ obs.user.username }}"
          data-espece="{{ obs.taxrefname }}"
-         data-date="{{ obs.datetime.date|date("d/m/Y") }}"
+         data-date="{{ obs.dateObs.date|date("d/m/Y") }}"
          data-src="{{ asset('uploads/picture/' ~ obs.picture.image) }}">
     </div>
     {% else %}
@@ -92,7 +92,7 @@
          data-longitude="{{ obs.longitude }}"
          data-username="{{ obs.user.username }}"
          data-espece="{{ obs.taxrefname }}"
-         data-date="{{ obs.datetime.date|date("d/m/Y") }}"
+         data-date="{{ obs.dateObs.date|date("d/m/Y") }}"
          data-src="{{ asset('assets/images/logo_nao.png') }}">
     </div>
     {% endif %}

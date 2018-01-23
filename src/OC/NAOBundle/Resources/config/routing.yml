@@ -10,6 +10,9 @@ ocnao_addObservation:
 ocnao_observation:
     path:     /observation/{id}
     defaults: { _controller: OCNAOBundle:Observation:observation }
+ocnao_changeTaxrefname:
+    path:     /change/{id}
+    defaults: { _controller: OCNAOBundle:Observation:changeTaxrefname }
 ocnao_validate:
     path:     /validate/{id}
     defaults: { _controller: OCNAOBundle:Observation:validate }

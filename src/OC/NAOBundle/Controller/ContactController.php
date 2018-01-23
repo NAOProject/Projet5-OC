@@ -27,18 +27,17 @@ class ContactController extends Controller
             array('contact' => $contact
             ));
 
-          $mailer = $this->container->get('mailer');
 
-          $message = (new \Swift_Message($object))
-            ->setTo('pierrecitizen@hotmail.fr')
+          $message =  (new \Swift_Message($object))
+            ->setTo($email)
             ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
             ->setBody($content, 'text/html')
             ;
-          $mailer->send($message);
+          $this->get('mailer')->send($message);
 
-// $spool = $mailer->getTransport()->getSpool();
-// $transport = $this->get('swiftmailer.transport.real');
-// $spool->flushQueue($transport);
+//$spool = $mailer->getTransport()->getSpool();
+//$transport = $this->get('swiftmailer.transport.real');
+//$spool->flushQueue($transport);
 
           $this->addFlash('info', 'Votre message a bien été envoyé');
           return $this->redirectToRoute('ocnao_contact');

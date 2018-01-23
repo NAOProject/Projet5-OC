@@ -20,15 +20,10 @@ use web\assets\images;
 class ObservationController extends Controller
 {
   //Fonction permettant l'ajout d'observation
-
   public function addObservationAction(Request $request)
   {
 
-
-  // On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR
-
   if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-    // Sinon on déclenche une exception « Accès interdit »
     $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
     throw new AccessDeniedException('Accès limité aux utilisateur.');
   }
