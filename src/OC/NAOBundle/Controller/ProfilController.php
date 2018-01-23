@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfilController extends Controller
 {
-const nbPerPage = 4;
+const nbPerPage = 1;
 
   //récupére est affiche la liste des observations publiée et validée de l'utilisateur
   /**
