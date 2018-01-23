@@ -1,3 +1,11 @@
+/*Couleur
+Orange : #ff5b00;
+brun : #493c32;
+turquoise foncé : #00ac98;
+turquoise clair : #00c4b6;
+gris clair : #e4e4db;
+gris foncé : #747473;
+
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /* CSS COMMUN */
 
@@ -14,6 +22,47 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.logoMenu {
+  width: auto;
+  height: 50px;
+}
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(100, 100, 100, 0.9);
+}
+
+.navbar-btn, .btn {
+  background-color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: black;
+  font-weight: bold;
+}
+
+.inscription, .connexion, .don {
+  padding: 2 15 0 15 !important;
+  height: 25px;
+  margin-top: 15px;
+  margin-right: 10px;
+  font-weight: normal!important;
+  color: #fff!important;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.inscription {
+  background-color: #ff5b00;
+}
+
+.connexion {
+  background-color: #747473;
+}
+
+.don {
+  background-color: #00c4b6;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -24,8 +73,13 @@ body {
 }
 
 .userIcone {
-  height: 20px;
+  height: 36px;
   width: auto;
+  background-color: #fff;
+}
+
+.user > ul {
+  margin: 0!important;
 }
 
 .noPad {
@@ -85,7 +139,7 @@ body {
 
 .bandeau {
   height: 60px;
-  background-color: #AAAAAA;
+  background-color: #00ac98;
 }
 
 .rechercheTitle {
@@ -99,9 +153,10 @@ body {
 }
 
 .description {
-  background-color: #AAAAAA;
+  background-color: #493c32;
   color: white;
   padding-left: 10px;
+  height: 85px;
 }
 
 .descriptionMini {
@@ -119,6 +174,8 @@ body {
 .miniObs {
   width: 350px;
   height: 100px;
+  background-color: #ff5b00;
+  color: white;
 }
 
 .gm-style-iw {
@@ -126,9 +183,8 @@ body {
    top: 15px !important;
    left: 0 !important;
    background-color: #fff;
-   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-   border: 1px solid rgba(72, 181, 233, 0.6);
-   border-radius: 2px 2px 10px 10px;
+   border: 1px solid #493c32;
+   border-radius: 2px 2px 2px 2px;
 }
 
 .picture {
@@ -147,10 +203,11 @@ body {
 .Liste {
   height: 590px;
   overflow: auto;
+  padding: 0;
 }
 
 .Liste .col-md-6 {
-  padding: 5 0 5 10;
+  padding: 0 0 5 10;
 }
 
 
