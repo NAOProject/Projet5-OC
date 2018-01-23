@@ -23,10 +23,11 @@ class ObservationController extends Controller
   public function addObservationAction(Request $request)
   {
 
-  if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-    $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
-    throw new AccessDeniedException('Accès limité aux utilisateur.');
-  }
+  // if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || !$this->get('security.authorization_checker')->isGranted('ROLE_NATURALIST')) {
+  //   $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
+  //   throw new AccessDeniedException('Accès limité aux utilisateur.');
+  // }
+
     $observation = new Observation();
     $form = $this->createForm(ObservationType::class, $observation);
 
