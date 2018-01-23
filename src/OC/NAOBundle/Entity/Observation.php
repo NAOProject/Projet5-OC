@@ -58,6 +58,7 @@ class Observation
     /**
      * @ORM\OneToOne(targetEntity="OC\NAOBundle\Entity\Picture", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="picture", referencedColumnName="id")
+     * @Assert\Valid()
      */
     private $picture;
 

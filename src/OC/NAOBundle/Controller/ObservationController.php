@@ -108,7 +108,7 @@ class ObservationController extends Controller
   public function changeTaxrefnameAction($id)
   {
     $same = false;
-    
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $taxrefname = $_POST["taxrefname"];
       $em = $this->getDoctrine()->getManager();

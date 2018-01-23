@@ -3,51 +3,53 @@
 {% block body %}
 
 <div class="">
-  <div class="row">
-    <div class="formulaire col-md-12">
-      <div class="rechercheTitle col-md-4 col-xs-12">RECHERCHER UNE ESPÈCE D'OISEAU
-      </div>
-      <div class="col-xs-10 col-xs-offset-1  col-md-offset-0 col-md-5">
-      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        {{ form_errors(form) }}
+  <div class="container">
+    <div class="row ">
+      <div class="formulaire col-md-12">
+        <div class="rechercheTitle bold col-md-12"><h1>RECHERCHER UNE ESPÈCE D'OISEAU</h1>
+        </div>
+        <div class="col-xs-12 col-md-offset-0 col-md-6">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+          {{ form_errors(form) }}
 
-        {{ form_widget(form.espece, {
-          'attr': {
-  					'data-id': 'listedesespeces',
-  					'data-url': path('ocnao_autocomplete')
-            }
-          })
-        }}
-      </div>
-      <div class="col-md-2 col-xs-12 rechercheBoutton">
-        {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
-        {{ form_end(form) }}
+          {{ form_widget(form.espece, {
+            'attr': {
+    					'data-id': 'listedesespeces',
+    					'data-url': path('ocnao_autocomplete')
+              }
+            })
+          }}
+        </div>
+        <div class="col-md-2 col-xs-12 rechercheBoutton">
+          {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
+          {{ form_end(form) }}
+        </div>
       </div>
     </div>
   </div>
   <div class="lastObs">
     <h3 class="center">Nos dernières observations.</h3>
     <div class="affichageXs visible-xs col-xs-12">
-      <h4 class="col-xs-offset-1 col-xs-9">Affichage</h4>
+      <h4 class="col-xs-offset-1 col-xs-7">Affichage</h4>
       <div>
-        <button class="btn btn-default btnCarte col-xs-1"><span class="glyphicon glyphicon-map-marker"></span></button>
-        <button class="btn btn-default btnListe col-xs-1"><span class="glyphicon glyphicon-tasks"></span></button>
+        <button class="btn btn-default btnCarte col-md-1 col-xs-2"><span class="glyphicon glyphicon-map-marker"></span></button>
+        <button class="btn btn-default btnListe col-md-1 col-xs-2"><span class="glyphicon glyphicon-tasks"></span></button>
       </div>
     </div>
-    <div class="bandeau col-md-8">
+    <div class="bandeau col-md-6 col-lg-8">
       <h3 class="center white">CARTE INTERACTIVE</h3>
     </div>
-    <div class="bandeau col-md-4">
+    <div class="bandeau col-md-6 col-lg-4">
       <h3 class="center white">LISTE</h3>
     </div>
     <div class="row">
-      <div id="Carte" class="col-md-8 col-xs-12">
+      <div id="Carte" class="col-md-6 col-lg-8 col-xs-12">
         <div id="map">
         </div>
       </div>
-        <div class="row Liste col-md-4 col-xs-12">
+        <div class="row Liste col-md-6 col-lg-4 col-xs-12">
         {% for obs in lastObs %}
-        <div class="col-md-6 col-xs-6">
+        <div class="col-sm-6 col-md-6 col-xs-6">
           <div class="observation">
             <div class="photo col-md-12">
               {% if obs.picture.image is defined %}
@@ -66,7 +68,7 @@
                 <h5>{{ obs.user.username }}</h5>
               </div>
               <div class="col-md-6 col-xs-6">
-                <h5>{{ obs.dateObs.date|date("d/m/Y") }}</h5>
+                <h5 class="italic right">{{ obs.dateObs.date|date("d/m/Y") }}</h5>
               </div>
             </div>
           </div>

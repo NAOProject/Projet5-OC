@@ -40,21 +40,30 @@ class Picture
     private $url;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var UploadedFile
      *
      * @Assert\File(
-     * mimeTypes={ "image/jpeg", "image/jpg", "image/png" }, mimeTypesMessage = "La photo doit etre au format JPEG, JPG ou PNG",
-     * maxSize= "2M", maxSizeMessage = "La photo doit peser moins de 2Mo"
+     * maxSize= "2024k",
+     * maxSizeMessage = "La photo doit peser moins de 2Mo",
+     * mimeTypes={ "image/jpeg", "image/jpg", "image/png" },
+     * mimeTypesMessage = "La photo doit etre au format JPEG, JPG ou PNG",
      * )
      */
     private $image;
 
+    /**
+    * @return UploadedFile
+    */
     public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage($image)
+   /**
+   * @param UploadedFile $file
+   */
+    public function setImage(UploadedFile $image)
     {
         $this->image = $image;
 
