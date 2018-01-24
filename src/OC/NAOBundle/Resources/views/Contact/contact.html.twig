@@ -2,64 +2,46 @@
 
 {% block body %}
 <div class="container">
-  <div class="col-sm-offset-3">
-    <div class="row">
-      <div class="col-sm-6 text-center">
-        <h1>Nous Contacter</h1>
-        <br>
-      </div>
+  <div class="row">
+    <div class="col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-xs-10 col-sm-86 col-md-6 text-center">
+      <h1>Nous Contacter</h1>
+      <br>
     </div>
-    <div class="row">
-<div class="col-sm-6">
-
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-xs-10 col-sm-8 col-md-6">
 
       {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
       {# Les erreurs générales du formulaire. #}
       {{ form_errors(form) }}
-
-
-      <div class="form-group">
-        {{ form_label(form.name, "Nom") }}
-        {{ form_errors(form.name) }}
-
+        <div class="form-group">
+          {{ form_label(form.name, "Nom") }}
+          {{ form_errors(form.name) }}
           {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
-
-      </div>
-      <div class="form-group">
-        {{ form_label(form.prename, "Prénom") }}
-        {{ form_errors(form.prename) }}
-
-          {{ form_widget(form.prename, {'attr': {'class': 'form-control'}}) }}
-
-      </div>
-      <div class="form-group">
-        {{ form_label(form.email, "Votre Email") }}
-        {{ form_errors(form.email) }}
-
-          {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-
-      </div>
-      <div class="form-group">
-        {{ form_label(form.object, "Objet du messsage") }}
-        {{ form_errors(form.object) }}
-
-          {{ form_widget(form.object, {'attr': {'class': 'form-control'}}) }}
-
-      </div>
-      <div class="form-group">
-        {{ form_label(form.message, "Message") }}
-        {{ form_errors(form.message) }}
-
-          {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
         </div>
-
-
-      <div class="text-center">
-          {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-      </div>
-</div>
-
+        <div class="form-group">
+          {{ form_label(form.prename, "Prénom") }}
+          {{ form_errors(form.prename) }}
+          {{ form_widget(form.prename, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(form.email, "Votre Email") }}
+          {{ form_errors(form.email) }}
+          {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(form.object, "Objet du messsage") }}
+          {{ form_errors(form.object) }}
+          {{ form_widget(form.object, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(form.message, "Message") }}
+          {{ form_errors(form.message) }}
+          {{ form_widget(form.message, {'attr': {'class': 'form-control','style': 'resize:vertical'}}) }}
+          </div>
+        <div class="text-center">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn-site-orange'}}) }}
+        </div>
       {{ form_rest(form) }}
       {{ form_end(form) }}
     </div>

@@ -9,16 +9,25 @@
 .navbar{
   /*background-color: red;
   border-bottom: 5px solid black;*/
-  box-shadow: 0px 2px 12px #aaa;
+  /*box-shadow: 0px 2px 12px #aaa;*/
 }
 
 .home1{
+  color: white;
+  height: 433px;
+  background-size: 100% 433px;
+  background-image: url("../images/image-accueil-optimisée2.jpg");
+  width: auto;
+  background-repeat: no-repeat;
+
+}
+/*.home1{
   color: white;
   height: 550px;
   background-size: cover;
   background-image: url("../images/imageaccueilpierre.jpg");
   background-repeat: no-repeat;
-}
+}*/
 /*@media screen and (min-width: 720px) and (max-width: 1500px) {
   .home1{
     color: white;
@@ -30,15 +39,18 @@
 
   }
 }*/
+.home{
+  max-width:1200px
+}
+
 
 .home2{
   margin-top: 50px ;
   height: 300px;
 
-
 }
 .home3{
-  margin-top: 50px ;
+  margin-top: 100px ;
   height: 300px;
 
 }
@@ -84,6 +96,7 @@
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 .btn-site-orange:hover{
+  color: white;
   font-weight: bold;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
 }
@@ -94,11 +107,11 @@
 
 .pagination>li>a,
 .pagination>li>span {
-  color: orange;
+  color: #ff5b00;
   border: 1px solid orange;*
 }
 .pagination>li.active>a {
-  background: orange;
+  background: #ff5b00;
   color: #fff;
   border: 1px solid orange;
 }
@@ -107,7 +120,7 @@
   border: 1px solid orange;
 }
 .pagination>li.active>a:hover {
-  background: pink;
+  background: #00c4b6;
   color: #fff;
   border: 1px solid orange;
 }
@@ -132,7 +145,7 @@
 
 
 /*///////////////////////////////////////////////////////////////////*/
-/*css formulaire*/
+/*css formulaire commun*/
 
 .form-control {
   border: 0px solid;
@@ -145,9 +158,9 @@
   border-bottom: 2px solid black;
 }
 .form-control:focus {
-  border: 1px solid red;
+  border: 1px solid #ff5b00;
   outline: 0;
   background: transparent;
-
-  border-bottom: 2px solid red;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #ff5b00;
 }

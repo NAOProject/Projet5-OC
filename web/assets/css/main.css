@@ -64,6 +64,15 @@ body {
   color: #fff!important;
   border-radius: 15px 15px 15px 15px;
 }
+.inscription:hover, .connexion:hover, .don:hover {
+  padding: 2 15 0 15 !important;
+  height: 26px;
+  margin-top: 15px;
+  margin-right: 10px;
+  font-weight: normal!important;
+  color: #fff!important;
+  border-radius: 15px 15px 15px 15px;
+}
 
 .inscription {
   background-color: #ff5b00;

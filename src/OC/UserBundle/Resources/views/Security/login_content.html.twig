@@ -3,38 +3,35 @@
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
-<h1 class="text-center">Connexion</h1>
-<br>
-<div class="container col-md-offset-4">
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
-  <div class="row">
-    <div class="form-group">
-      <label class="col-sm-2 control-label text-right" for="username">{{ 'Pseudo/Email'|trans }}<span style="color:red">*</span></label>
-      <div class="col-sm-3">
-        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-      </div>
+
+<div class="container">
+  <div class="col-md-offset-4 col-md-4">
+    <h1 class="text-center">Connexion</h1>
+    <br>
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
+        <div class="form-group">
+          <label class="control-label" for="username">{{ 'Pseudo/Email'|trans }}<span style="color:red">*</span></label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+        </div>
+
+      <br>
+        <div class="form-group">
+          <label class="control-label" for="password">{{ 'security.login.password'|trans }}<span style="color:red">*</span></label>
+
+            <input class="form-control" type="password" id="password" name="_password" required="required"/>
+        </div>
+     <br>
+
+        <!-- <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label> -->
+    <br>
+    <div class="text-center">
+        <input class="btn-site-orange" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </div>
+
+    </form>
   </div>
-  <br>
-  <div class="row">
-    <div class="form-group">
-      <label class="col-sm-2 control-label text-right" for="password">{{ 'security.login.password'|trans }}<span style="color:red">*</span></label>
-      <div class="col-sm-3">
-        <input class="form-control" type="password" id="password" name="_password" required="required"/>
-      </div>
-    </div>
- </div>
- <br>
-<div class="row">
-<div class="col-md-offset-2 col-sm-2">
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-<br>
-    <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-</div>
-</div>
-</form>
 </div>
