@@ -241,11 +241,16 @@ class ObservationController extends Controller
     $user = $this->getUser();
     $observation = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->observation($id);
 
+    $famille = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Taxref')->famille($observation[0]->getTaxrefname());
+    $nbObsUser = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->nbObsUser($observation[0]->getUser()->getId());
+
     //Si l'observation est publié ou role naturalist ou admin
     if ($user) {
       if ($observation[0]->getStatus() == 1 OR $user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
+          'nbObs' => $nbObsUser,
+          'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');
@@ -255,6 +260,8 @@ class ObservationController extends Controller
       if ($observation[0]->getStatus() == 1) {
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
+          'nbObs' => $nbObsUser,
+          'famille' => $famille 
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');
