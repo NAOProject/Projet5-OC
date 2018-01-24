@@ -41,7 +41,6 @@ class Picture
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var UploadedFile
      *
      * @Assert\File(
      * maxSize= "2024k",
@@ -52,18 +51,14 @@ class Picture
      */
     private $image;
 
-    /**
-    * @return UploadedFile
-    */
+
     public function getImage()
     {
         return $this->image;
     }
 
-   /**
-   * @param UploadedFile $file
-   */
-    public function setImage(UploadedFile $image)
+
+    public function setImage($image)
     {
         $this->image = $image;
 

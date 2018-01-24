@@ -4,6 +4,7 @@ if($(window).width()<=767) {
   $('.Liste').addClass('hidden');
   $('.glyphicon-map-marker').css("color", "white");
   $('.glyphicon-tasks').css("color", "#00c4b6");
+
 }
 
 $('.btnListe').click(function() {

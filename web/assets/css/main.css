@@ -10,12 +10,13 @@ gris foncé : #747473;
 /* CSS COMMUN */
 
 .nav-tabs > li {
-    float:none;
-    display:inline-block;
+  float:none;
+  display:inline-block;
 }
 
 .nav-tabs {
-    text-align:center;
+  text-align:center;
+  background-color: white;
 }
 
 html {
@@ -88,6 +89,10 @@ body {
 
 .navbar-btn, .nav > .btn {
   background-color: #fff;
+}
+
+.container-fluid {
+  background-color: white;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -460,6 +465,19 @@ body {
 
   h4 {
     font-size: 1.7REM;
+  }
+
+  .nav a {
+    font-size: 1REM;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    color: black;
+    font-weight: normal;
+  }
+
+  .footer a {
+    font-size: 1.2REM;
   }
 
   .container {
