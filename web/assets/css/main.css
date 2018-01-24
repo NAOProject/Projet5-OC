@@ -218,7 +218,7 @@ body {
   color: white;
   padding-left: 10px;
   padding-right: 10px;
-  height: 85px;
+  height: 100px;
 }
 
 .descriptionMini {
@@ -254,8 +254,6 @@ body {
    border: 1px solid #493c32;
    border-radius: 2px 2px 2px 2px;
 }
-
-
 
 .picture {
   overflow: hidden;
