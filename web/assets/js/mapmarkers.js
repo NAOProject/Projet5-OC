@@ -71,20 +71,34 @@ function setMarkers(map) {
               iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 176px !important;'});
               iwBackground.children(':nth-child(3)').children(':nth-child(2)').children(':nth-child(1)').css('background-color', '#ff5b00');
               iwBackground.children(':nth-child(3)').children(':nth-child(1)').children(':nth-child(1)').css('background-color', '#ff5b00');
-              //iwOuter.children(':nth-child(1)').css('height', '100px');
-              //iwOuter.children(':nth-child(1)').css('overflow', 'hidden');
+
               // Taking advantage of the already established reference to
               // div .gm-style-iw with iwOuter variable.
               // You must set a new variable iwCloseBtn.
               // Using the .next() method of JQuery you reference the following div to .gm-style-iw.
               // Is this div that groups the close button elements.
               var iwCloseBtn = iwOuter.next();
+              var iwCloseImage = iwOuter.next().next();
 
               // Apply the desired effect to the close button
-              iwCloseBtn.css({
-                opacity: '0.7', // by default the close button has an opacity of 0.7
-                right: '60px', top: '20px', // button repositioning
-                });
+              if($(window).width()<=767) {
+                iwCloseBtn.css({
+                  opacity: '0.7', // by default the close button has an opacity of 0.7
+                  right: '20px', top: '20px', // button repositioning
+                  });
+                iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 156px !important;'});
+                iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 156px !important;'});
+              } else {
+                iwCloseBtn.css({
+                  opacity: '0.7', // by default the close button has an opacity of 0.7
+                  right: '60px', top: '20px', // button repositioning
+                  });
+                iwCloseImage.css({
+                  right: '40px',
+                })
+              }
+
+
 
               // The API automatically applies 0.7 opacity to the button after the mouseout event.
               // This function reverses this event to the desired value.
