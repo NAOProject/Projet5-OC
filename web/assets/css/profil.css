@@ -47,7 +47,18 @@
 .home2{
   margin-top: 50px ;
   height: 300px;
-
+}
+.btng{
+  /*display: inline-block;*/
+  width: 300px;
+}
+.btn1{
+  float: left;
+  width: 50%;
+}
+.btn2{
+  float: left;
+  width: 50%;
 }
 
 .home3{

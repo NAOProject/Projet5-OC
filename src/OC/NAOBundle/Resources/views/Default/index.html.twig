@@ -23,24 +23,30 @@
 <div class="container-fluid home">
 
   <div class="home2">
-      <div class="col-xs-6 col-md-6">
+      <div class="col-xs-12 col-md-6">
         <h4>CONTRIBUER À LA SCIENCE</h4>
         <p>Notre association NAO regroupe les pasionnées d'ornithologie, amateurs et professionnels.</p>
         <p>Nous avons créé ce site pour que tout le monde puisse indiquer où il a observé des oiseaux au cours de sa promenade !</p>
         <p>Ainsi vous pouvez participer à un programme de recherche visant à étudier les effets du climat, de l'urbanisation et de l'agriculture sur la biodiversité</p>
         <br>
-        <div class="col-xs-12 col-md-5">
-          <form action="{{ path('ocnao_recherche') }}">
-              <input class="btn-site" style="width:150px" type="submit" value="En savoir plus" />
+        <div class="btng">
+
+
+        <!-- <div class="col-xs-6 col-sm-4 col-md-4"> -->
+          <form class="btn1" action="{{ path('ocnao_recherche') }}">
+              <input class="btn-site" style="width:130px" type="submit" value="En savoir plus" />
           </form>
-        </div>
-        <div class="col-xs-12 col-md-5">
-          <form action="{{ path('fos_user_registration_register') }}">
-              <input class="btn-site-orange" style="width:150px" type="submit" value="S'inscrires" />
+        <!-- </div> -->
+        <!-- <div class="col-xs-6 col-sm-4 col-md-4"> -->
+          <form class="btn2" action="{{ path('fos_user_registration_register') }}">
+              <input class="btn-site-orange" style="width:130px" type="submit" value="S'inscrires" />
           </form>
+        <!-- </div> -->
         </div>
+
+
       </div>
-      <div class="col-xs-6 col-md-6">
+      <div class="hidden-xs hidden-sm col-md-6">
         <div class="text-center">
             <img style="height:300px;"src="{{ asset("assets/images/logo_de_fond.png")}}" alt="logo_de_fond">
         </div>
