@@ -6,9 +6,9 @@
     <h1 class="text-center">Mot de passe perdu</h1>
     <br>
     <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-      <div>
+      <div class="form-group">
           <label for="username">{{ 'resetting.request.username'|trans }}</label>
-          <input type="text" id="username" name="username" required="required" />
+          <input class="form-control" type="text" id="username" name="username" required="required" />
       </div>
       <br>
       <div class="text-center">
