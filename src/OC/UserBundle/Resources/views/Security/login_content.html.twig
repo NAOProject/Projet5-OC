@@ -31,7 +31,14 @@
     <div class="text-center">
         <input class="btn-site-orange" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </div>
-
     </form>
+    <br/>
+    <div>
+      <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
+    </div>
+    <br />
+    <div>
+      Pas encore inscrit ? <a href="{{ path('fos_user_registration_register') }}">Inscrivez vous.</a>
+    </div>
   </div>
 </div>
