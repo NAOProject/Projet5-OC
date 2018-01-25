@@ -13,7 +13,9 @@ class RegistrationType extends AbstractType
     {
           $builder
         ->add('newsletter', CheckboxType::class, array(
-          'label' => 'Je souhaite m\'incrire à la newsletter',
+          'label' => 'Je ne veux pas newsletterbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          'label_attr' => array('id' => 'newsletter'),
+          'attr' => array('checked' => 'checked', 'value' => 'false'),
           'required' => false,
         ));
     }

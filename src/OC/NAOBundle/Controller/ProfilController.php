@@ -168,18 +168,22 @@ class ProfilController extends Controller
     */
    public function removeAction(Request $request)
    {
-     $user = $request->get('usernameremove');
+     $username = $request->get('usernameremove');
+     //$userManager = $this->get('fos_user.user_manager');
+     $this->addFlash('info', "la supression est desactiver pour le dev");
 
-     if (empty($user)) {
-        $user = $this->getUser();
-        $this->addFlash('info', "Votre compte a été supprimé");
-    }else {
-        $username = $user->getUsername();
-        $this->addFlash('info', "Le compte $username a été supprimé");
-    }
-    $this->addFlash('info', "la supression est desactiver pour le dev");
-      //$userManager->deleteUser($user);
-       return $this->redirectToRoute('ocnao_homepage');
+       if (empty($username)) {
+          $user = $this->getUser();
+          //$userManager->deleteUser($user);
+          $this->addFlash('info', "Votre compte a été supprimé");
+          return $this->redirectToRoute('ocnao_homepage');
+        }else {
+          $this->addFlash('info', "Le compte $username a été supprimé");
+          //$userManager->deleteUser($user);
+          return $this->redirectToRoute('ocnao_profil_users');
+        }
+
+
    }
 
 

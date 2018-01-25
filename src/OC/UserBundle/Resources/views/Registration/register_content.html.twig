@@ -6,10 +6,25 @@
       <br>
       {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
           {{ form_widget(form) }}
+
+
+          <div>
+              <label for="form_newsletter">Age</label>
+              <ul>
+                  <li>This field is required</li>
+              </ul>
+              <input type="number" id="form_age" name="form[age]" />
+          </div>
+<p>
+   <input type="checkbox" id="test2" checked="checked" />
+   <label for="test2">Yellow</label>
+ </p>
+
       <br>
       <div class="text-center">
           <input class="btn-site-orange"type="submit" value="{{ 'registration.submit'|trans }}" />
       </div>
+
       <br>
     En cliquant sur "Créer un compte", vous acceptez nos<a href="#"> Conditions d'utilisation</a>.
     {{ form_end(form) }}
