@@ -1,0 +1,158 @@
+/*CSS des menus de navigation */
+
+.logoMenu {
+  width: auto;
+  height: 50px;
+}
+
+.navigation {
+  align-items: center;
+  vertical-align: middle;
+}
+
+.nav-tabs > li {
+  float:none;
+  display:inline-block;
+}
+
+.nav-tabs {
+  text-align:center;
+  background-color: white;
+}
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(100, 100, 100, 0.9);
+  height: 64px;
+}
+
+.navbar-btn, .nav > .btn {
+  background-color: #fff;
+}
+
+.container-fluid {
+  background-color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: black;
+  font-weight: bold;
+}
+
+.inscription, .connexion, .don {
+  padding: 2 15 0 15 !important;
+  height: 25px;
+  margin-top: 15px;
+  margin-right: 10px;
+  font-weight: normal!important;
+  color: #fff!important;
+  border-radius: 15px 15px 15px 15px;
+}
+.inscription:hover, .connexion:hover, .don:hover {
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.inscription {
+  background-color: #ff5b00!important;
+}
+
+.connexion {
+  background-color: #747473!important;
+}
+
+.don {
+  background-color: #00c4b6!important;
+}
+
+/*CSS Nav bar bottom*/
+
+.pictoMini {
+  height: 45px;
+  width: auto;
+  background-color: #00ac98;
+}
+
+.navBottom  {
+  background-color: #00ac98;
+  height: 70px;
+}
+
+.navBottom div {
+  text-align: center;
+  padding: 0;
+  padding-top: 4px;
+}
+
+.navBottom h6 {
+  margin: 5px;
+  font-size: 10px;
+  color: white;
+}
+
+/*Media commun top et bottom */
+
+@media screen and (max-width:767px) {
+
+  .nav a {
+    font-size: 1REM;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    color: black;
+    font-weight: normal;
+  }
+
+
+  .userIcone {
+    height: 20px;
+    width: auto;
+  }
+
+  .navbar-header > button {
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 1199px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .userIcone {
+      height: 20px;
+      width: auto;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}
