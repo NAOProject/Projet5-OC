@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.css")}}">
   <link rel="stylesheet" href="{{asset("assets/css/map.css")}}">
   <link rel="stylesheet" href="{{asset("assets/css/main.css")}}">
+  <link rel="stylesheet" href="{{asset("assets/css/menu.css")}}">
   <link rel="stylesheet" href="{{asset("assets/css/profil.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.structure.css")}}">
   <link rel="stylesheet" href="{{asset("assets/jquery/css/jquery-ui.theme.css")}}">
@@ -52,9 +53,6 @@
         </div>
         <div class="col-md-3">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <ul class="nav navbar-nav navbar-right">
-            <li role="presentation"><a class="don" href="#">Faire un don</a></li>
-          </ul>
           <div class="dropdown nav navbar-nav navbar-right">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
               <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
@@ -68,6 +66,10 @@
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
             </ul>
           </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li role="presentation"><a class="don" href="#">Faire un don</a></li>
+          </ul>
+
           {% else %}
           <ul class="nav navbar-nav navbar-right">
             <li role="presentation"><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
@@ -91,12 +93,10 @@
                    <span class="icon-bar"></span>
               </button>
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a class="navbar-toggle don" href="#">Faire un don</a>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".user" aria-expanded="false" data-placement="bottom" >
                   <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
                 </button>
               {% else %}
-                  <a class="navbar-toggle don" href="#">Faire un don</a>
                   <a class="navbar-toggle connexion" href="{{ path('fos_user_security_login') }}" >Se connecter</a>
                   <a class="navbar-toggle inscription" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
               {% endif %}
@@ -104,7 +104,6 @@
             </div>
             <div class="collapse navbar-collapse menu center">
                <ul class="nav navbar-nav">
-                 <h3 class="collapse-header">MENU</h3>
                  <li role="presentation"><a href="{{ path('ocnao_recherche') }}">RECHERCHER UNE OBSERVATION</a></li>
                  <li role="presentation"><a href="{{ path('ocnao_addObservation') }}">AJOUTER UNE OBSERVATION</a></li>
                  {% if is_granted("ROLE_ADMIN") %}
@@ -112,11 +111,11 @@
                  {% endif %}
                  <li role="presentation"><a href="#">COMMENT CA MARCHE ?</a></li>
                  <li role="presentation"><a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
+                 <li role="presentation"><a href="#">Faire un don</a></li>
                </ul>
             </div>
             <div class="collapse navbar-collapse user center">
               <ul class="nav navbar-nav">
-              <h3 class="collapse-header">PANEL UTILISATEUR</h3>
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {% if is_granted("ROLE_ADMIN") %}
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
