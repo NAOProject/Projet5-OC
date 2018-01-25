@@ -3,10 +3,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {% block title %}{% endblock %}
-  {% block meta %}
-    <meta name="description" content="" />
-  {% endblock %}
+  <title>{% block title %}{% endblock %}Nos Amis les Oiseaux</title>
+  {% block meta %}{% endblock %}
 
   {% block stylesheets %}
   <!-- jQuery -->
@@ -180,7 +178,7 @@
             <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
           </button>
           {% else %}
-          <a class="navbar-toggle connexion" href="{{ path('fos_user_security_login') }}" >CONNECTION</a>
+          <a class="navbar-toggle connexion" href="{{ path('fos_user_security_login') }}" >CONNEXION</a>
           <a class="navbar-toggle inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a>
           {% endif %}
           <a class="" href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}" /></a>
