@@ -6,8 +6,33 @@ $('#observation_notsur').change(function() {
   } else {
     $('#observation_picture_image').attr("required", false);
   }
-})
+});
 
+$("#observation_picture_image").change(function(){
+    readURL(this);
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+            $('.image').removeClass('hidden');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('#observation_dateObs').datepicker({
+  format: "dd/mm/yyyy",
+  endDate: '0',
+  todayBtn: true,
+  language: "fr",
+  autoclose: true,
+  todayHighlight: true,
+});
 
 var inputLatitude = document.getElementById("observation_latitude");
 var inputLongitude = document.getElementById("observation_longitude");

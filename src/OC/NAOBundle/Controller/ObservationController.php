@@ -261,7 +261,7 @@ class ObservationController extends Controller
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
           'nbObs' => $nbObsUser,
-          'famille' => $famille 
+          'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('danger', 'L\'observation n\'existe pas');

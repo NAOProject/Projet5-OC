@@ -11,8 +11,6 @@
   <h2>AJOUTER UNE OBSERVATION</h2>
   <div class="row form">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="formulaire col-md-6 col-xs-12">
-
       {{ form_start(form) }}
         {% if form_errors(form.picture.image) or form_errors(form.taxrefname) or form_errors(form.latitude) %}
           <div class="alert alert-danger">
@@ -24,9 +22,7 @@
             {% endif %}
           </div>
         {% endif %}
-
-
-
+      <div class="formulaire col-md-6 col-xs-12">
         <div class="imageForm">
           <h4>PHOTO DE L'OISEAU OBSERVÉ</h4>
 
@@ -83,34 +79,7 @@
   </div>
 </div>
 
-<script>
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-            $('.image').removeClass('hidden');
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$("#observation_picture_image").change(function(){
-    readURL(this);
-});
-
-$('#observation_dateObs').datepicker({
-  format: "dd/mm/yyyy",
-  endDate: '0',
-  todayBtn: true,
-  language: "fr",
-  autoclose: true,
-  todayHighlight: true,
-});
-
-</script>
 <script src="{{asset("assets/js/mapAddObs.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
