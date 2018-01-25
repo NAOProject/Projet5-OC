@@ -1,11 +1,12 @@
 /*///////////////////////////////////////////////////////////////////*/
 /*css page accueil est menu*/
-
-.logomenu {
-  height: 64px;
-  width: auto;
-
+@media screen and (min-width: 1200px) {
+  .logomenu {
+    height: 64px;
+    width: auto;
+  }
 }
+
 .navbar{
   /*background-color: red;
   border-bottom: 5px solid black;*/

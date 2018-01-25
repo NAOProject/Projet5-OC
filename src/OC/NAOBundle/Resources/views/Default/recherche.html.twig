@@ -20,7 +20,7 @@
             })
           }}
         </div>
-        <div class="col-md-2 col-xs-12 rechercheBoutton">
+        <div class="col-md-offset-0 col-md-2 col-xs-offset-4 col-xs-8 rechercheBoutton">
           {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
           {{ form_end(form) }}
         </div>
@@ -29,11 +29,11 @@
   </div>
   <div class="lastObs">
     <h3 class="center">Nos dernières observations.</h3>
-    <div class="affichageXs visible-xs col-xs-12">
-      <h4 class="col-xs-offset-1 col-xs-7">Affichage</h4>
-      <div>
-        <button class="btn btn-default btnCarte col-md-1 col-xs-2"><span class="glyphicon glyphicon-map-marker"></span></button>
-        <button class="btn btn-default btnListe col-md-1 col-xs-2"><span class="glyphicon glyphicon-tasks"></span></button>
+    <div class="row affichageXs visible-xs col-xs-12">
+      <h4 class="white col-xs-6">Affichage</h4>
+      <div class="right">
+        <button class="btn btn-default btnCarte"><span class="glyphicon glyphicon-map-marker"></span></button>
+        <button class="btn btn-default btnListe"><span class="glyphicon glyphicon-tasks"></span></button>
       </div>
     </div>
     <div class="bandeau col-md-6 col-lg-8">
@@ -47,7 +47,7 @@
         <div id="map">
         </div>
       </div>
-        <div class="row Liste col-md-6 col-lg-4 col-xs-12">
+        <div class=" Liste col-md-6 col-lg-4 col-xs-12">
         {% for obs in lastObs %}
         <div class="col-sm-6 col-md-6 col-xs-6">
           <div class="observation">
