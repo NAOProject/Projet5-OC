@@ -53,12 +53,6 @@ body {
   font-style: italic;
 }
 
-.userIcone {
-  height: 36px;
-  width: auto;
-  background-color: #fff;
-}
-
 .user > ul {
   margin: 0!important;
 }

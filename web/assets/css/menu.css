@@ -5,6 +5,12 @@
   height: 50px;
 }
 
+.userIcone {
+  height: 36px;
+  width: auto;
+  background-color: #fff;
+}
+
 .navigation {
   align-items: center;
   vertical-align: middle;
