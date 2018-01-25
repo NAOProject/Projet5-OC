@@ -47,8 +47,9 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
     return $qb->getQuery()->getResult();
   }
-  //la liste des observation valider pour un Utilisateur
-  public function userObservation($user, $page, $nbPerPage)
+  
+  //la liste des observations valider pour un Utilisateur
+  public function getuserObservation($user, $page, $nbPerPage)
   {
     $qb = $this->createQueryBuilder('userobservation');
     $qb->where('userobservation.user = :user')
@@ -67,8 +68,21 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return new Paginator($qb, true);
   }
 
-  //la liste des observation en attente pour un Observateur
-  public function userPendingObservation($user, $page, $nbPerPage)
+  //la liste des observations non conforme pour un Utilisateur
+  public function getUserObservationRefuse($user, $page, $nbPerPage)
+  {
+    $qb = $this->createQueryBuilder('userobservationrefused');
+    $qb->where('userobservationrefused.user = :user')
+          ->setParameter('user', $user)
+      ->andWhere('userobservationrefused.status = 0')
+      ->orderBy('userobservationrefused.datetime', 'DESC')
+      ;
+      $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
+      return new Paginator($qb, true);
+  }
+
+  //la liste des observations en attente pour un Observateur
+  public function getUserPendingObservation($user, $page, $nbPerPage)
   {
     $qb = $this->createQueryBuilder('userpendingobservation');
     $qb->where('userpendingobservation.user = :user')
@@ -80,8 +94,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return new Paginator($qb, true);
   }
 
-  //la liste des observation en attente pour un Observateur
-  public function userObservationValidate($user, $page, $nbPerPage)
+  //la liste des observations valider par un naturaliste ou administrateur
+  public function getUserObservationValidate($user, $page, $nbPerPage)
   {
     $qb = $this->createQueryBuilder('userobservationvalidate');
     $qb->where('userobservationvalidate.uservalidator = :uservalidator')
@@ -94,7 +108,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return new Paginator($qb, true);
   }
 
-  //la liste des observation en attente pour un Observateur
+  //la liste des observations en attente de validation
   public function ObservationAtValidate($user, $page, $nbPerPage)
   {
     $qb = $this->createQueryBuilder('observationatvalidate');

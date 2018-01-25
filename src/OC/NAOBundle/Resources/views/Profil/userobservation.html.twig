@@ -4,26 +4,29 @@
 
 <div class="container">
   <ul class="nav nav-tabs">
-    <li {% if route == 'ocnao_profil_userobservation' %}class='active'{% endif %}>
-        <a  href="{{ path('ocnao_profil_userobservation') }}">Observation publier</a>
+    <li>
+        <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier test</a>
+    </li>
+    <li {% if statusobs == 'publish' %}class='active'{% endif %}>
+        <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier</a>
     </li>
     {% if is_granted('ROLE_OBSERVER') %}
-    <li {% if route == 'ocnao_profil_pendingobservation' %}class='active'{% endif %}>
-      <a  href="{{ path('ocnao_profil_pendingobservation') }}">Observation en attente</a>
+    <li {% if statusobs == 'pending' %}class='active'{% endif %}>
+      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'pending'}) }}">Observation en attente</a>
     </li>
-    <li {% if route == 'ocnao_profil_pendingobservation' %}class='active'{% endif %}>
-      <a  href="{{ path('ocnao_profil_pendingobservation') }}">Observation Non comforme</a>
+    <li {% if statusobs == 'pending' %}class='active'{% endif %}>
+      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'conforme'}) }}">Observation Non conforme</a>
     </li>
     {% endif %}
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
-    <li {% if route == 'ocnao_profil_observationvalidate' %}class='active'{% endif %}>
-      <a  href="{{ path('ocnao_profil_observationvalidate') }}">Obervation validé</a>
+    <li {% if statusobs == 'validate' %}class='active'{% endif %}>
+      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'validate'}) }}">Obervation validé</a>
     </li>
     {% endif %}
   </ul>
 
-{% if route == 'ocnao_profil_userobservation' %}
-
+{% if statusobs == 'publish' %}
+fffffffffffffffff
 {% endif %}
 
 
@@ -67,37 +70,29 @@ vous n'avez pas observation pour l'instant
 
 
 
-<div class="text-center">
-  <ul class="pagination">
+  <div class="text-center">
+    <ul class="pagination">
+      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+      {% if page == 1 %}
+  <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': 1}) }}">precedent</a>
+  {% else %}
 
-    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+        <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}">precedent</a>
+    {% endif %}
 
-    {% for p in range(1, nbPages) %}
+    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
+      {% for p in range(1, nbPages) %}
 
-      <li{% if p == page %} class="active"{% endif %}>
-      <a href="{{ path(route, {'page': p}) }}">{{ p }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+        <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 <!-- fin test not obs -->
 {% endif %}
-<div class="container"> <!-- A supprimer a la fin du dev -->
-  <h3>Dev</h3>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que {{ app.user.username }}
 
-      <p>etape 1 cliquer sur le role voulu</p>
-        <a href="{{ path('ocnao_profil_obs') }}">devenir observateur</a>
-        <a href="{{ path('ocnao_profil_nat') }}">devenir naturalist</a>
-        <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
-      <p>etape 2 ce deconnecte</p>
-      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-      <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-      <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-    {% endif %}
-</div>
+
 
 </div>
 {% endblock %}

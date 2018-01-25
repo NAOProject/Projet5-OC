@@ -45,9 +45,11 @@
 
 
 .home2{
-  background-color: #e4e4db;
   margin-top: 100px ;
-  height: 300px;
+  height: 400px;
+}
+.bg-home2{
+    background-color: #e4e4db;
 }
 .btng{
   /*display: inline-block;*/
@@ -63,12 +65,13 @@
 }
 
 .home3{
-  margin-top: 50px ;
+  margin-top: 100px ;
+  margin-bottom: 50px;
   height: 300px;
 }
 
 .text-home3{
-  margin-top: 50px;
+  /*margin-top: 50px;*/
 }
 
 

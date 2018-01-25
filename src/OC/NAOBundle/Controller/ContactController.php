@@ -23,7 +23,7 @@ class ContactController extends Controller
 
 
           $content = $this->renderView(
-            'OCNAOBundle:Contact:email.html.twig',
+            'OCNAOBundle:Contact:emailcontact.html.twig',
             array('contact' => $contact
             ));
 

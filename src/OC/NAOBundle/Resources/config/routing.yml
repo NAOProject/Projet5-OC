@@ -30,31 +30,18 @@ ocnao_autocomplete:
     defaults: { _controller: OCNAOBundle:Observation:autocomplete }
     requirements:
       _method: POST
-ocnao_profil_userobservation:
-    path:     /profil/userobs/{page}
+ocnao_profil_listobs:
+    path:     /profil/list/{statusobs}/{page}
     defaults:
-        _controller: OCNAOBundle:Profil:userObservation
+        _controller: OCNAOBundle:ProfilList:listObservation
         page:        1
-    requirements:
-        page: \d*
-ocnao_profil_pendingobservation:
-    path:     /profil/pendingobs/{page}
-    defaults:
-        _controller: OCNAOBundle:Profil:pendingObservation
-        page:        1
-    requirements:
-        page: \d*
-ocnao_profil_observationvalidate:
-    path:     /profil/obsvalidate/{page}
-    defaults:
-        _controller: OCNAOBundle:Profil:observationValidate
-        page:        1
+        statusobs:  'publish'
     requirements:
         page: \d*
 ocnao_profil_observationatvalidate:
     path:     /obsatvalidate/{page}
     defaults:
-        _controller: OCNAOBundle:Profil:observationAtValidate
+        _controller: OCNAOBundle:ProfilList:observationAtValidate
         page:        1
     requirements:
         page: \d*

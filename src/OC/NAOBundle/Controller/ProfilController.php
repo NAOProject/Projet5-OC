@@ -19,161 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfilController extends Controller
 {
-const nbPerPage = 1;
-
-  //récupére est affiche la liste des observations publiée et validée de l'utilisateur
-  /**
-   *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-   */
-  public function UserObservationAction($page)
-  {
 
 
-      if ($page < 1) {
-        throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-      }
-
-    $nbPerPage = SELF::nbPerPage;
-    $user = $this->getUser();
-    $route = 'ocnao_profil_userobservation';
-
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('OCNAOBundle:Observation');
-    $observationList = $repository->userObservation($user, $page, $nbPerPage);// On récupère notre objet Paginator
-
-    // On calcule le nombre total de pages
-    $nbPages = ceil(count($observationList) / $nbPerPage);
-
-    if ( $nbPages == 0) {
-      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-        'notobs' => true,
-        'route' => $route,
-      ));
-    }
-    // Si la page n'existe pas, on retourne une 404
-    if ($page > $nbPages) {
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    }
-
-    // On donne toutes les informations nécessaires à la vue
-    return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-      'observationList' => $observationList,
-      'nbPages'     => $nbPages,
-      'page'        => $page,
-      'route' => $route,
-      'notobs' => false,
-
-    ));
-  }
-
-  //récupére est affiche la liste des observations en attente de validation de l'utilisateur(observateur)
-  /**
-   *@Security("has_role('ROLE_OBSERVER')")
-   */
-  public function PendingObservationAction($page)
-  {
-    if ($page < 1) {
-       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    }
-
-    $nbPerPage = SELF::nbPerPage;
-    $user = $this->getUser();
-    $route = 'ocnao_profil_pendingobservation';
-
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('OCNAOBundle:Observation');
-    $observationList = $repository->userPendingObservation($user, $page, $nbPerPage);
-
-
-    $nbPages = ceil(count($observationList) / $nbPerPage);
-    if ( $nbPages == 0) {
-      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-        'notobs' => true,
-        'route' => $route,
-      ));
-    }
-    if ($page > $nbPages) {
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    }
-
-    return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-      'observationList' => $observationList,
-      'nbPages'     => $nbPages,
-      'page'        => $page,
-      'route' => $route,
-      'notobs' => false,
-    ));
-  }
-
-  //récupére est affiche la liste des observations validée par l'utilisateur(naturaliste ou administrateur)
-  /**
-   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-   */
-  public function ObservationValidateAction($page)
-  {
-
-      if ($page < 1) {
-        throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-      }
-    $nbPerPage = SELF::nbPerPage;
-    $user = $this->getUser();
-    $route = 'ocnao_profil_observationvalidate';
-
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('OCNAOBundle:Observation');
-    $observationList = $repository->userObservationValidate($user, $page, $nbPerPage);
-
-    $nbPages = ceil(count($observationList) / $nbPerPage);
-
-    if ( $nbPages == 0) {
-      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-        'notobs' => true,
-        'route' => $route,
-      ));
-    }
-    if ($page > $nbPages) {
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    }
-
-    return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
-      'observationList' => $observationList,
-      'nbPages'     => $nbPages,
-      'page'        => $page,
-      'route' => $route,
-      'notobs' => false,
-
-    ));
-  }
-
-  //récupére est affiche la liste des observations en attente de validation par l'utilisateur(naturaliste ou administrateur)
-  /**
-   *@Security("has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-   */
-  public function ObservationAtValidateAction($page)
-  {
-
-      if ($page < 1) {
-        throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-      }
-
-    $nbPerPage = SELF::nbPerPage;
-    $user = $this->getUser();
-
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('OCNAOBundle:Observation');
-    $observationList = $repository->ObservationAtValidate($user, $page, $nbPerPage);
-
-    $nbPages = ceil(count($observationList) / $nbPerPage);
-    if ($page > $nbPages) {
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    }
-
-    return $this->render('OCNAOBundle:Default:observationatvalidate.html.twig', array(
-      'observationList' => $observationList,
-      'nbPages'     => $nbPages,
-      'page'        => $page,
-    ));
-  }
 
     // affiche les paramètres de l'utilisateur
     /**
@@ -213,6 +60,8 @@ const nbPerPage = 1;
              ));
          }
 //faire recherche pour nombre utilisateur, obs,nat,adm
+
+
        $result = false;
        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
            'form' => $form->createView(),
@@ -269,10 +118,11 @@ const nbPerPage = 1;
         $user = $repository->findBy(array('username' => $username));
 
         $this->addFlash('info', "$username, a obtenu le role $rolename, un email lui a était envoyer pour le prevenir");
-        //faire email
+
+        // faire email
         //  //envoi email
         //  $content = "???????????";
-         //
+        //
         //  $mailer = $this->container->get('mailer');
         //  $message =  \Swift_Message::newInstance($object)
         //    ->setTo($user->getEmail())
@@ -363,19 +213,6 @@ const nbPerPage = 1;
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
      */
-    public function natAction()
-    {
-      // obtenir role naturalist
-      $userManager = $this->get('fos_user.user_manager');//recuperre le service
-      $user = $this->getUser();
-      $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
-      $userManager->updateUser($user);
-
-        return $this->redirectToRoute('ocnao_homepage');
-    }
-    /**
-     *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-     */
     public function admAction()
     {
       // obtenir role administrateur
@@ -384,19 +221,7 @@ const nbPerPage = 1;
       $user->setRoles(array('ROLE_ADMIN'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
-        return $this->redirectToRoute('ocnao_homepage');
+        return $this->redirectToRoute('ocnao_profil_parameter');
     }
-    /**
-     *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-     */
-    public function obsAction()
-    {
-      // obtenir role observateur
-      $userManager = $this->get('fos_user.user_manager');//recuperre le service
-      $user = $this->getUser();
-      $user->setRoles(array('ROLE_OBSERVER'));// enregistre le role naturalist
-      $userManager->updateUser($user);
 
-        return $this->redirectToRoute('ocnao_homepage');
-    }
 }

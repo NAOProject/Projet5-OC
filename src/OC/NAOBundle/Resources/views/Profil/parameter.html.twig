@@ -49,6 +49,15 @@
     </div>
 </div>
 
+<div class="container"> <!-- A supprimer a la fin du dev -->
+  <h3>Dev Admin</h3>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      <p>etape 1 </p>
+        <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
+      <p>etape 2 </p>
+      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+{% endif %}
+</div>
 
 
 {% endblock %}

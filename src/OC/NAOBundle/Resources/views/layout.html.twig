@@ -63,7 +63,7 @@
               {% if is_granted("ROLE_ADMIN") %}
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
               {% endif %}
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_userobservation') }}">MES OBSERVATIONS</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
             </ul>
@@ -121,7 +121,7 @@
                 {% if is_granted("ROLE_ADMIN") %}
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
                 {% endif %}
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_userobservation') }}">MES OBSERVATIONS</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
                 <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
               {% else %}
