@@ -1,5 +1,10 @@
 {% extends 'OCNAOBundle::layout.html.twig' %}
 
+{% block title %}Ajout d'observation d'oiseaux | Nos Amis les Oiseaux{% endblock %}
+{% block meta %}
+  <meta name="description" content="Partagez vos observations sur les oiseaux autour de vous. L'espèce, la localisation, la date sont de précieuses informations pour les scientifiques. " />
+{% endblock %}
+
 {% block ajouter %}class="menuactive"{% endblock %}
 {% block ajouter2 %}class="menuactive"{% endblock %}
 {% block ajouter3 %}class="menuactive"{% endblock %}
@@ -8,7 +13,7 @@
 {% block body %}
 
 <div class="container">
-  <h2>AJOUTER UNE OBSERVATION</h2>
+  <h1>AJOUTER UNE OBSERVATION</h1>
   <div class="row form">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       {{ form_start(form) }}
