@@ -1,5 +1,6 @@
 /*Couleur
 Orange : #ff5b00;
+Orange clair : #ffa676;
 brun : #493c32;
 turquoise foncé : #00ac98;
 turquoise clair : #00c4b6;
@@ -95,8 +96,8 @@ body {
 }
 
 .alert-success {
-  background-color: #ff5b00;
-  border-color: #d86a0e
+  background-color: #ffa676;
+  border-color: #d86a0e;
   color: white;
 }
 
@@ -173,8 +174,7 @@ body {
 
 .picture {
   overflow: hidden;
-  background: black;
-  height: 180px;
+  height: 185px;
 }
 
 .photoObs {
