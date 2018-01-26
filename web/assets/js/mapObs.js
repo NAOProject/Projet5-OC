@@ -47,10 +47,6 @@ $(".changeTaxrefname").click(function() {
   $('.changeBtn').addClass("hidden");
 })
 
-
-var divHeight = $('.obsUser').height();
-$('.obsPlace').css('min-height', divHeight+2+'px');
-
 $(".notconforme").click(function() {
   $(".notconformzone").removeClass("hidden");
 })

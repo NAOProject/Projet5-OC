@@ -188,7 +188,7 @@
   </nav>
   <!-- Fin navbar bottom sur Smartphone -->
 
-  <div class="container" style="margin-top:50px; padding:0;"> <!-- Messages d'informations -->
+  <div class="container" style="margin-top:66px; padding:0;"> <!-- Messages d'informations -->
     {% for label, messages in app.flashes(['info', 'success', 'danger']) %}
       {% for message in messages %}
         <div class="alert alert-{{ label }}">
@@ -204,36 +204,35 @@
     {% endif %}
   {% endblock %}
 
-  <script src="{{asset("assets/js/adaptation.js")}}"></script>
-</body>
-
-<footer>
-  <!-- Footer du site -->
-  <div class="footer container">
-    <div class="col-md-offset-4 col-md-4">
-      <div class="center"> <!-- reseaux sociaux -->
-        <div class="row logoSociaux">
-          <a href="https://www.facebook.com" target="_blank"><img src="{{ asset("assets/images/fb_logo.png")}}"></img></a>
-          <a href="https://www.twitter.com" target="_blank"><img src="{{ asset("assets/images/twitter_logo.png")}}"></img></a>
-        </div>
-        <div class="row">
-          <p class="white">ABONNEZ-VOUS À NOTRE NEWSLETTER</p>
-          <input class="form-control" type="email" name="email" value="" placeholder="Entrez votre adresse mail"></input>
-        </div>
-        <div class="row col-md-12 col-xs-12">
-          <div class="col-xs-4">
-            <a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a>
+  <footer>
+    <!-- Footer du site -->
+    <div class="footer container">
+      <div class="col-md-offset-4 col-md-4">
+        <div class="center"> <!-- reseaux sociaux -->
+          <div class="row logoSociaux">
+            <a href="https://www.facebook.com" target="_blank"><img src="{{ asset("assets/images/fb_logo.png")}}"/></a>
+            <a href="https://www.twitter.com" target="_blank"><img src="{{ asset("assets/images/twitter_logo.png")}}"/></a>
           </div>
-          <div class="col-xs-4 border_side">
-            <a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a>
+          <div class="row">
+            <p class="white">ABONNEZ-VOUS À NOTRE NEWSLETTER</p>
+            <input class="form-control white" type="email" name="email" value="" placeholder="Entrez votre adresse mail"></input>
           </div>
-          <div class="col-xs-4">
-            <a href="#">MENTION LÉGALES</a>
+          <div class="row col-md-12 col-xs-12">
+            <div class="col-xs-4">
+              <a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a>
+            </div>
+            <div class="col-xs-4 border_side">
+              <a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a>
+            </div>
+            <div class="col-xs-4">
+              <a href="#">MENTION LÉGALES</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Fin footer du site -->
-</footer>
+    <!-- Fin footer du site -->
+  </footer>
+<script src="{{asset("assets/js/adaptation.js")}}"></script>
+</body>
 </html>
