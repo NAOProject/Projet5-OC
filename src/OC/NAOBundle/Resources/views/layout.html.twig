@@ -193,6 +193,7 @@
           {% endif %}
           <li><a {% block faq4 %}{% endblock %} href="{{ path('ocnao_faq') }}">COMMENT CA MARCHE ?</a></li>
           <li><a {% block contact4 %}{% endblock %} href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
+          <li><a class="don" href="#">Faire un don</a></li>
         </ul>
       </div>
       <div class="collapse navbar-collapse user center">
@@ -211,7 +212,6 @@
               <li ><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
             </ul>
           </li>
-          <li><a class="don" href="#">Faire un don</a></li>
           {% else %}
           <li ><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a></li>
           <li ><a class="connexion" href="{{ path('fos_user_security_login') }}" >SE CONNECTER</a></li>
