@@ -40,7 +40,7 @@
             <h3 class="obsTaxref">{{ observation.0.taxrefname }}</h3>
             <h6 class="italic obsFamille">{{ famille }}</h6>
           </div>
-          {% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST")) and observation.0.status == 0 %}
+          {% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST")) and observation.0.status == 0 and observation.0.notconforme == 0 %}
             <div class="right col-xs-6 changeBtn">
               <a class="btn right changeTaxrefname" role="button">Modifier</a>
             </div>
@@ -82,7 +82,7 @@
               <div class="right">L'observateur n'est pas sûr de lui.</div>
             </div>
           {% endif %}
-          {% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST")) and observation.0.status == 0 %}
+          {% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST")) and observation.0.status == 0 and observation.0.notconforme == 0 %}
             <div class="right col-xs-12 changeBtn">
               <a class="btn right changeTaxrefname" role="button">Modifier</a>
             </div>
