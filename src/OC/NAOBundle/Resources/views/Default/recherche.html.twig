@@ -111,10 +111,11 @@
     {% endif %}
   {% endfor %}
 </div>
+
+<script src="{{asset("assets/js/mapmarkers.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
-<script src="{{asset("assets/js/mapmarkers.js")}}"></script>
 <script src="{{asset("assets/js/autocomplete.js")}}"></script>
 
 {% endblock %}
