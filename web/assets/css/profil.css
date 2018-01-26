@@ -210,6 +210,9 @@
     font-size: 1.7rem;
     font-weight: normal;
   }
+  .bgform{
+    background-size: 100%;
+  }
 }
 
 

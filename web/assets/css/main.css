@@ -90,6 +90,16 @@ body {
   border-right: 1px solid black;
 }
 
+.alert {
+  margin: 0;
+}
+
+.alert-success {
+  background-color: #ff5b00;
+  border-color: #d86a0e
+  color: white;
+}
+
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*CSS Page recherche.html.twig ET results.html.twig */

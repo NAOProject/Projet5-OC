@@ -77,13 +77,13 @@ class ObservationController extends Controller
           if($observation->getStatus() == true) {
             $this->addFlash('success', 'Votre observation à été publiée.');
           }else {
-            $this->addFlash('info', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
+            $this->addFlash('success', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
           }
 
           return $this->redirectToRoute('ocnao_homepage');
         }
         else { //sinon
-          $this->addFlash('info', 'Mauvais nom de l\'espece.');
+          $this->addFlash('success', 'Mauvais nom de l\'espece.');
           return $this->redirectToRoute('ocnao_addObservation');
         }
       }
@@ -135,7 +135,7 @@ class ObservationController extends Controller
         return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
       }
       else { //sinon
-        $this->addFlash('info', 'Mauvais nom de l\'espece.');
+        $this->addFlash('success', 'Mauvais nom de l\'espece.');
         return $this->redirectToRoute('ocnao_observation', ['id'=>$id]);
       }
     }
@@ -182,7 +182,7 @@ class ObservationController extends Controller
       $em->persist($obs[0]);
       $em->flush();
 
-      $this->addFlash('info', 'L\'observation à été déclaré non conforme.');
+      $this->addFlash('success', 'L\'observation à été déclaré non conforme.');
       return $this->redirectToRoute('ocnao_homepage');
     }
   }
@@ -230,7 +230,7 @@ class ObservationController extends Controller
         'results' => $results,
       ));
     }else{
-      $this->addFlash('info', 'Aucune observation trouvé pour cette éspèce.');
+      $this->addFlash('success', 'Aucune observation trouvé pour cette éspèce.');
       return $this->redirectToRoute('ocnao_recherche');
     }
   }
@@ -253,7 +253,7 @@ class ObservationController extends Controller
           'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
-        $this->addFlash('danger', 'L\'observation n\'existe pas');
+        $this->addFlash('success', 'L\'observation n\'existe pas');
         return $this->redirectToRoute('ocnao_homepage');
       }
     } else { //redirection pour un visiteur
@@ -264,7 +264,7 @@ class ObservationController extends Controller
           'famille' => $famille
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
-        $this->addFlash('danger', 'L\'observation n\'existe pas');
+        $this->addFlash('success', 'L\'observation n\'existe pas');
         return $this->redirectToRoute('ocnao_homepage');
       }
     }
