@@ -127,7 +127,7 @@
           <a class="" href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}" /></a>
         </div>
       </div>
-      <div class="collapse navbar-collapse menu center">
+      <div id="test" class="collapse navbar-collapse menu center">
         <ul class="nav navbar-nav">
           <li><a {% block rechercher4 %}{% endblock %} href="{{ path('ocnao_recherche') }}">RECHERCHER UNE OBSERVATION</a></li>
           <li><a {% block ajouter4 %}{% endblock %} href="{{ path('ocnao_addObservation') }}">AJOUTER UNE OBSERVATION</a></li>
@@ -136,7 +136,7 @@
           {% endif %}
           <li><a {% block faq4 %}{% endblock %} href="{{ path('ocnao_faq') }}">COMMENT CA MARCHE ?</a></li>
           <li><a {% block contact4 %}{% endblock %} href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
-          <li><a class="don" href="#">Faire un don</a></li>
+          <li><a href="#">Faire un don</a></li>
         </ul>
       </div>
       <div class="collapse navbar-collapse usermenu center">
@@ -227,5 +227,21 @@
     <!-- Fin footer du site -->
   </footer>
 <script src="{{asset("assets/js/adaptation.js")}}"></script>
+<script type="text/javascript">
+// $(document).ready(function () {
+//   $(".navbar-nav li a").click(function(event) {
+//     $(".navbar-collapse").collapse('hide');
+//   });
+// });
+
+// $(function(){
+//   var navMain = $(".navbar-collapse"); // avoid dependency on #id
+//   // "a:not([data-toggle])" - to avoid issues caused
+//   // when you have dropdown inside navbar
+//   navMain.on("click", "a:not([data-toggle])", null, function () {
+//       navMain.collapse('hide');
+//   });
+// });
+</script>
 </body>
 </html>
