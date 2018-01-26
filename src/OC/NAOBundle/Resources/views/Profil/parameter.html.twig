@@ -6,31 +6,35 @@
 {% block parameter4 %}class="menuactive2"{% endblock %}
 
 {% block body %}
+<br>
+<br>
 <div class="container">
-  <div class="text-center">
+  <div class="col-md-offset-4 col-md-4">
     <h3>Parametre du compte</h3>
-<p>Votre Pseudo: <b>{{ user.username }}</b>   <a href="/profile/edit">changer</a></p>
-<p>Votre email: <b><a href="/profile/edit">{{ user.email }}</a></b></p>
-<p><a href="/profile/change-password">Je ve changer mon mot de passe</a></p>
     <br>
+    <p>Votre Pseudo: <b>{{ user.username }}</b></p>
+    <p>Votre email: <b>{{ user.email }}</b></p>
+    <p><a href="/profile/edit">Je ve changer Pseudo ou Email</a></p>
+    <p><a href="/profile/change-password">Je ve changer mon mot de passe</a></p>
+      <br>
 
-{% if user.newsletter == true %}
-<form action="{{path('ocnao_profil_newsletter')}}">
-  <input type="hidden" name="newsletter" value="false">
-<input type="submit" value="Ne plus suivre la newsletter">
-</form>
-{% else %}
-    <form action="{{path('ocnao_profil_newsletter')}}">
-<input type="hidden" name="newsletter" value="true">
-<input type="submit" value="Suivre la newsletter">
-   </form>
-{% endif %}
+    {% if user.newsletter == true %}
+      <form action="{{path('ocnao_profil_newsletter')}}">
+          <input type="hidden" name="newsletter" value="false">
+          <input class="btn-site-orange" style="width:320px" type="submit" value="Ne plus suivre la newsletter">
+      </form>
+    {% else %}
+        <form action="{{path('ocnao_profil_newsletter')}}">
+            <input type="hidden" name="newsletter" value="true">
+            <input class="btn-site-orange" style="width:287px" type="submit" value="Suivre la newsletter">
+        </form>
+    {% endif %}
 
 
-  </div>
 
-</div>
-<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#confirm-delete">supprimer mon compte</button>
+<br>
+
+<button type="button" class="btn-site-orange"  style="width:287px" data-toggle="modal" data-target="#confirm-delete">Supprimer mon compte</button>
 
 <div class="modal fade" id="confirm-delete">
     <div class="modal-dialog">
@@ -51,6 +55,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <div class="container"> <!-- A supprimer a la fin du dev -->

@@ -6,44 +6,49 @@
 {% block user4 %}class="menuactive2"{% endblock %}
 
 {% block body %}
+<div class="bgform">
 <div class="container">
   {% if result == false %}
-  <div class="row">
-    <div class="col-md-offset-4 col-md-4">
-        <h3>rechercher un utilisateur</h3>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+          <h4>rechercher un utilisateur</h4>
+          <br>
+          {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form.name, {
+              'attr': {
+                'data-id': 'username',
+                'data-url': path('ocnao_profil_autocomplete')
+                }
+              })
+            }}
+          <br>
+          <div class="text-right">
+            {{ form_widget(form.submit, {'label': 'Rechercher', 'attr': {'class': 'btn-site-orange'}}) }}
+            {{ form_end(form) }}
+          </div>
+      </div>
     </div>
-    <!-- </div>
-    <div class="row"> -->
-    <div class="col-md-offset-4 col-md-3">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-          {{ form_errors(form) }}
-          {{ form_widget(form.name, {
-            'attr': {
-              'data-id': 'username',
-              'data-url': path('ocnao_profil_autocomplete')
-              }
-            })
-          }}
-      </div>
-
-      <div class="col-md-1 ">
-          {{ form_widget(form.submit, {'label': 'Rechercher'}) }}
-          {{ form_end(form) }}
-      </div>
-  </div>
   {% else %}
+  <br>
+  <br>
   <div class="col-md-offset-4 col-md-4">
-  <h3>{{user.username}}</h3>
+  <h4>Utilisateur:</h4>
+  <h4><strong>{{user.username}}</strong></h4>
+  <br>
+  <p>Email:</p>
+  <p><strong>{{user.email}}</strong></p>
+  <br>
+  <p>Roles:</p>
+  <p><strong>{{user.roles[0]}}</strong></p>
 
-  <p>Email: {{user.email}}</p>
-
-  <p>Roles: {{user.roles[0]}}</p>
-
-
+  <br>
 
 
   <form class="" action="{{path('ocnao_profil_role')}}" method="post">
-  <select id="myselect" name="role">
+  <select id="myselect" style="width:200px" name="role">
     <option value="ROLE_OBSERVER">Observateur</option>
     <option value="ROLE_NATURALIST">Naturaliste</option>
     <option value="ROLE_ADMIN">Administrateur</option>
@@ -51,14 +56,14 @@
     <input type="hidden" name="username" value="{{user.username}}">
     <!-- <input type="submit" value="Valider"> -->
 
-    <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#confirm-delete">valider</button>
+    <button type="button" class="btn-site-orange"  data-toggle="modal" data-target="#confirm-delete">Valider</button>
 
   <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3>Confirmation</h3>
+                <h4>Confirmation</h4>
               </div>
               <div class="modal-body">
                 Etes vous sur d'attribuez
@@ -74,19 +79,18 @@
   </div>
   </form>
 
+<br>
 
-
-<div>
   <form action="{{path('ocnao_profil_removeuser')}}">
     <input type="hidden" name="usernameremove" value="{{user.username}}">
-  <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#confirm-delete2">suprimmer le compte</button>
+  <button type="button" class="btn-site-orange" style="width:287px"  data-toggle="modal" data-target="#confirm-delete2">Supprimer le compte</button>
 
     <div class="modal fade" id="confirm-delete2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h3>Confirmation</h3>
+                  <h4>Confirmation</h4>
                 </div>
                 <div class="modal-body">
                   Etes vous sur de voulaire supprimer le compte
@@ -94,65 +98,59 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-site-orange" data-dismiss="modal">NON</button>
-                      <input class"btn-site" type="submit" value="Suprimer le compte">
+                      <input class="btn-site" style="width:287px"type="submit" value="Supprimer le compte">
                 </div>
             </div>
         </div>
     </div>
     </form>
 
-
 </div>
   {% endif %}
 </div>
+</div>
 
 <script type="text/javascript">
-$("input[data-id=username]").autocomplete({
-    source: function (request, response) {
-        var username = $("input[data-id=username]").val();
-        var objData = 'username=' + username;
-        var url = $(this.element).attr('data-url');
+  $("input[data-id=username]").autocomplete({
+      source: function (request, response) {
+          var username = $("input[data-id=username]").val();
+          var objData = 'username=' + username;
+          var url = $(this.element).attr('data-url');
 
-        $.ajax({
-            url: url,
-            dataType: "json",
-            data : objData,
-            type: 'POST',
-            success: function (data) {
-                response($.map(data, function (user) {
-                    return {
-                    label: user.username
-                    }
-                }));
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            }
-        });
-    }
-  })
-  //Affichage et récupération de la valeur sélectionnée
-  $("input[data-id=username]").on('autocompleteselect',function(event, ui) {
+          $.ajax({
+              url: url,
+              dataType: "json",
+              data : objData,
+              type: 'POST',
+              success: function (data) {
+                  response($.map(data, function (user) {
+                      return {
+                      label: user.username
+                      }
+                  }));
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                  console.log(textStatus, errorThrown);
+              }
+          });
+      }
+    })
+    //Affichage et récupération de la valeur sélectionnée
+    $("input[data-id=username]").on('autocompleteselect',function(event, ui) {
+      event.preventDefault();
+        var contact = ui.item.label;
+            id = ui.item.value;
+        console.log('Event: ', event);
+        console.log('UI :', ui.item);
+        $(event.currentTarget).val(contact);
 
-    event.preventDefault();
+    });
 
-      var contact = ui.item.label;
-          id = ui.item.value;
-      console.log('Event: ', event);
-      console.log('UI :', ui.item);
-      $(event.currentTarget).val(contact);
-
+  //modal pour confirmation
+  $('#confirm-delete').on('show.bs.modal', function(e) {
+       $('#role').text('');
+       $('#role').prepend($( "#myselect option:selected" ).text());
   });
-
-//modal pour confirmation
-$('#confirm-delete').on('show.bs.modal', function(e) {
-     $('#role').text('');
-     $('#role').prepend($( "#myselect option:selected" ).text());
-});
-
-
 </script>
-
-
 
 {% endblock %}
