@@ -34,133 +34,76 @@
 </head>
 <body>
   <!-- Navbar sur ordinateur -->
-  <div class="visible-lg">
+  <div class="visible-sm visible-md visible-lg">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}"/></a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a  {% block rechercher %}{% endblock %} href="{{ path('ocnao_recherche') }}">RECHERCHER UNE OBSERVATION</a></li>
-          <li><a {% block ajouter %}{% endblock %} href="{{ path('ocnao_addObservation') }}">AJOUTER UNE OBSERVATION</a></li>
+          <li>
+            <a  {% block rechercher %}{% endblock %} href="{{ path('ocnao_recherche') }}">
+              <span class="visible-lg">RECHERCHER UNE OBSERVATION</span>
+              <span class="visible-md">RECHERCHER UNE<br>OBSERVATION</span>
+              <span class="visible-sm">RECHERCHER<br>OBSERVATION</span>
+            </a>
+          </li>
+          <li>
+            <a {% block ajouter %}{% endblock %} href="{{ path('ocnao_addObservation') }}">
+              <span class="visible-lg">OBSERVATION</span>
+              <span class="visible-md">AJOUTER UNE<br>OBSERVATION</span>
+              <span class="visible-sm">AJOUTER<br>OBSERVATION</span>
+            </a>
+          </li>
           {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
-          <li><a {% block observationvalide %}{% endblock %} href="{{ path('ocnao_profil_observationatvalidate') }}">OBSERVATIONS À VALIDER</a></li>
+            <li>
+              <a {% block observationvalide %}{% endblock %} href="{{ path('ocnao_profil_observationatvalidate') }}">
+                <span class="visible-lg">OBSERVATIONS À VALIDER</span>
+                <span class="visible-md">OBSERVATIONS<br>À VALIDER</span>
+                <span class="visible-sm">VALIDER<br>OBSERVATION</span>
+              </a>
+            </li>
           {% endif %}
-          <li><a {% block faq %}{% endblock %} href="{{ path('ocnao_faq') }}">COMMENT CA MARCHE ?</a></li>
-          <li><a {% block contact %}{% endblock %} href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a></li>
+          <li>
+            <a {% block faq %}{% endblock %} href="{{ path('ocnao_faq') }}">
+              <span class="visible-lg">COMMENT CA MARCHE ?</span>
+              <span class="visible-md visible-sm">COMMENT<br>CA MARCHE ?</span>
+            </a>
+          </li>
+          <li>
+            <a {% block contact %}{% endblock %} href="{{ path('ocnao_contact') }}">
+              <span class="visible-lg">NOUS CONTACTER</span>
+              <span class="visible-md visible-sm">NOUS<br>CONTACTER</span>
+            </a>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <li class="dropdown">
-              <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
-              </a>
-              <ul class="dropdown-menu">
-                {% if is_granted("ROLE_ADMIN") %}
-                <li><a {% block user1 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
-                {% endif %}
-                <li><a {% block list %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
-                <li><a {% block parameter %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
-                <li><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
-              </ul>
+                <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                  <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
+                </a>
+                <ul class="dropdown-menu">
+                  {% if is_granted("ROLE_ADMIN") %}
+                  <li><a {% block user1 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
+                  {% endif %}
+                  <li><a {% block list %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
+                  <li><a {% block parameter %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
+                  <li><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
+                </ul>
             </li>
             <li><a class="don" href="#">Faire un don</a></li>
             {% else %}
             <li><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a></li>
             <li><a class="connexion" href="{{ path('fos_user_security_login') }}" >SE CONNECTER</a></li>
-            <li><a class="don" href="#">Faire un don</a></li>
+            <li><a class="don hidden-sm" href="#">Faire un don</a></li>
+            <li><a class="don visible-sm" href="#">don</a></li>
           {% endif %}
         </ul>
       </div>
     </nav>
   </div>
-  <!-- Fin navbar sur ordinateur LG -->
-
-  <!-- Navbar sur ordinateur -->
-  <div class="visible-md">
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}"/></a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="text-center"><a  {% block rechercher2 %}{% endblock %} href="{{ path('ocnao_recherche') }}">RECHERCHER UNE<br>OBSERVATION</a></li>
-          <li class="text-center"><a {% block ajouter2 %}{% endblock %} href="{{ path('ocnao_addObservation') }}">AJOUTER UNE<br>OBSERVATION</a></li>
-          {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
-          <li><a {% block observationvalide2 %}{% endblock %} href="{{ path('ocnao_profil_observationatvalidate') }}">OBSERVATIONS<br>À VALIDER</a></li>
-          {% endif %}
-          <li class="text-center"><a {% block faq2 %}{% endblock %} href="{{ path('ocnao_faq') }}">COMMENT<br>CA MARCHE ?</a></li>
-          <li class="text-center"><a {% block contact2 %}{% endblock %} href="{{ path('ocnao_contact') }}">NOUS<br>CONTACTER</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <li class="dropdown">
-            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
-            </a>
-            <ul class="dropdown-menu">
-              {% if is_granted("ROLE_ADMIN") %}
-              <li><a {% block user2 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
-              {% endif %}
-              <li><a {% block list2 %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
-              <li><a {% block parameter2 %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
-              <li><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
-            </ul>
-          </li>
-          <li ><a class="don" href="#">Faire un don</a></li>
-          {% else %}
-          <li><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a></li>
-          <li><a class="connexion" href="{{ path('fos_user_security_login') }}" >SE CONNECTER</a></li>
-          <li><a class="don" href="#">Faire un don</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- Fin navbar sur ordinateur MD -->
-
-  <!-- Navbar sur ordinateur -->
-  <div class="visible-sm">
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}"/></a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="text-center"><a  {% block rechercher3 %}{% endblock %} href="{{ path('ocnao_recherche') }}">RECHERCHER<br>OBSERVATION</a></li>
-          <li class="text-center"><a {% block ajouter3 %}{% endblock %} href="{{ path('ocnao_addObservation') }}">AJOUTER<br>OBSERVATION</a></li>
-          {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
-          <li class="text-center"><a {% block observationvalide3 %}{% endblock %} href="{{ path('ocnao_profil_observationatvalidate') }}">VALIDER<br>OBSERVATIONS</a></li>
-          {% endif %}
-          <li class="text-center"><a {% block faq3 %}{% endblock %} href="{{ path('ocnao_faq') }}">COMMENT<br>CA MARCHE ?</a></li>
-          <li class="text-center"><a {% block contact3 %}{% endblock %} href="{{ path('ocnao_contact') }}">NOUS<br>CONTACTER</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <li class="dropdown">
-            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
-            </a>
-            <ul class="dropdown-menu">
-              {% if is_granted("ROLE_ADMIN") %}
-              <li><a {% block user3 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
-              {% endif %}
-              <li><a {% block list3 %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
-              <li><a {% block parameter3 %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
-              <li><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
-            </ul>
-          </li>
-          <li><a class="don" href="#">don</a></li>
-          {% else %}
-          <li><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a></li>
-          <li><a class="connexion" href="{{ path('fos_user_security_login') }}" >SE CONNECTER</a></li>
-          <li><a class="don" href="#">don</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- Fin navbar sur ordinateur SM -->
+  <!-- Fin navbar sur ordinateur -->
 
   <!-- Navbar sur smartphone -->
   <div class="visible-xs">

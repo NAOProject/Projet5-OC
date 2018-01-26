@@ -241,11 +241,20 @@ content: " *";
 color: red;
 }
 
+.etoile:after{
+content: "";
+}
+
 #newsletter{
 text-transform: none;
 }
 #newsletter:after{
 content: "";
+}
+
+select{
+  padding:
+  border: 3px solid #ff5b00
 }
 
 
