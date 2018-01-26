@@ -117,7 +117,7 @@
             <span class="icon-bar"></span>
           </button>
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".user" aria-expanded="false" data-placement="bottom" >
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".usermenu" aria-expanded="false" data-placement="bottom" >
             <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
           </button>
           {% else %}
@@ -139,22 +139,15 @@
           <li><a class="don" href="#">Faire un don</a></li>
         </ul>
       </div>
-      <div class="collapse navbar-collapse user center">
+      <div class="collapse navbar-collapse usermenu center">
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <li class="dropdown">
-            <a class="btn dropdown-toggle" type="button" id="dropdownMenu2*" data-toggle="dropdown">
-              <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
-            </a>
-            <ul class="dropdown-menu">
               {% if is_granted("ROLE_ADMIN") %}
               <li ><a {% block user4 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
               {% endif %}
               <li ><a {% block list4 %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
               <li ><a {% block parameter4 %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
               <li ><a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a></li>
-            </ul>
-          </li>
           {% else %}
           <li ><a class="inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a></li>
           <li ><a class="connexion" href="{{ path('fos_user_security_login') }}" >SE CONNECTER</a></li>
