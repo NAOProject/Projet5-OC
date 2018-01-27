@@ -25,3 +25,23 @@ $('.btnCarte').click(function() {
     initMap();
   }
 });
+
+$('.usermenubutton').click(function () {
+  if ($('div.usermenu').hasClass('in')) {
+    $('.usermenubutton').removeClass('arrow');
+  } else {
+    $('.usermenubutton').addClass('arrow');
+    $('div.menu').removeClass('in');
+    $('.menubutton').removeClass('arrow2');
+  }
+});
+
+$('.menubutton').click(function () {
+  if ($('div.menu').hasClass('in')) {
+    $('.menubutton').removeClass('arrow2');
+  } else {
+    $('.menubutton').addClass('arrow2');
+    $('div.usermenu').removeClass('in');
+    $('.usermenubutton').removeClass('arrow');
+  }
+});
