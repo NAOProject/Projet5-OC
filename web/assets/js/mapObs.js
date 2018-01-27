@@ -45,11 +45,17 @@ function geocodeLatLng(geocoder, map, lat, lng) {
 $(".changeTaxrefname").click(function() {
   $(".changeName").removeClass("hidden");
   $('.changeBtn').addClass("hidden");
-})
+});
 
 $(".notconforme").click(function() {
   $(".notconformzone").removeClass("hidden");
-})
+});
+
+
+var $coords = $('#coordonnees').find('div');
+if ($($coords).data('conform') == 1) {
+  $('.observation').css('-webkit-filter', 'brightness(40%)');
+}
 
 function toggleFullscreen(elem) {
   elem = elem || document.documentElement;
