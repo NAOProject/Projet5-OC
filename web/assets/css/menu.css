@@ -73,6 +73,22 @@ border-color: white;
   background-color: #00c4b6!important;
 }
 
+.barre {
+  background-color: #00ac98!important;
+}
+
+.menu {
+  background-color: #00ac98!important;
+  border-top: 3px solid #00c4b6!important;
+  border-bottom: 3px solid #00c4b6!important;
+}
+
+.usermenu {
+  background-color: #ffa676;
+  border-top: 3px solid #ff5b00!important;
+  border-bottom: 3px solid #ff5b00!important;
+}
+
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
@@ -86,6 +102,48 @@ border-color: white;
   .navbar-right > li > a {
   line-height:34px!important;
   }
+
+  .arrow::before {
+    border-bottom-color: #bebebe;
+    left: 14px;
+    border-width: 0 11px 9px 11px;
+  }
+
+  .arrow::before, .arrow::after {
+    content: " ";
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border: 1px solid transparent;
+    border-bottom-color: #ff5b00;
+    border-width: 0 7px 9px 7px;
+    border-width: 0 10px 8px 10px;
+    position: absolute;
+    bottom: -13px;
+    left: 10px;
+    z-index: 1000;
+  }
+
+  .arrow2::before {
+    border-bottom-color: #bebebe;
+    left: 14px;
+    border-width: 0 11px 9px 11px;
+  }
+
+  .arrow2::before, .arrow2::after {
+    content: " ";
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border: 1px solid transparent;
+    border-bottom-color: #00c4b6;
+    border-width: 0 7px 9px 7px;
+    border-width: 0 10px 8px 10px;
+    position: absolute;
+    bottom: -13px;
+    left: 10px;
+    z-index: 1000;
+  }
 }
 
 /* Medium Devices, Desktops */
@@ -96,6 +154,11 @@ border-color: white;
     padding-right: 7px;
     font-size: 1.1rem !important;
     line-height:17px;
+    color: white;
+  }
+
+  .usermenu .navbar-nav > li > a {
+    color: black;
   }
 
   .inscription, .connexion{

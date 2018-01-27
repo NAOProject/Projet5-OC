@@ -110,14 +110,14 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".menu" aria-expanded="false" data-placement="bottom" >
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+          <button type="button" class="navbar-toggle collapsed menubutton" data-toggle="collapse" data-target=".menu" aria-expanded="false" data-placement="bottom" >
+            <span class="icon-bar barre"></span>
+            <span class="icon-bar barre"></span>
+            <span class="icon-bar barre"></span>
+            <span class="icon-bar barre"></span>
           </button>
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".usermenu" aria-expanded="false" data-placement="bottom" >
+          <button type="button" class="navbar-toggle collapsed usermenubutton" data-toggle="collapse" data-target=".usermenu" aria-expanded="false" data-placement="bottom" >
             <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
           </button>
           {% else %}
