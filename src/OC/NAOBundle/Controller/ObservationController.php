@@ -32,53 +32,14 @@ class ObservationController extends Controller
 
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
-        $user = $this->getUser();
-        if ($user->hasRole('ROLE_ADMIN') OR $user->hasRole('ROLE_NATURALIST')) {
-          $observation->setStatus(true);
-          $observation->setUserValidator($user);
-        } else {
-          $observation->setStatus(false);
-          $observation->setUserValidator(null);
-        }
-        $date = new \DateTime();
-        $same = false;
-        $observation->setDatetime($date);
-        $observation->setUser($user);
-
-        if ($observation->getPicture() != null) {
-          $file = $observation->getPicture()->getImage();
-
-          $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-          $dimension = getimagesize($file);
-          if ($dimension[0]>951) {
-            $max = 951;
-            $reduc=$max/$dimension[0];
-            $coef_l=$max;
-            $coef_h=$dimension[1]*$reduc;
-            $chemin = imagecreatefromjpeg($file);
-            $nouvelle = imagecreatetruecolor ($coef_l, $coef_h);
-            imagecopyresampled($nouvelle,$chemin,0,0,0,0,$coef_l,$coef_h,$dimension[0],$dimension[1]);
-            imagejpeg($nouvelle,$fileName);
-          }
-
-          rename($fileName, 'uploads/picture/' . $fileName);
-
-          $picture = $observation->getPicture()->setImage($fileName);
-          $observation->setPicture($picture);
-        }
-
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser(); //Recuperation de l'utilisateur
 
-        //Ajout securité si le nom d'oiseau rentré correspond a une espece d'oiseau dans la base de données TAXREF
-        $oiseau = $observation->getTaxrefname();
-        $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
-        for ($i=0; $i < sizeof($listeEspece) ; $i++) {
-          $espece = $listeEspece[$i]['nomVern'];
-          if ( trim($espece) === trim($oiseau)) { //si espece du formulaire = espece dans la BDD TAXREF
-            $same = true;
-          }
-        }
+        $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
+
+        $observation = $observations->observation($user, $observation); //Utilisation fonction observation du service
+
+        $same = $observations->same($em, $observation); //Utilisation fonction same du service
 
         if ($same == true) { //Si meme nom d'espece
           $em->persist($observation);
