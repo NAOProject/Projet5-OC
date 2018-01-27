@@ -38,19 +38,17 @@ class ObservationController extends Controller
         $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
 
         $observation = $observations->observation($user, $observation); //Utilisation fonction observation du service
-
-        $same = $observations->same($em, $observation); //Utilisation fonction same du service
+        $taxrefname = $observation->getTaxrefname();
+        $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
         if ($same == true) { //Si meme nom d'espece
-          $em->persist($observation);
-          $em->flush();
-
           if($observation->getStatus() == true) {
             $this->addFlash('success', 'Votre observation à été publiée.');
           }else {
             $this->addFlash('success', 'Votre observation à été envoyé, elle sera publiée après validation par un Naturaliste.');
           }
-
+          $em->persist($observation);
+          $em->flush();
           return $this->redirectToRoute('ocnao_homepage');
         }
         else { //sinon
@@ -88,14 +86,7 @@ class ObservationController extends Controller
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $taxrefname = $_POST["taxrefname"];
-      $em = $this->getDoctrine()->getManager();
-      $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($taxrefname);
-      for ($i=0; $i < sizeof($listeEspece) ; $i++) {
-        $espece = $listeEspece[$i]['nomVern'];
-        if ( trim($espece) === trim($taxrefname)) { //si espece du formulaire = espece dans la BDD TAXREF
-          $same = true;
-        }
-      }
+      $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
       if ($same == true) { //Si meme nom d'espece
         $obs = $em->getRepository('OCNAOBundle:Observation')->validationObservation($id);

@@ -48,14 +48,13 @@ class Observations
     return $observation;
   }
 
-  public function same($em, $observation)
+  public function same($em, $taxrefname)
   {
     //Ajout securité si le nom d'oiseau rentré correspond a une espece d'oiseau dans la base de données TAXREF
-    $oiseau = $observation->getTaxrefname();
-    $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
+    $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($taxrefname);
     for ($i=0; $i < sizeof($listeEspece) ; $i++) {
       $espece = $listeEspece[$i]['nomVern'];
-      if ( trim($espece) === trim($oiseau)) { //si espece du formulaire = espece dans la BDD TAXREF
+      if ( trim($espece) === trim($taxrefname)) { //si espece du formulaire = espece dans la BDD TAXREF
         $same = true;
       }
     }
