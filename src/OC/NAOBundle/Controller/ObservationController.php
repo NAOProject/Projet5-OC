@@ -38,6 +38,7 @@ class ObservationController extends Controller
         $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
 
         $observation = $observations->observation($user, $observation); //Utilisation fonction observation du service
+        
         $taxrefname = $observation->getTaxrefname();
         $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
@@ -70,7 +71,6 @@ class ObservationController extends Controller
           $em = $this->getDoctrine()->getManager();
           $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($oiseau);
           $response = new Response(json_encode($listeEspece));
-          //$response->headers->set('Content-Type', 'application/json');
           return $response;
       }
   }
@@ -82,10 +82,10 @@ class ObservationController extends Controller
    */
   public function changeTaxrefnameAction($id)
   {
-    $same = false;
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $taxrefname = $_POST["taxrefname"];
+
+      $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
       $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
       if ($same == true) { //Si meme nom d'espece

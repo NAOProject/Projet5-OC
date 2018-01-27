@@ -21,6 +21,7 @@ class Observations
     $same = false;
     $observation->setDatetime($date);
     $observation->setUser($user);
+    $observation->setNotconforme(false);
 
     if ($observation->getPicture() != null) {
       $file = $observation->getPicture()->getImage();
@@ -37,6 +38,9 @@ class Observations
         $nouvelle = imagecreatetruecolor ($coef_l, $coef_h);
         imagecopyresampled($nouvelle,$chemin,0,0,0,0,$coef_l,$coef_h,$dimension[0],$dimension[1]);
         imagejpeg($nouvelle,$fileName);
+      } else {
+        $chemin = imagecreatefromjpeg($file);
+        imagejpeg($chemin,$fileName);
       }
 
       rename($fileName, 'uploads/picture/' . $fileName);
@@ -50,6 +54,7 @@ class Observations
 
   public function same($em, $taxrefname)
   {
+    $same = false;
     //Ajout securité si le nom d'oiseau rentré correspond a une espece d'oiseau dans la base de données TAXREF
     $listeEspece = $em->getRepository('OCNAOBundle:Taxref')->listeEspece($taxrefname);
     for ($i=0; $i < sizeof($listeEspece) ; $i++) {
