@@ -258,10 +258,14 @@ a:hover{
 .Obs {
   margin-top: 20px;
   box-shadow: 0 0 6px 5px #747473;
+  padding: 0;
+}
+
+.Obs .row {
+  margin: 0;
 }
 
 .obsTitle {
-  border: 1px solid black;
   height: 60px;
   color: white;
   background-color: #493c32;
@@ -299,7 +303,6 @@ a:hover{
 }
 
 .obsUser, .obsPicture {
-  border: 1px solid black;
   border-top: 0;
   padding: 0;
 }
@@ -318,7 +321,6 @@ a:hover{
 }
 
 .obsPlace {
-  border: 1px solid black;
   height: 70px;
   border-left: 0;
   background-color: #00ac98;
@@ -401,7 +403,7 @@ a:hover{
   background-color: #FFA576;
   width: 100%;
   height: auto;
-  padding: 10 0 10 30;
+  padding: 30px;
 }
 
 .changeName {
