@@ -14,7 +14,7 @@
 
 <div class="container">
   <h1>AJOUTER UNE OBSERVATION</h1>
-  <div class="row form">
+  <div class="row">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       {{ form_start(form) }}
         {% if form_errors(form.picture.image) or form_errors(form.taxrefname) or form_errors(form.latitude) %}

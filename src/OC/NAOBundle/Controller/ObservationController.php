@@ -50,10 +50,20 @@ class ObservationController extends Controller
 
           $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-          $file->move(
-              $this->getParameter('picture_directory'),
-              $fileName
-          );
+          $dimension = getimagesize($file);
+          if ($dimension[0]>951) {
+            $max = 951;
+            $reduc=$max/$dimension[0];
+            $coef_l=$max;
+            $coef_h=$dimension[1]*$reduc;
+            $chemin = imagecreatefromjpeg($file);
+            $nouvelle = imagecreatetruecolor ($coef_l, $coef_h);
+            imagecopyresampled($nouvelle,$chemin,0,0,0,0,$coef_l,$coef_h,$dimension[0],$dimension[1]);
+            imagejpeg($nouvelle,$fileName);
+          }
+
+          rename($fileName, 'uploads/picture/' . $fileName);
+
           $picture = $observation->getPicture()->setImage($fileName);
           $observation->setPicture($picture);
         }
