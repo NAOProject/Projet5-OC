@@ -33,6 +33,13 @@ body {
   font-weight: 500;
 }
 
+a{
+  color: #ff5b00;
+}
+a:hover{
+  color: #00ac98;
+}
+
 .bold {
   font-weight: bold;
 }
