@@ -103,47 +103,6 @@ border-color: white;
   line-height:34px!important;
   }
 
-  .arrow::before {
-    border-bottom-color: #bebebe;
-    left: 14px;
-    border-width: 0 11px 9px 11px;
-  }
-
-  .arrow::before, .arrow::after {
-    content: " ";
-    display: inline-block;
-    height: 0;
-    width: 0;
-    border: 1px solid transparent;
-    border-bottom-color: #ff5b00;
-    border-width: 0 7px 9px 7px;
-    border-width: 0 10px 8px 10px;
-    position: absolute;
-    bottom: -13px;
-    left: 10px;
-    z-index: 1000;
-  }
-
-  .arrow2::before {
-    border-bottom-color: #bebebe;
-    left: 14px;
-    border-width: 0 11px 9px 11px;
-  }
-
-  .arrow2::before, .arrow2::after {
-    content: " ";
-    display: inline-block;
-    height: 0;
-    width: 0;
-    border: 1px solid transparent;
-    border-bottom-color: #00c4b6;
-    border-width: 0 7px 9px 7px;
-    border-width: 0 10px 8px 10px;
-    position: absolute;
-    bottom: -13px;
-    left: 10px;
-    z-index: 1000;
-  }
 }
 
 /* Medium Devices, Desktops */
@@ -154,10 +113,6 @@ border-color: white;
     padding-right: 7px;
     font-size: 1.1rem !important;
     line-height:17px;
-    color: white;
-  }
-
-  .usermenu .navbar-nav > li > a {
     color: black;
   }
 
@@ -186,6 +141,19 @@ border-color: white;
     margin-top: 12px;
   }
 
+  .navbar-default .navbar-nav > li > a {
+    text-align: left;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+  }
+
+  .usermenu .navbar-nav > li > a {
+    width: 150px;
+    color: black;
+  }
+
   .inscription, .connexion{
     margin-top: 12px;
     padding: 0 12 0 12 !important;
@@ -207,11 +175,52 @@ border-color: white;
     margin-left: 0px;
   }
 
-
 .navbar-default{
   min-width: 420px;
   }
+}
 
+
+.arrow::before {
+  border-bottom-color: #bebebe;
+  left: 14px;
+  border-width: 0 11px 9px 11px;
+}
+
+.arrow::before, .arrow::after {
+  content: " ";
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border: 1px solid transparent;
+  border-bottom-color: #ff5b00;
+  border-width: 0 7px 9px 7px;
+  border-width: 0 10px 8px 10px;
+  position: absolute;
+  bottom: -13px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.arrow2::before {
+  border-bottom-color: #bebebe;
+  left: 14px;
+  border-width: 0 11px 9px 11px;
+}
+
+.arrow2::before, .arrow2::after {
+  content: " ";
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border: 1px solid transparent;
+  border-bottom-color: #00c4b6;
+  border-width: 0 7px 9px 7px;
+  border-width: 0 10px 8px 10px;
+  position: absolute;
+  bottom: -13px;
+  left: 10px;
+  z-index: 1000;
 }
 
 /*//// fin Css menu principal////*/
