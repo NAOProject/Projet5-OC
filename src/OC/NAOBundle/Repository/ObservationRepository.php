@@ -47,7 +47,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
     return $qb->getQuery()->getResult();
   }
-  
+
   //la liste des observations valider pour un Utilisateur
   public function getuserObservation($user, $page, $nbPerPage)
   {
@@ -75,6 +75,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     $qb->where('userobservationrefused.user = :user')
           ->setParameter('user', $user)
       ->andWhere('userobservationrefused.status = 0')
+      ->andWhere('userobservationrefused.notconforme = 1')
       ->orderBy('userobservationrefused.datetime', 'DESC')
       ;
       $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
@@ -88,6 +89,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     $qb->where('userpendingobservation.user = :user')
           ->setParameter('user', $user)
       ->andWhere('userpendingobservation.status = 0')
+      ->andWhere('userpendingobservation.notconforme != 1')
       ->orderBy('userpendingobservation.datetime', 'DESC')
       ;
     $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
@@ -100,7 +102,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     $qb = $this->createQueryBuilder('userobservationvalidate');
     $qb->where('userobservationvalidate.uservalidator = :uservalidator')
           ->setParameter('uservalidator', $user)
-      ->andWhere('userobservationvalidate.user != :user')
+      ->andWhere('userobservationvalidate.user != 1')
         ->setParameter('user', $user)
       ->orderBy('userobservationvalidate.datetime', 'DESC')
       ;
@@ -113,6 +115,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
   {
     $qb = $this->createQueryBuilder('observationatvalidate');
     $qb->where('observationatvalidate.status = 0')
+        ->andWhere('observationatvalidate.notconforme != 1')
         ->orderBy('observationatvalidate.datetime', 'DESC')
       ;
     $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
