@@ -45,7 +45,7 @@
         }
         })
       }}
-        {{ form_widget(form.notsur, {'label': 'Je ne suis pas sûr(e) de moi', 'label_attr': {'class': 'etoile normal'} } ) }}
+      {{ form_widget(form.notsur, {'label': 'Je ne suis pas sûr(e) de moi', 'label_attr': {'class': 'etoile normal'} } ) }}
       <h4 class="addEtoile">DATE DE L'OBSERVATION</h4>
       {{ form_row(form.dateObs) }}
     </div>
@@ -53,18 +53,18 @@
     <div class="carte col-md-6 col-xs-12">
       <h4 class="addEtoile">EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
       <h6 class="italic">Cliquez sur l'emplacement de la carte pour remplir les coordonnées automatiquement.</h6>
-      <div id="map">
+      <div id="map" class="mapAdd">
       </div>
       <div class="Coordonnees">
-        <span id="observation_ville"></span>
         <div class="hidden">
         {{ form_row(form.latitude, {'label': "Latitude"}) }}
         {{ form_row(form.longitude, {'label': "Longitude"}) }}
         </div>
       </div>
+      <input class="form-control" id="observation_ville" type="email" name="email" value="" placeholder="" readonly></input>
     </div>
     <div class="col-xs-12 submitBtn">
-      {{ form_row(form.submit, {'label': 'Envoyer', 'attr': {'class': 'col-xs-offset-3 col-xs-6 col-md-offset-4 col-md-4'}}) }}
+      {{ form_row(form.submit, {'label': 'Envoyer', 'attr': {'class': 'btn-site-orange pull-right'}}) }}
       {{ form_end(form) }}
     </div>
     {% else %}

@@ -38,7 +38,7 @@ class ObservationController extends Controller
         $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
 
         $observation = $observations->observation($user, $observation); //Utilisation fonction observation du service
-        
+
         $taxrefname = $observation->getTaxrefname();
         $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
@@ -84,6 +84,7 @@ class ObservationController extends Controller
   {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $taxrefname = $_POST["taxrefname"];
+      $em = $this->getDoctrine()->getManager();
 
       $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
       $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service

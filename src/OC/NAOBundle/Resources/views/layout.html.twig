@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -38,7 +39,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}"/></a>
+          <a href="{{ path('ocnao_homepage') }}"><img class="logoMenu" alt="Logo" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}"/></a>
         </div>
         <ul class="nav navbar-nav">
           <li>
@@ -80,8 +81,8 @@
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <li class="dropdown">
-                <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                  <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}" />
+                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                  <img class="userIcone" alt="Icone Utilisateur" src="{{ asset("assets/images/userIcone.png")}}" />
                 </a>
                 <ul class="dropdown-menu">
                   {% if is_granted("ROLE_ADMIN") %}
@@ -118,13 +119,13 @@
           </button>
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
           <button type="button" class="navbar-toggle collapsed usermenubutton" data-toggle="collapse" data-target=".usermenu" aria-expanded="false" data-placement="bottom" >
-            <img class="userIcone" src="{{ asset("assets/images/userIcone.png")}}"/>
+            <img class="userIcone" alt="Icone Utilisateur" src="{{ asset("assets/images/userIcone.png")}}"/>
           </button>
           {% else %}
           <a class="navbar-toggle connexion" href="{{ path('fos_user_security_login') }}" >CONNEXION</a>
           <a class="navbar-toggle inscription" href="{{ path('fos_user_registration_register') }}">S'INSCRIRE</a>
           {% endif %}
-          <a class="" href="{{ path('ocnao_homepage') }}"><img class="logoMenu" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}" /></a>
+          <a class="" href="{{ path('ocnao_homepage') }}"><img class="logoMenu" alt="Logo" src="{{ asset("assets/images/LogomenuNAO@3x.png")}}" /></a>
         </div>
       </div>
       <div id="test" class="collapse navbar-collapse menu center">
@@ -203,14 +204,14 @@
       <div class="col-md-offset-4 col-md-4">
         <div class="center"> <!-- reseaux sociaux -->
           <div class="row logoSociaux">
-            <a href="https://www.facebook.com" target="_blank"><img src="{{ asset("assets/images/fb_logo.png")}}"/></a>
-            <a href="https://www.twitter.com" target="_blank"><img src="{{ asset("assets/images/twitter_logo.png")}}"/></a>
+            <a href="https://www.facebook.com" target="_blank"><img src="{{ asset("assets/images/fb_logo.png")}}" alt="Logo Facebook"/></a>
+            <a href="https://www.twitter.com" target="_blank"><img src="{{ asset("assets/images/twitter_logo.png")}}" alt="Logo Twitter"/></a>
           </div>
           <div class="row">
             <p class="white">ABONNEZ-VOUS À NOTRE NEWSLETTER</p>
-            <form class="" action="" method="post">
-              <input class="bgnews" type="email" name="email" value="" placeholder="Entrez votre adresse mail"></input>
-              <input class="bgnews"type="submit" name="" value="S'abonner">
+            <form class="" action="#" method="post">
+              <input class="bgnews" type="email" name="email" value="" placeholder="Entrez votre adresse mail"/>
+              <input class="bgnews" type="submit" name="abonnement" value="S'abonner"/>
             </form>
 
           </div>
@@ -231,7 +232,7 @@
     <!-- Fin footer du site -->
   </footer>
 <script src="{{asset("assets/js/adaptation.js")}}"></script>
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
 //temps apparition du message alert
      setTimeout(function() {

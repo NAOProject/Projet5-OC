@@ -226,9 +226,17 @@ a:hover{
   max-height: 350px;
   position: relative;
   z-index: 1;
-  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  box-shadow: 0 0 6px 5px rgba(72, 181, 233, 0.6);
   border: 1px solid rgba(72, 181, 233, 0.6);
   border-radius: 2px 2px 10px 10px;
+}
+
+.mapAdd {
+  box-shadow: 0 0 6px 5px rgba(100, 100, 100, 0.5);
+}
+
+#observation_ville {
+  margin-top: 35px;
 }
 
 .submitBtn {
@@ -244,13 +252,12 @@ a:hover{
   margin: 0;
 }
 
-Label::-webkit-validation-bubble-message { background-color: #00ac98;}
-
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /* CSS Page observation.html.twig */
 .Obs {
-  padding-top: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 6px 5px #747473;
 }
 
 .obsTitle {
