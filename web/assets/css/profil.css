@@ -1,5 +1,10 @@
 
-
+a{
+  color: #ff5b00;
+}
+a:hover{
+  color: #00ac98;
+}
 /*///////////////////////////////////////////////////////////////*/
 /*////////// homepage//////////*/
 
@@ -124,20 +129,10 @@
 .btn-site-orange:hover{
   color: white;
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 700;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
 }
 
-/*@media screen and (max-width:767px) {
-  .btn-site-orange{
-    font-size: 2rem;
-    font-weight: normal;
-  }
-  .btn-site-orange{
-    font-size: 2rem;
-    font-weight: normal;
-  }
-}*/
 
 
 
@@ -146,7 +141,7 @@
 
 .pagination>li>a,
 .pagination>li>span {
-  color: #493c32;;
+  color: #ff5b00;
   border: 1px solid #ff5b00;
 }
 .pagination>li.active>a {
@@ -155,7 +150,7 @@
   border: 1px solid #ff5b00;
 }
 .pagination>li>a:hover{
-  color: #ff5b00;
+  color: #493c32;
   border: 1px solid #ff5b00;
 }
 .pagination>li.active>a:hover {
@@ -165,46 +160,29 @@
 }
 
 
-/*.nav-tabs > li.active >a {
-    float:none;
-    display:inline-block;
-    background: orange;
-}
-
-.nav-tabs > li.active >a {
-    float:none;
-    display:inline-block;
-
-}
-.nav-tabs {
-    text-align:center;
-}*/
-
-
 
 
 /*///////////////////////////////////////////////////////////////////*/
 
 .bgform{
-
-  /*max-height: ;*/
   background-size: 50%;
   background-repeat: no-repeat;
   background-image: url("../images/Fond_de_formulaire@3x.png");
 }
 
-@media screen and (max-width:767px) {
-  .btn-site-orange{
-    font-size: 1.7rem;
-    font-weight: normal;
-  }
-  .bgform{
-    background-size: 100%;
-  }
-}
 
 
 /*css formulaire commun*/
+
+.form{
+  width:600px;
+}
+
+@media screen and (max-width: 720px){
+  .form{
+    width:90%;
+  }
+}
 
 .form-control {
   border: 0px solid ;

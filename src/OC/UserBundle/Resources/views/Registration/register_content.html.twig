@@ -1,7 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-  <div class="container">
-    <div class="col-md-offset-4 col-md-4">
+  <div class="container form">
       <h1 class="text-center">Inscription</h1>
       <br>
       {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
@@ -29,4 +28,5 @@
     En cliquant sur "Créer un compte", vous acceptez nos<a href="#"> Conditions d'utilisation</a>.
     {{ form_end(form) }}
   </div>
+  <br>
 </div>

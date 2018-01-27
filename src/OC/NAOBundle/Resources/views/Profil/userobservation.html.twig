@@ -12,19 +12,19 @@
     <li>
         <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier test</a>
     </li>
-    <li {% if statusobs == 'publish' %}class='active'{% endif %}>
+    <li {% if statusobs == 'publish' %}{% endif %}>
         <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier</a>
     </li>
     {% if is_granted('ROLE_OBSERVER') %}
-    <li {% if statusobs == 'pending' %}class='active'{% endif %}>
+    <li {% if statusobs == 'pending' %}{% endif %}>
       <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'pending'}) }}">Observation en attente</a>
     </li>
-    <li {% if statusobs == 'pending' %}class='active'{% endif %}>
+    <li {% if statusobs == 'pending' %}{% endif %}>
       <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'conforme'}) }}">Observation Non conforme</a>
     </li>
     {% endif %}
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
-    <li {% if statusobs == 'validate' %}class='active'{% endif %}>
+    <li {% if statusobs == 'validate' %}{% endif %}>
       <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'validate'}) }}">Obervation validé</a>
     </li>
     {% endif %}
@@ -85,9 +85,16 @@ vous n'avez pas observation pour l'instant
   </div>
 
   {% endif %}
+  {% if page == nbPages %}
   <div class="">
-    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
+    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page}) }}">suivante</a>
   </div>
+{% else %}
+<div class="">
+  <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
+</div>
+{% endif %}
+
 
 
 

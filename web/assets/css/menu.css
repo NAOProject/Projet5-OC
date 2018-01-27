@@ -4,6 +4,7 @@
 .logoMenu {
   width: auto;
   height: 64px;
+  margin-left: -15px
 }
 
 .userIcone {
@@ -97,6 +98,16 @@ border-color: white;
     line-height:17px;
   }
 
+  .inscription, .connexion{
+    padding: 0 12 0 12 !important;
+    margin-right: 7px;
+  }
+
+  .don{
+    padding: 0 10 0 10 !important;
+    margin-right: 7px;
+  }
+
 }
 
 
@@ -108,9 +119,9 @@ border-color: white;
     width: auto;
   }
 
-.navbar-toggle{
-  margin-top: 12px;
-}
+  .navbar-toggle{
+    margin-top: 12px;
+  }
 
   .inscription, .connexion{
     margin-top: 12px;
@@ -127,6 +138,15 @@ border-color: white;
     font-size: x-small;
     line-height:40px;
     text-decoration: none;
+  }
+
+  .logoMenu {
+    margin-left: 0px;
+  }
+
+
+.navbar-default{
+  min-width: 420px;
   }
 
 }
