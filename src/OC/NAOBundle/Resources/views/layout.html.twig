@@ -181,7 +181,7 @@
   </nav>
   <!-- Fin navbar bottom sur Smartphone -->
 
-  <div class="container" style="margin-top:66px; padding:0;"> <!-- Messages d'informations -->
+  <div class="container" style="margin-top:64px; padding:0;"> <!-- Messages d'informations -->
     {% for label, messages in app.flashes(['info', 'success', 'danger']) %}
       {% for message in messages %}
         <div class="alert alert-{{ label }}">
@@ -228,20 +228,12 @@
   </footer>
 <script src="{{asset("assets/js/adaptation.js")}}"></script>
 <script type="text/javascript">
-// $(document).ready(function () {
-//   $(".navbar-nav li a").click(function(event) {
-//     $(".navbar-collapse").collapse('hide');
-//   });
-// });
-
-// $(function(){
-//   var navMain = $(".navbar-collapse"); // avoid dependency on #id
-//   // "a:not([data-toggle])" - to avoid issues caused
-//   // when you have dropdown inside navbar
-//   navMain.on("click", "a:not([data-toggle])", null, function () {
-//       navMain.collapse('hide');
-//   });
-// });
+$(document).ready(function(){
+//temps apparition du message alert
+     setTimeout(function() {
+       $('.alert').fadeOut('fast');
+     }, 5000); // <-- time in milliseconds
+ });
 </script>
 </body>
 </html>
