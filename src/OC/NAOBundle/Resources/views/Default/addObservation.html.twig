@@ -14,7 +14,7 @@
 
 <div class="container">
   <h1>AJOUTER UNE OBSERVATION</h1>
-  <div class="row form">
+  <div class="row">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       {{ form_start(form) }}
         {% if form_errors(form.picture.image) or form_errors(form.taxrefname) or form_errors(form.latitude) %}
@@ -29,15 +29,15 @@
         {% endif %}
       <div class="formulaire col-md-6 col-xs-12">
         <div class="imageForm">
-          <h4>PHOTO DE L'OISEAU OBSERVÉ</h4>
+          <h4 class="imageLabel">PHOTO DE L'OISEAU OBSERVÉ</h4>
 
-          <label class="photoFileLabel col-xs-12 control-label center" for="observation_picture_image">
+          <label class="photoFileLabel col-xs-12 control-label center etoile" for="observation_picture_image">
             <img id="blah" src="{{asset("assets/images/choosePic.png")}}" onclick="javascript:readURL();" alt=""></img>
           </label>
           {{ form_widget(form.picture.image, {'attr': {'class': 'hidden'}} ) }}
         </div>
 
-      <h4>NOM DE L'ÉSPÈCE OBSERVÉE</h4>
+      <h4 class="addEtoile">NOM DE L'ÉSPÈCE OBSERVÉE</h4>
       {{ form_widget(form.taxrefname, {
         'attr': {
         'data-id': 'listedesespeces',
@@ -45,22 +45,13 @@
         }
         })
       }}
-      <div class="col-xs-10">
-        <h5>Je ne suis pas sûr(e) de moi</h5>
-      </div>
-      <div class="col-xs-2">
-        {{ form_widget(form.notsur) }}
-      </div>
-      <div class="col-xs-6">
-        <h5>DATE DE L'OBSERVATION</h5>
-      </div>
-      <div class="col-xs-6">
-        {{ form_row(form.dateObs) }}
-      </div>
+        {{ form_widget(form.notsur, {'label': 'Je ne suis pas sûr(e) de moi', 'label_attr': {'class': 'etoile normal'} } ) }}
+      <h4 class="addEtoile">DATE DE L'OBSERVATION</h4>
+      {{ form_row(form.dateObs) }}
     </div>
 
     <div class="carte col-md-6 col-xs-12">
-      <h4>EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
+      <h4 class="addEtoile">EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
       <h6 class="italic">Cliquez sur l'emplacement de la carte pour remplir les coordonnées automatiquement.</h6>
       <div id="map">
       </div>

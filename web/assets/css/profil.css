@@ -206,9 +206,13 @@
 label{
 text-transform: uppercase;
 }
-Label:after{
+Label:after, .addEtoile:after{
 content: " *";
 color: red;
+}
+
+.normal {
+  text-transform: inherit;
 }
 
 .etoile:after{

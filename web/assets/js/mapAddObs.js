@@ -3,8 +3,10 @@
 $('#observation_notsur').change(function() {
   if ($('#observation_notsur').is(":checked")) {
     $('#observation_picture_image').attr("required", true);
+    $('.imageLabel').addClass('addEtoile');
   } else {
     $('#observation_picture_image').attr("required", false);
+    $('.imageLabel').removeClass('addEtoile');
   }
 });
 
