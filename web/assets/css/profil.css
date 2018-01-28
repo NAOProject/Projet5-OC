@@ -53,10 +53,7 @@
 .bg-home2{
     background-color: #e4e4db;
 }
-.btng{
-  /*display: inline-block;*/
-  width: 450px;
-}
+
 .btn1{
   float: left;
   width: 50%;
