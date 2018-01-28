@@ -55,7 +55,7 @@
 }
 .btng{
   /*display: inline-block;*/
-  width: 450px;
+  width: 350px;
 }
 .btn1{
   float: left;
@@ -93,47 +93,49 @@
 /*////////////////////////////////////////////////////////////*/
 /*////////// bouton site commun //////////*/
 .btn-site{
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  height: 57px;
-  width: 250px;
+  height: 44px;
+  /*width: 221px;*/
   color: #00ac98;
   background-color: rgba(255, 255, 255, 0.8);
-  border: 2px solid #00ac98 ;
-  -webkit-border-radius: 20px;
-     -moz-border-radius: 20px;
-          border-radius: 20px;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  border: 3px solid #00ac98 ;
+  -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+          border-radius: 12px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
 }
 
 .btn-site:hover{
   color: white;
-  border: 2px solid #ff5b00;
+  border: 3px solid #ff5b00;
   background: #ff5b00;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.6);
   /*font-weight: bold;*/
 }
 
 .btn-site-orange{
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  height: 57px;
-  width: 250px;
+  height: 44px;
+  /*width: 221px;*/
   color: white;
   background: #ff5b00;
-  border: 2px solid #ff5b00;
-  -webkit-border-radius: 20px;
-     -moz-border-radius: 20px;
-          border-radius: 20px;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
+  border: 3px solid #ff5b00;
+  -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+          border-radius: 12px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
 }
 .btn-site-orange:hover{
   color: white;
-  font-size: 2rem;
-  font-weight: 700;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.6);
 }
 
+.btn-marge{
+  padding-left: 34px;
+  padding-right: 34px;
+}
 
 
 
@@ -191,6 +193,7 @@
      -moz-border-radius: 0;
           border-radius: 0;
   outline: 0;
+  padding: 0px 0px 0px 0px;
   box-shadow: 0px 0px 0px #aaa;
   background: transparent;
   border-bottom: 3px solid #00ac98;

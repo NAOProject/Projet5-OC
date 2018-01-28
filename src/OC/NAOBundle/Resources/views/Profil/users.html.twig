@@ -51,7 +51,7 @@
   <select id="myselect" style="width:200px" name="role">
     <option value="ROLE_OBSERVER">Observateur</option>
     <option value="ROLE_NATURALIST">Naturaliste</option>
-    <option value="ROLE_ADMIN">Administrateur</option>
+    <!-- <option value="ROLE_ADMIN">Administrateur</option> -->
   </select>
     <input type="hidden" name="username" value="{{user.username}}">
     <!-- <input type="submit" value="Valider"> -->
@@ -80,7 +80,7 @@
   </form>
 
 <br>
-
+{% if (is_granted("ROLE_ADMIN") == false) %}
   <form action="{{path('ocnao_profil_removeuser')}}">
     <input type="hidden" name="usernameremove" value="{{user.username}}">
   <button type="button" class="btn-site-orange" style="width:287px"  data-toggle="modal" data-target="#confirm-delete2">Supprimer le compte</button>
@@ -104,7 +104,7 @@
         </div>
     </div>
     </form>
-
+{% endif %}
 </div>
   {% endif %}
 </div>

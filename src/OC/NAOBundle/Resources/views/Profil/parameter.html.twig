@@ -7,11 +7,21 @@
 
 {% block body %}
 <br>
+
 <br>
 <div class="container">
   <div class="col-md-offset-4 col-md-4">
     <h3>Parametre du compte</h3>
     <br>
+    {% if (is_granted("ROLE_ADMIN")) %}
+    <h3>jeux peux</h3>
+    {% endif %}
+    {% if (is_granted("ROLE_NATURALIST")) %}
+    <h3>jeux peux</h3>
+    {% endif %}
+    {% if (is_granted("ROLE_OBSERVER")) %}
+    <h3>jeux peux</h3>
+    {% endif %}
     <p>Votre Pseudo: <b>{{ user.username }}</b></p>
     <p>Votre email: <b>{{ user.email }}</b></p>
     <p><a href="/profile/edit">Je ve changer Pseudo ou Email</a></p>

@@ -29,6 +29,19 @@ class ProfilController extends Controller
     public function ParameterAction()
     {
       $user = $this->getUser();
+      // $role = $user->getetRoles()[0];
+      // switch ($role) {
+      //   case 'ROLE_OBSERVER':
+      //     $rolename = 'Observateur';
+      //     break;
+      //   case 'ROLE_NATURALIST':
+      //     $rolename = 'Naturaliste';
+      //     break;
+      //   case 'ROLE_ADMIN':
+      //     $rolename = 'Administrateur';
+      //     break;
+      // }
+
         return $this->render('OCNAOBundle:Profil:parameter.html.twig', array(
             'user' => $user,
           ));;
@@ -53,19 +66,25 @@ class ProfilController extends Controller
            $repository = $em->getRepository('OCUserBundle:User');
            $data = $form->getData()['name'];
            $user = $repository->findBy(array('username' => $data));
-           $result = true;
-           return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-               'user' => $user[0],
-               'result' => $result,
-             ));
+          //  $role = $user->get
+
+          if (!$user == null) {
+
+            return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+                'user' => $user[0],
+                'result' => true,
+              ));
+          }else {
+            $this->addFlash('success', "L'utilisateur n'existe pas");
+          }
+
          }
 //faire recherche pour nombre utilisateur, obs,nat,adm
 
 
-       $result = false;
        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
            'form' => $form->createView(),
-           'result' => $result,
+           'result' => false,
          ));
 
     }
@@ -98,26 +117,31 @@ class ProfilController extends Controller
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $userManager->findUserBy(array('username' => $username ));
       $user->setStatus(false);
-      $user->setRoles(array($role));// enregistre le role
-      $userManager->updateUser($user);
 
         switch ($role) {
           case 'ROLE_OBSERVER':
-            $rolename = 'Observateur';
+            $user->setRoles(array($role));// enregistre le role
+            $this->addFlash('success', "$username, a obtenu le role Observateur, un email lui a était envoyer pour le prevenir");
             break;
           case 'ROLE_NATURALIST':
-            $rolename = 'Naturaliste';
+            $this->addFlash('success', "$username, a obtenu le role Naturaliste, un email lui a était envoyer pour le prevenir");
+            $user->setRoles(array($role));// enregistre le role
             break;
-          case 'ROLE_ADMIN':
-            $rolename = 'Administrateur';
-            break;
+          // case 'ROLE_ADMIN':
+          //   // $user->setRoles(array($role));// enregistre le role
+          //   break;
+            default:
+              $this->addFlash('success', "Une erreur est survenu");
+              return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+                  'user' => $user[0],
+                  'result' => false,
+                ));
+              break;
         }
-
+        $userManager->updateUser($user);
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('OCUserBundle:User');
         $user = $repository->findBy(array('username' => $username));
-
-        $this->addFlash('info', "$username, a obtenu le role $rolename, un email lui a était envoyer pour le prevenir");
 
         // faire email
         //  //envoi email
@@ -131,10 +155,10 @@ class ProfilController extends Controller
         //    ;
         //  $mailer->send($message);
 
-        $result = true;
+        //$result = true;
         return $this->render('OCNAOBundle:Profil:users.html.twig', array(
             'user' => $user[0],
-            'result' => $result,
+            'result' => true,
           ));
     }
 
@@ -158,7 +182,7 @@ class ProfilController extends Controller
     //    ;
     //  $mailer->send($message);
      //
-    //  $this->addFlash('info', 'La demande est en cours un administrateur vous contactera pas email');
+    //  $this->addFlash('success', 'La demande est en cours un administrateur vous contactera pas email');
     //  return $this->redirectToRoute('ocnao_profil_parameter');
 
    }
@@ -170,15 +194,15 @@ class ProfilController extends Controller
    {
      $username = $request->get('usernameremove');
      //$userManager = $this->get('fos_user.user_manager');
-     $this->addFlash('info', "la supression est desactiver pour le dev");
+     $this->addFlash('success', "la supression est desactiver pour le dev");
 
        if (empty($username)) {
           $user = $this->getUser();
           //$userManager->deleteUser($user);
-          $this->addFlash('info', "Votre compte a été supprimé");
+          $this->addFlash('success', "Votre compte a été supprimé");
           return $this->redirectToRoute('ocnao_homepage');
         }else {
-          $this->addFlash('info', "Le compte $username a été supprimé");
+          $this->addFlash('success', "Le compte $username a été supprimé");
           //$userManager->deleteUser($user);
           return $this->redirectToRoute('ocnao_profil_users');
         }
@@ -199,18 +223,15 @@ class ProfilController extends Controller
 
      if ($news == "true") {
        $user->setNewsletter(true);
-       $this->addFlash('info', "Vous venez de vous inscrire à la newletter, merci.");
+       $this->addFlash('success', "Vous venez de vous inscrire à la newletter, merci.");
      }else {
        $user->setNewsletter(false);
-       $this->addFlash('info', "Vous venez de vous désinscrire de la newletter.");
+       $this->addFlash('success', "Vous venez de vous désinscrire de la newletter.");
      }
       $userManager->updateUser($user);
 
       return $this->redirectToRoute('ocnao_profil_parameter');
    }
-
-
-
 
       ///////////////a suprimer le dev fini//////////////////////////////
 
@@ -222,6 +243,8 @@ class ProfilController extends Controller
       // obtenir role administrateur
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $this->getUser();
+
+      // $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
       $user->setRoles(array('ROLE_ADMIN'));// enregistre le role naturalist
       $userManager->updateUser($user);
 
