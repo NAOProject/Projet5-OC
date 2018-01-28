@@ -14,7 +14,7 @@
 
 <div class="container">
   <h1>AJOUTER UNE OBSERVATION</h1>
-  <div class="row">
+  <div class="row add">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       {{ form_start(form) }}
         {% if form_errors(form.picture.image) or form_errors(form.taxrefname) or form_errors(form.latitude) %}
@@ -52,7 +52,7 @@
 
     <div class="carte col-md-6 col-xs-12">
       <h4 class="addEtoile">EMPLACEMENT DE L'OISEAU OBSERVÉ</h4>
-      <h6 class="italic">Cliquez sur l'emplacement de la carte pour remplir les coordonnées automatiquement.</h6>
+      <h6 class="italic">Cliquez sur la carte pour indiquer l'emplacement de l'oiseau.</h6>
       <div id="map" class="mapAdd">
       </div>
       <div class="Coordonnees">
@@ -64,6 +64,7 @@
       <input class="form-control" id="observation_ville" type="email" name="email" value="" placeholder="" readonly></input>
     </div>
     <div class="col-xs-12 submitBtn">
+      <div class="champs"> * Champs obligatoire</div>
       {{ form_row(form.submit, {'label': 'Envoyer', 'attr': {'class': 'btn-site-orange pull-right'}}) }}
       {{ form_end(form) }}
     </div>

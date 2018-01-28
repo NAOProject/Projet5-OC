@@ -43,8 +43,8 @@ class Picture
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Assert\File(
-     * maxSize= "2024k",
-     * maxSizeMessage = "La photo doit peser moins de 2Mo",
+     * maxSize= "10M",
+     * maxSizeMessage = "La photo doit peser moins de 10Mo",
      * mimeTypes={ "image/jpeg", "image/jpg", "image/png" },
      * mimeTypesMessage = "La photo doit etre au format JPEG, JPG ou PNG",
      * )
