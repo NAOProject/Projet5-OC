@@ -124,6 +124,8 @@ a:hover{
   color: #00ac98;
 }
 
+
+
 #recherche_submit {
   background-color: #ff5b00;
   width: 200px;
@@ -521,6 +523,7 @@ a:hover{
   .rechercheBoutton {
     align-items: center;
     text-align: center;
+    margin-top: 20px;
   }
   .bandeau {
     display: none;
