@@ -23,10 +23,10 @@ class ObservationController extends Controller
   public function addObservationAction(Request $request)
   {
 
-  // if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-  //   $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
-  //   throw new AccessDeniedException('Accès limité aux utilisateur.');
-  // }
+  if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+    $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
+    throw new AccessDeniedException('Accès limité aux utilisateur.');
+  }
     $observation = new Observation();
     $form = $this->createForm(ObservationType::class, $observation);
 
@@ -38,7 +38,7 @@ class ObservationController extends Controller
         $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
 
         $observation = $observations->observation($user, $observation); //Utilisation fonction observation du service
-        
+
         $taxrefname = $observation->getTaxrefname();
         $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service
 
@@ -84,6 +84,7 @@ class ObservationController extends Controller
   {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $taxrefname = $_POST["taxrefname"];
+      $em = $this->getDoctrine()->getManager();
 
       $observations = $this->container->get('ocnao.observations'); //Utilisation du services ocnao.observations
       $same = $observations->same($em, $taxrefname); //Utilisation fonction same du service

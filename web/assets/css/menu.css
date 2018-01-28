@@ -154,29 +154,33 @@ border-color: white;
   }
 
   .inscription, .connexion{
-    margin-top: 12px;
+    margin-top: 20px;
     padding: 0 12 0 12 !important;
-    font-size: 1.3rem !important;
+    font-size: 0.9rem !important;
     text-align: center;
-    width: 100px;
-    height: 40px!important;
+    width: 80px;
+    height: 25px!important;
     border-width: 0px 0px 0px 0px!important;
     margin-right: 8px;
-    font-weight: 500!important;
+    font-weight: 400!important;
     color: #fff!important;
     border-radius: 15px 15px 15px 15px;
     font-size: x-small;
-    line-height:40px;
+    line-height: 25px;
     text-decoration: none;
+  }
+
+  .home {
+    padding-bottom: 30px;
   }
 
   .logoMenu {
     margin-left: 0px;
   }
 
-.navbar-default{
-  min-width: 420px;
-  }
+  /* .navbar-default{
+    min-width: 362px;
+  } */
 }
 
 

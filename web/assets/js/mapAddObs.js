@@ -38,8 +38,10 @@ $('#observation_dateObs').datepicker({
 
 var inputLatitude = document.getElementById("observation_latitude");
 var inputLongitude = document.getElementById("observation_longitude");
+var inputVille = document.getElementById("observation_ville");
 inputLatitude.value = null;
 inputLongitude.value = null;
+inputVille.value = null;
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -79,9 +81,10 @@ function geocodeLatLng(geocoder, map, latLng) {
         map.panTo(latLng);
         inputLatitude.value = latLng.lat();
         inputLongitude.value = latLng.lng();
-        $("#observation_ville").html("<p class='bold'>" + results[1].formatted_address +
-        "</p><p class='italic'>" +
-        "long: " + inputLongitude.value + ", lat: " + inputLatitude.value );
+        var ville = (results[1].formatted_address +
+        " (long: " + inputLongitude.value + ", lat: " + inputLatitude.value + ")");
+        console.log(ville, inputVille);
+        inputVille.value = ville;
       } else {
         window.alert('No results found');
       }
