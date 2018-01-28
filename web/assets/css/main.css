@@ -433,6 +433,10 @@ a:hover{
   width: 70%;
 }
 
+.mentions .container {
+  width: 60%;
+}
+
 .panel-group {
   padding-top: 20px;
 }
@@ -485,6 +489,10 @@ a:hover{
   }
 
   .container {
+    width: 100%;
+  }
+
+  .mentions .container {
     width: 100%;
   }
 

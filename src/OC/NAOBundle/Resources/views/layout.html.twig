@@ -86,7 +86,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   {% if is_granted("ROLE_ADMIN") %}
-                  <li><a {% block user1 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
+                  <li><a {% block user1 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">GESTION DES UTILISATEURS</a></li>
                   {% endif %}
                   <li><a {% block list %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
                   <li><a {% block parameter %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
@@ -144,7 +144,7 @@
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
               {% if is_granted("ROLE_ADMIN") %}
-              <li ><a {% block user4 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">LISTE DES UTILISATEURS</a></li>
+              <li ><a {% block user4 %}{% endblock %} href="{{ path('ocnao_profil_users') }}">GESTION DES UTILISATEURS</a></li>
               {% endif %}
               <li ><a {% block list4 %}{% endblock %} href="{{ path('ocnao_profil_listobs') }}">MES OBSERVATIONS</a></li>
               <li ><a {% block parameter4 %}{% endblock %} href="{{ path('ocnao_profil_parameter') }}">MES PARAMÈTRES</a></li>
@@ -223,7 +223,7 @@
               <a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a>
             </div>
             <div class="col-xs-4">
-              <a href="#">MENTION LÉGALES</a>
+              <a href="{{ path('ocnao_mentions') }}">MENTIONS LÉGALES</a>
             </div>
           </div>
         </div>

@@ -4,6 +4,9 @@ ocnao_homepage:
 ocnao_faq:
     path:     /faq
     defaults: { _controller: OCNAOBundle:Home:faq }
+ocnao_mentions:
+    path:     /mentions
+    defaults: { _controller: OCNAOBundle:Home:mentions }
 ocnao_contact:
     path:     /contact
     defaults: { _controller: OCNAOBundle:Contact:contact }
