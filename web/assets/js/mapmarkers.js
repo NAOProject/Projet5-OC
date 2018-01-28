@@ -86,10 +86,10 @@ function setMarkers(map) {
               if($(window).width()<=767) {
                 iwCloseBtn.css({
                   opacity: '0.7', // by default the close button has an opacity of 0.7
-                  right: '20px', top: '20px', // button repositioning
+                  right: '-15px', top: '20px', // button repositioning
                   });
-                iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 156px !important;'});
-                iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 156px !important;'});
+                iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 140px !important;'});
+                iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 140px !important;'});
               } else {
                 iwCloseBtn.css({
                   opacity: '0.7', // by default the close button has an opacity of 0.7
