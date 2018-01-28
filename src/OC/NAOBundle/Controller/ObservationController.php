@@ -156,6 +156,11 @@ class ObservationController extends Controller
     $recherche = new Recherche();
     $form = $this->createForm(RechercheType::class, $recherche);
 
+    $user = null;
+    var_dump($user);
+    
+    $user = $this->getUser();
+
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
         $espece = $recherche->getEspece();
@@ -163,12 +168,15 @@ class ObservationController extends Controller
         return $this->redirectToRoute('ocnao_results');
       }
 
+    var_dump($user);
+
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
 
     return $this->render('OCNAOBundle:Default:recherche.html.twig', array(
       'form' => $form->createView(),
       'lastObs' => $lastObs,
+      'user' => $user,
     ));
   }
 
@@ -177,6 +185,9 @@ class ObservationController extends Controller
   {
     $recherche = new Recherche();
     $form = $this->createForm(RechercheType::class, $recherche);
+
+    $user = null;
+    $user = $this->getUser();
 
     $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){
@@ -191,6 +202,7 @@ class ObservationController extends Controller
       return $this->render('OCNAOBundle:Default:results.html.twig', array(
         'form' => $form->createView(),
         'results' => $results,
+        'user' => $user,
       ));
     }else{
       $this->addFlash('success', 'Aucune observation trouvé pour cette éspèce.');
@@ -213,7 +225,8 @@ class ObservationController extends Controller
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
           'nbObs' => $nbObsUser,
-          'famille' => $famille
+          'famille' => $famille,
+          'user' => $user,
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('success', 'L\'observation n\'existe pas');
@@ -221,10 +234,12 @@ class ObservationController extends Controller
       }
     } else { //redirection pour un visiteur
       if ($observation[0]->getStatus() == 1) {
+        $user = null;
         return $this->render('OCNAOBundle:Default:observation.html.twig', array(
           'observation' => $observation,
           'nbObs' => $nbObsUser,
-          'famille' => $famille
+          'famille' => $famille,
+          'user' => $user,
         ));
       } else { //redirection pour les observateur qui tente d'acceder a une observation non validé
         $this->addFlash('success', 'L\'observation n\'existe pas');

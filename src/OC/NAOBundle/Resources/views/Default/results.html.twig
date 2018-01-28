@@ -80,6 +80,18 @@
   </div>
 </div>
 
+<div id="autorisation" class="hidden">
+{% if user != null %}
+  {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
+    <div data-user="ALLOW"></div>
+  {% else %}
+    <div data-user="NOTALLOW"></div>
+  {% endif %}
+{% else %}
+    <div data-user="NOTALLOW"></div>
+{% endif %}
+</div>
+
 <div id="coordonnees" class="hidden">
   {% for result in results %}
     {% if result.picture.image is defined %}
@@ -96,7 +108,8 @@
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
          data-date="{{ result.dateObs.date|date("d/m/Y") }}"
-         data-src="{{ asset('assets/images/logo_nao.png') }}">
+         data-src="{{ asset('assets/images/logo_nao.png') }}"
+         data-user= "{{user}}">
     </div>
     {% endif %}
   {% endfor %}

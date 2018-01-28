@@ -121,33 +121,38 @@
   </div>
 </div>
 
-
-
-  {% if observation.0.status == 0 and observation.0.notconforme == 0 %}
-  <div class="container noPad">
-    <div class="col-xs-12 conformeZone">
-      <div class="conformeZoneBtn center">
-        <a class="btn btn-site-orange validate" href="{{ path('ocnao_validate', {'id': observation.0.id }) }}" role="button">Valider l'observation</a>
-        <a class="btn btn-site notconforme" role="button">Observation inexacte</a>
-      </div>
-      <div class="notconformzone hidden">
-        <h4 class="bold">INDIQUEZ LE MOTIF DU REFUS DE L'OBSERVATION</h4>
-        <h5>Vos commentaires seront envoyés par mail et sur l'observation de l'observateur.</h5>
-        <form class="form-horizontal" action="{{ path('ocnao_notconforme', {'id': observation.0.id }) }}" method="post">
-          <input class="form-control white" type="text" name="notconformetext" placeholder="Entrez ici le motif de non conformité." required/><br>
-          <div class="col-xs-12">
-            <input class="btn btn-site-orange btnSubmitConforme pull-right" type="submit" value="Envoyer">
-          </div>
-        </form>
-      </div>
+{% if observation.0.status == 0 and observation.0.notconforme == 0 %}
+<div class="container noPad">
+  <div class="col-xs-12 conformeZone">
+    <div class="conformeZoneBtn center">
+      <a class="btn btn-site-orange validate" href="{{ path('ocnao_validate', {'id': observation.0.id }) }}" role="button">Valider l'observation</a>
+      <a class="btn btn-site notconforme" role="button">Observation inexacte</a>
+    </div>
+    <div class="notconformzone hidden">
+      <h4 class="bold">INDIQUEZ LE MOTIF DU REFUS DE L'OBSERVATION</h4>
+      <h5>Vos commentaires seront envoyés par mail et sur l'observation de l'observateur.</h5>
+      <form class="form-horizontal" action="{{ path('ocnao_notconforme', {'id': observation.0.id }) }}" method="post">
+        <input class="form-control white" type="text" name="notconformetext" placeholder="Entrez ici le motif de non conformité." required/><br>
+        <div class="col-xs-12">
+          <input class="btn btn-site-orange btnSubmitConforme pull-right" type="submit" value="Envoyer">
+        </div>
+      </form>
     </div>
   </div>
+</div>
+{% endif %}
+
+<div id="autorisation" class="hidden">
+{% if user != null %}
+  {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST") %}
+    <div data-user="ALLOW"></div>
+  {% else %}
+    <div data-user="NOTALLOW"></div>
   {% endif %}
-
-
-
-
-
+{% else %}
+    <div data-user="NOTALLOW"></div>
+{% endif %}
+</div>
 
 <div id="coordonnees" class="hidden">
     <div data-latitude="{{ observation.0.latitude }}" data-longitude="{{ observation.0.longitude }}" data-username="{{ observation.0.user.username }}" data-conform="{{ observation.0.notconforme }}"></div>
