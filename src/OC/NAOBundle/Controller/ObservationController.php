@@ -156,9 +156,6 @@ class ObservationController extends Controller
     $recherche = new Recherche();
     $form = $this->createForm(RechercheType::class, $recherche);
 
-    $user = null;
-    var_dump($user);
-    
     $user = $this->getUser();
 
     $form->handleRequest($request);
@@ -167,8 +164,6 @@ class ObservationController extends Controller
         $_SESSION['espece'] = $espece;
         return $this->redirectToRoute('ocnao_results');
       }
-
-    var_dump($user);
 
     //Derniere observations
     $lastObs = $this->getDoctrine()->getManager()->getRepository('OCNAOBundle:Observation')->lastObs();
