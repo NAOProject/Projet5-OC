@@ -26,9 +26,9 @@ class ContactController extends Controller
             array('contact' => $contact
             ));
 
-          $message =  (new \Swift_Message($object))
-            ->setTo($email)
-            ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+          $message =  \Swift_Message::newInstance($object)
+            ->setTo('NAO@weberyon.ovh')
+            ->setFrom($email)
             ->setBody($content, 'text/html')
             ;
           $this->get('mailer')->send($message);

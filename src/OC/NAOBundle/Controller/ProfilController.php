@@ -176,7 +176,7 @@ class ProfilController extends Controller
          $mailer = $this->container->get('mailer');
          $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
            ->setTo($user[0]->getEmail())
-           ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+           ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
            ->setBody($content, 'text/html')
            ;
          $mailer->send($message);
@@ -222,7 +222,7 @@ class ProfilController extends Controller
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
         ->setTo($user->getEmail())
-        ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
         ->setBody($content, 'text/html')
         ;
 
