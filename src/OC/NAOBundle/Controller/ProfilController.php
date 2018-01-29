@@ -173,7 +173,6 @@ class ProfilController extends Controller
            array('username' => $username
            ));
 
-
          $mailer = $this->container->get('mailer');
          $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
            ->setTo($user[0]->getEmail())
@@ -210,7 +209,8 @@ class ProfilController extends Controller
     //  echo "devenir naturalist, email a mettre";
     //  exit;
      $userManager = $this->get('fos_user.user_manager');//recuperre le service
-     $user = $this->setStatus(true);
+     $user = $this->getUser();
+     $user->setStatus(true);
      $userManager->updateUser($user);
 
     //envoi email
@@ -220,7 +220,7 @@ class ProfilController extends Controller
         ));
         $email = $this->container->get('ocnao.observations');
       $mailer = $this->container->get('mailer');
-      $message =  \Swift_Message::newInstance($object)
+      $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
         ->setTo($user->getEmail())
         ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
         ->setBody($content, 'text/html')

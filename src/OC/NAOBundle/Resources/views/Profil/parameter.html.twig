@@ -22,6 +22,7 @@
       <br>
       {% if (is_granted("ROLE_ADMIN")) == false %}
       {% if (is_granted("ROLE_NATURALIST")) == false %}
+      {% if (user.status == false) %}
       <div class="text-center">
           <button type="button" class="btn-site-orange"  style="width:280px" data-toggle="modal" data-target="#confirm-nat">Demander le role de naturaliste</button>
       </div>
@@ -45,6 +46,13 @@
             </div>
         </div>
       <br>
+      {% endif %}
+      {% else %}
+          <p>
+            <div class="text-center">
+                <p>Vous avez demander à devenir naturaliste la procédure est en cours</p>
+            </div>
+          </p>
       {% endif %}
       {% endif %}
 

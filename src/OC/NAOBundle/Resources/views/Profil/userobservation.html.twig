@@ -10,23 +10,22 @@
 
 
 {% block body %}
-
 <div class="container">
   <ul class="nav nav-tabs">
-    <li {% if statusobs == 'publish' %}{% endif %}>
-        <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier</a>
+    <li {% if statusobs == 'publish' %}class="activelist"{% endif %}>
+        <a  class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'publish'}) }}">Observation publier</a>
     </li>
     {% if is_granted('ROLE_OBSERVER') %}
-    <li {% if statusobs == 'pending' %}{% endif %}>
-      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'pending'}) }}">Observation en attente</a>
+    <li {% if statusobs == 'pending' %}class="activelist"{% endif %}>
+      <a   class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'pending'}) }}">Observation en attente</a>
     </li>
-    <li {% if statusobs == 'pending' %}{% endif %}>
-      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'conform'}) }}">Observation Non conforme</a>
+    <li {% if statusobs == 'conform' %}class="activelist"{% endif %}>
+      <a  class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'conform'}) }}">Observation Non conforme</a>
     </li>
     {% endif %}
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
-    <li {% if statusobs == 'validate' %}{% endif %}>
-      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'validate'}) }}">Obervation validé</a>
+    <li {% if statusobs == 'validate' %}class="activelist"{% endif %}>
+      <a  class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'validate'}) }}">Obervation validé</a>
     </li>
     {% endif %}
   </ul>
@@ -34,8 +33,14 @@
 {% if statusobs == 'publish' %}
 
 {% endif %}
+{% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_NATURALIST")) %}
 
+<form class="" action="{{ path('ocnao_profil_observationatvalidate') }}" method="post">
+    <button type="button" style="width:147px" class="btn-site-orange" data-dismiss="modal">NON</button>
+    <input type="submit" style="width:147px" class="btn-site" value="OUI">
+</form>
 
+{% endif %}
 {% if notobs == true %}
 vous n'avez pas observation pour l'instant
 {% else %}
@@ -43,74 +48,80 @@ vous n'avez pas observation pour l'instant
 <div class="row">
 
 
-<div class=" Liste col-md-6 col-lg-4 col-xs-12">
-{% for obs in observationList %}
-<div class="col-sm-6 col-md-6 col-xs-6">
-  <div class="observation">
-    <div class="photo col-md-12">
-      {% if obs.picture.image is defined %}
-        <div class="picture center">
-          <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
-        </div>
-      {% else %}
-        <div class="picture center">
-          <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
-        </div>
-      {% endif %}
-    </div>
-    <div class="description col-md-12 col-xs-12">
-      <h4 class="center">{{ obs.taxrefname }}</h4>
-      <div class="col-md-6 col-xs-6">
-        <h5>{{ obs.user.username }}</h5>
+  <div class=" Liste col-sm-6 col-md-6 col-lg-4 col-xs-12">
+  {% for obs in observationList %}
+  <div class="col-sm-6 col-md-6 col-xs-6">
+    <div class="observation">
+      <div class="photo col-md-12">
+        {% if obs.picture.image is defined %}
+          <div class="picture center">
+            <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
+          </div>
+        {% else %}
+          <div class="picture center">
+            <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
+          </div>
+        {% endif %}
       </div>
-      <div class="col-md-6 col-xs-6">
-        <h5 class="italic right">{{ obs.dateObs.date|date("d/m/Y") }}</h5>
+      <div class="description col-md-12 col-xs-12">
+        <h4 class="center">{{ obs.taxrefname }}</h4>
+        <div class="col-md-6 col-xs-6">
+          <h5>{{ obs.user.username }}</h5>
+        </div>
+        <div class="col-md-6 col-xs-6">
+          <h5 class="italic right">{{ obs.dateObs.date|date("d/m/Y") }}</h5>
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% endfor %}
-</div>
-
+  {% endfor %}
 </div>
 
-
-  {% if page == 1 %}
-  <div class="">
-    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': 1}) }}">precedent</a>
-  </div>
-
-  {% else %}
-  <div class="">
-      <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}">precedent</a>
-  </div>
-
-  {% endif %}
-  {% if page == nbPages %}
-  <div class="">
-    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page}) }}">suivante</a>
-  </div>
-{% else %}
-<div class="">
-  <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
 </div>
-{% endif %}
 
 
+  <div class="row">
+
+              <div class="visbile-xs">
+                <div class="text-left">
+                  {% if page == 1 %}
+                  <div class="">
+                    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': 1}) }}">precedent</a>
+                  </div>
+                  {% else %}
+                  <div class="">
+                      <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}">precedent</a>
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="text-right">
+                  {% if page == nbPages %}
+                  <div class="">
+                    <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page}) }}">suivante</a>
+                  </div>
+                {% else %}
+                <div class="">
+                  <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
+                </div>
+                {% endif %}
+                </div>
 
 
-  <div class="row text-center">
-    <ul class="pagination">
-      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+            </div>
 
+          <div class="text-center">
+            <ul class="pagination">
+              {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+              {% for p in range(1, nbPages) %}
 
-      {% for p in range(1, nbPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': p}) }}">{{ p }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
 
-        <li{% if p == page %} class="active"{% endif %}>
-        <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': p}) }}">{{ p }}</a>
-        </li>
-      {% endfor %}
-    </ul>
   </div>
 <!-- fin test not obs -->
 {% endif %}
