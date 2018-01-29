@@ -52,9 +52,9 @@ class ProfilListController extends Controller
           }
         break;
 
-      case 'refused':
+      case 'conform':
           if ($user->hasRole('ROLE_OBSERVER')){
-              //récupére la liste des observations en attente de validation de l'utilisateur(observateur)
+              //récupére la liste des observations non conforme de l'utilisateur(observateur)
               $observationList = $repository->getUserObservationRefuse($user, $page, $nbPerPage);
           }else{
             return $this->redirectToRoute('ocnao_profil_listobs');

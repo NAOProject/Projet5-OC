@@ -46,12 +46,13 @@ class ProfilController extends Controller
           ));;
     }
 
+    //gestion des utilisateurs
     /**
      *@Security("has_role('ROLE_ADMIN')")
      */
     public function UsersAction(Request $request){
 
-        $defaultData = array('message' => 'Type your message here');
+        $defaultData = array('message' => '');
         $form = $this->createFormBuilder($defaultData)
                  ->add('name', TextType::class)
                  ->add('submit', SubmitType::class)
@@ -62,36 +63,35 @@ class ProfilController extends Controller
        $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
 
-           $data = $form->getData()['name'];
-           $user = $repository->findBy(array('username' => $data));
-           if ( $user == null) {
-            $user = $repository->findBy(array('email' => $data));
-           }
+             $data = $form->getData()['name'];
+             $user = $repository->findBy(array('username' => $data));
+             if ( $user == null) {
+              $user = $repository->findBy(array('email' => $data));
+             }
 
-          if (!$user == null) {
+              if (!$user == null) {
 
-            $role = $user[0]->getRoles()[0];
+                $role = $user[0]->getRoles()[0];
+                switch ($role) {
+                  case 'ROLE_OBSERVER':
+                    $rolename = 'Observateur';
+                    break;
+                  case 'ROLE_NATURALIST':
+                    $rolename = 'Naturaliste';
+                    break;
+                  case 'ROLE_ADMIN':
+                    $rolename = 'Administrateur';
+                    break;
+                }
 
-            switch ($role) {
-              case 'ROLE_OBSERVER':
-                $rolename = 'Observateur';
-                break;
-              case 'ROLE_NATURALIST':
-                $rolename = 'Naturaliste';
-                break;
-              case 'ROLE_ADMIN':
-                $rolename = 'Administrateur';
-                break;
-            }
-
-            return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-                'user' => $user[0],
-                'result' => true,
-                'rolename' => $rolename,
-              ));
-          }else {
-            $this->addFlash('success', "L'utilisateur n'existe pas, le peseudo ou l'email son incorrect");
-          }
+                return $this->render('OCNAOBundle:Profil:users.html.twig', array(
+                    'user' => $user[0],
+                    'result' => true,
+                    'rolename' => $rolename,
+                  ));
+              }else {
+                $this->addFlash('success', "L'utilisateur n'existe pas, le peseudo ou l'email son incorrect");
+              }
 
          }
 
@@ -173,18 +173,31 @@ class ProfilController extends Controller
            array('username' => $username
            ));
 
+
          $mailer = $this->container->get('mailer');
          $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
-           ->setTo($user->getEmail())
-           ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+           ->setTo($user[0]->getEmail())
+           ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
            ->setBody($content, 'text/html')
            ;
          $mailer->send($message);
 
-        //$result = true;
+        $role = $user[0]->getRoles()[0];
+        switch ($role) {
+          case 'ROLE_OBSERVER':
+            $rolename = 'Observateur';
+            break;
+          case 'ROLE_NATURALIST':
+            $rolename = 'Naturaliste';
+            break;
+          case 'ROLE_ADMIN':
+            $rolename = 'Administrateur';
+            break;
+        }
         return $this->render('OCNAOBundle:Profil:users.html.twig', array(
             'user' => $user[0],
             'result' => true,
+            'rolename' => $rolename
           ));
     }
 
@@ -209,7 +222,7 @@ class ProfilController extends Controller
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance($object)
         ->setTo($user->getEmail())
-        ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+        ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
         ->setBody($content, 'text/html')
         ;
 

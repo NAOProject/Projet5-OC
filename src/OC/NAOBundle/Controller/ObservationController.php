@@ -157,7 +157,7 @@ class ObservationController extends Controller
         $mailer = $this->container->get('mailer');
         $message =  \Swift_Message::newInstance('Observation inexacte | Nos Amis les Oiseaux')
           ->setTo($userobs->getEmail())
-          ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+          ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
           ->setBody($content, 'text/html')
           ;
 

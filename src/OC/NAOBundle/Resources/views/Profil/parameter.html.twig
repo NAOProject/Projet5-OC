@@ -15,7 +15,7 @@
               <img style="height:60px;margin-right:10px" src="{{ asset("assets/images/userIcone.png")}}" alt="icone utilisateur">
           </div>
           <div class="ico2" style="margin-left:10px">
-            <p><b>ROLE</b></p><p> {{rolename}}</p> 
+            <p><b>ROLE</b></p><p> {{rolename}}</p>
           </div>
       </div>
 
@@ -93,7 +93,9 @@
       <br>
       <br>
       {% if (is_granted("ROLE_ADMIN")) == false %}
-      <button type="button" class="btn-site-orange"  style="width:280px" data-toggle="modal" data-target="#confirm-delete">Supprimer mon compte</button>
+      <div class="text-center">
+          <button type="button" class="btn-site-orange"  style="width:280px" data-toggle="modal" data-target="#confirm-delete">Supprimer mon compte</button>
+      </div>
       <div class="modal fade" id="confirm-delete">
           <div class="modal-dialog">
               <div class="modal-content">

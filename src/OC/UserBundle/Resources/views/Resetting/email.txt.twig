@@ -6,8 +6,10 @@
 {% endblock %}
 
 {% block body_text %}
-{% autoescape false %}
+{# {% autoescape false %}
 {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
-{% endautoescape %}
+{% endautoescape %} #}
+
+Test emailinscription
 {% endblock %}
 {% block body_html %}{% endblock %}

@@ -21,7 +21,7 @@
       <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'pending'}) }}">Observation en attente</a>
     </li>
     <li {% if statusobs == 'pending' %}{% endif %}>
-      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'conforme'}) }}">Observation Non conforme</a>
+      <a  href="{{ path('ocnao_profil_listobs',{'statusobs': 'conform'}) }}">Observation Non conforme</a>
     </li>
     {% endif %}
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
