@@ -170,11 +170,11 @@ class ProfilController extends Controller
          //envoi email
          $content = $this->renderView(
            'OCNAOBundle:Contact:emailnatuconf.html.twig',
-           array('user' => $user
+           array('username' => $username
            ));
 
          $mailer = $this->container->get('mailer');
-         $message =  \Swift_Message::newInstance($object)
+         $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
            ->setTo($user->getEmail())
            ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
            ->setBody($content, 'text/html')
@@ -201,19 +201,19 @@ class ProfilController extends Controller
      $userManager->updateUser($user);
 
     //envoi email
-    $content = $this->renderView(
-      'OCNAOBundle:Contact:emailnatuconf.html.twig',
-      array('user' => $user
-      ));
+      $content = $this->renderView(
+        'OCNAOBundle:Contact:emailnatuconf.html.twig',
+        array('username' => $user->getUsername()
+        ));
+        $email = $this->container->get('ocnao.observations');
+      $mailer = $this->container->get('mailer');
+      $message =  \Swift_Message::newInstance($object)
+        ->setTo($user->getEmail())
+        ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+        ->setBody($content, 'text/html')
+        ;
 
-    $mailer = $this->container->get('mailer');
-    $message =  \Swift_Message::newInstance($object)
-      ->setTo($user->getEmail())
-      ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
-      ->setBody($content, 'text/html')
-      ;
-
-    $mailer->send($message);
+      $mailer->send($message);
 
      $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
      return $this->redirectToRoute('ocnao_profil_parameter');

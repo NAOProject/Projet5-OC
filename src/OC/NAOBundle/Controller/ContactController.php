@@ -21,12 +21,10 @@ class ContactController extends Controller
           $email = $contact->getEmail();
           $object = $contact->getObject();
 
-
           $content = $this->renderView(
             'OCNAOBundle:Contact:emailcontact.html.twig',
             array('contact' => $contact
             ));
-
 
           $message =  (new \Swift_Message($object))
             ->setTo($email)

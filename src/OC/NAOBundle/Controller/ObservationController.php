@@ -141,9 +141,27 @@ class ObservationController extends Controller
       $obs[0]->setNotconforme(true);
       $obs[0]->setNotconformetext($content);
       $obs[0]->setUserValidator($user);
-
       $em->persist($obs[0]);
       $em->flush();
+
+      //envoi email
+      $userobs = $obs->getUser();
+
+        $content = $this->renderView(
+          'OCNAOBundle:Contact:emailnotconform.html.twig',
+          array('username' => $userobs,
+                'content' => $content,
+                'nomespece' => $obs->getTaxrefname(),
+          ));
+
+        $mailer = $this->container->get('mailer');
+        $message =  \Swift_Message::newInstance('Observation inexacte | Nos Amis les Oiseaux')
+          ->setTo($userobs->getEmail())
+          ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+          ->setBody($content, 'text/html')
+          ;
+
+        $mailer->send($message);
 
       $this->addFlash('success', 'L\'observation à été déclaré non conforme.');
       return $this->redirectToRoute('ocnao_homepage');

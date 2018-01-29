@@ -5,3 +5,7 @@ services:
 
   ocnao.observations:
     class: OC\NAOBundle\Services\Observations
+  # ocnao.email:
+  #   class: OC\NAOBundle\Services\email
+  #   arguments:
+  #       - "@mailer"
