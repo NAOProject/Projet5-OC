@@ -80,14 +80,8 @@ ocnao_profil_newsletter:
 ocnao_landingpage:
     path:     /landingpage
     defaults: { _controller: OCNAOBundle:Home:landingPage }
-    # a supprimer
-ocnao_profil_nat:
-    path:     /profil/nat
-    defaults: { _controller: OCNAOBundle:Profil:nat }
+# a supprimer
 ocnao_profil_adm:
     path:     /profil/adm
     defaults: { _controller: OCNAOBundle:Profil:adm }
-ocnao_profil_obs:
-    path:     /profil/obs
-    defaults: { _controller: OCNAOBundle:Profil:obs }
 #  fin suppresion

@@ -20,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ProfilController extends Controller
 {
 
-
-
     // affiche les paramètres de l'utilisateur
     /**
      *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
@@ -29,24 +27,24 @@ class ProfilController extends Controller
     public function ParameterAction()
     {
       $user = $this->getUser();
-      // $role = $user->getetRoles()[0];
-      // switch ($role) {
-      //   case 'ROLE_OBSERVER':
-      //     $rolename = 'Observateur';
-      //     break;
-      //   case 'ROLE_NATURALIST':
-      //     $rolename = 'Naturaliste';
-      //     break;
-      //   case 'ROLE_ADMIN':
-      //     $rolename = 'Administrateur';
-      //     break;
-      // }
+      $role = $user->getRoles()[0];
+      switch ($role) {
+        case 'ROLE_OBSERVER':
+          $rolename = 'Observateur';
+          break;
+        case 'ROLE_NATURALIST':
+          $rolename = 'Naturaliste';
+          break;
+        case 'ROLE_ADMIN':
+          $rolename = 'Administrateur';
+          break;
+      }
 
         return $this->render('OCNAOBundle:Profil:parameter.html.twig', array(
             'user' => $user,
+            'rolename' => $rolename,
           ));;
     }
-
 
     /**
      *@Security("has_role('ROLE_ADMIN')")
@@ -58,33 +56,59 @@ class ProfilController extends Controller
                  ->add('name', TextType::class)
                  ->add('submit', SubmitType::class)
                  ->getForm();
+       $em = $this->getDoctrine()->getManager();
+       $repository = $em->getRepository('OCUserBundle:User');
 
        $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
 
-           $em = $this->getDoctrine()->getManager();
-           $repository = $em->getRepository('OCUserBundle:User');
            $data = $form->getData()['name'];
            $user = $repository->findBy(array('username' => $data));
-          //  $role = $user->get
+           if ( $user == null) {
+            $user = $repository->findBy(array('email' => $data));
+           }
 
           if (!$user == null) {
+
+            $role = $user[0]->getRoles()[0];
+
+            switch ($role) {
+              case 'ROLE_OBSERVER':
+                $rolename = 'Observateur';
+                break;
+              case 'ROLE_NATURALIST':
+                $rolename = 'Naturaliste';
+                break;
+              case 'ROLE_ADMIN':
+                $rolename = 'Administrateur';
+                break;
+            }
 
             return $this->render('OCNAOBundle:Profil:users.html.twig', array(
                 'user' => $user[0],
                 'result' => true,
+                'rolename' => $rolename,
               ));
           }else {
-            $this->addFlash('success', "L'utilisateur n'existe pas");
+            $this->addFlash('success', "L'utilisateur n'existe pas, le peseudo ou l'email son incorrect");
           }
 
          }
-//faire recherche pour nombre utilisateur, obs,nat,adm
+
+
+         //nombre observateur et naturaliste sur le site
+         $countobserver = $repository->getUsersCountByRole("ROLE_OBSERVER");
+         $countnaturalist = $repository->getUsersCountByRole("ROLE_NATURALIST");
+         // $countadmin = $repository->getUsersCountByRole('ROLE_ADMIN');
+         $counttotal = $countobserver + $countnaturalist;
 
 
        return $this->render('OCNAOBundle:Profil:users.html.twig', array(
            'form' => $form->createView(),
            'result' => false,
+           'nbobserver' => $countobserver,
+           'nbnaturalist' => $countnaturalist,
+           'nbtotal' => $counttotal,
          ));
 
     }
@@ -143,17 +167,19 @@ class ProfilController extends Controller
         $repository = $em->getRepository('OCUserBundle:User');
         $user = $repository->findBy(array('username' => $username));
 
-        // faire email
-        //  //envoi email
-        //  $content = "???????????";
-        //
-        //  $mailer = $this->container->get('mailer');
-        //  $message =  \Swift_Message::newInstance($object)
-        //    ->setTo($user->getEmail())
-        //    ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
-        //    ->setBody($content, 'text/html')
-        //    ;
-        //  $mailer->send($message);
+         //envoi email
+         $content = $this->renderView(
+           'OCNAOBundle:Contact:emailnatuconf.html.twig',
+           array('user' => $user
+           ));
+
+         $mailer = $this->container->get('mailer');
+         $message =  \Swift_Message::newInstance($object)
+           ->setTo($user->getEmail())
+           ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+           ->setBody($content, 'text/html')
+           ;
+         $mailer->send($message);
 
         //$result = true;
         return $this->render('OCNAOBundle:Profil:users.html.twig', array(
@@ -162,31 +188,39 @@ class ProfilController extends Controller
           ));
     }
 
+  //demande pour devenir naturaliste
+  /**
+   *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
+   */
    public function ObserverAction()
    {
-     echo "devenir naturalist, email a mettre";
-    //  //demande pour de venir naturalist
-    //  //envoi email administrateur
-    //  $userManager = $this->get('fos_user.user_manager');//recuperre le service
-    //  $user = $this->setStatus(true);
-    //  $userManager->updateUser($user);
-     //
-    //  //envoi email administrateur
-    //  $content = "???????????";
-     //
-    //  $mailer = $this->container->get('mailer');
-    //  $message =  \Swift_Message::newInstance($object)
-    //    ->setTo('EmailDestinataire')
-    //    ->setFrom($this->getEmail(), 'Nos Amis les Oiseaux')
-    //    ->setBody($content, 'text/html')
-    //    ;
-    //  $mailer->send($message);
-     //
-    //  $this->addFlash('success', 'La demande est en cours un administrateur vous contactera pas email');
-    //  return $this->redirectToRoute('ocnao_profil_parameter');
+    //  echo "devenir naturalist, email a mettre";
+    //  exit;
+     $userManager = $this->get('fos_user.user_manager');//recuperre le service
+     $user = $this->setStatus(true);
+     $userManager->updateUser($user);
+
+    //envoi email
+    $content = $this->renderView(
+      'OCNAOBundle:Contact:emailnatuconf.html.twig',
+      array('user' => $user
+      ));
+
+    $mailer = $this->container->get('mailer');
+    $message =  \Swift_Message::newInstance($object)
+      ->setTo($user->getEmail())
+      ->setFrom('email expediteur (le site)', 'Nos Amis les Oiseaux')
+      ->setBody($content, 'text/html')
+      ;
+
+    $mailer->send($message);
+
+     $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
+     return $this->redirectToRoute('ocnao_profil_parameter');
 
    }
 
+   //supression compte
    /**
     *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
     */
@@ -206,27 +240,24 @@ class ProfilController extends Controller
           //$userManager->deleteUser($user);
           return $this->redirectToRoute('ocnao_profil_users');
         }
-
-
    }
 
-
+   //s'abonner ou ce désabonner de la newsletter
    /**
     *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
     */
    public function newsletterAction(Request $request)
    {
-
      $userManager = $this->get('fos_user.user_manager');//recuperre le service
      $news = $request->get('newsletter');
      $user = $this->getUser();
 
      if ($news == "true") {
        $user->setNewsletter(true);
-       $this->addFlash('success', "Vous venez de vous inscrire à la newletter, merci.");
+       $this->addFlash('success', "Vous venez de vous abonner à la newletter, merci.");
      }else {
        $user->setNewsletter(false);
-       $this->addFlash('success', "Vous venez de vous désinscrire de la newletter.");
+       $this->addFlash('success', "Vous venez de vous désabonner de la newletter.");
      }
       $userManager->updateUser($user);
 

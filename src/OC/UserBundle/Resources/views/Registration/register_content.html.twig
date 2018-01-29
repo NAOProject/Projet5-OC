@@ -1,32 +1,27 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<div class="bgform">
   <div class="container form">
-      <h1 class="text-center">Inscription</h1>
+      <br>
+      <br>
+      <h1>REJOIGNEZ NOTRE COMMUNAUTÉ DE<br>PASSIONÉS D'ORNITHOLOGIE.</h1>
+      <br>
+      <p>En vous inscrivant vous pourrez partager vos observations et donc contribuer à notre brograme de recherche pour préserver l'environement.</p>
+      <br>
       <br>
       {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
           {{ form_widget(form) }}
-
-
-          <div>
-              <label for="form_newsletter">Age</label>
-              <ul>
-                  <li>This field is required</li>
-              </ul>
-              <input type="number" id="form_age" name="form[age]" />
-          </div>
-<p>
-   <input type="checkbox" id="test2" checked="checked" />
-   <label for="test2">Yellow</label>
- </p>
-
       <br>
-      <div class="text-center">
-          <input class="btn-site-orange"type="submit" value="{{ 'registration.submit'|trans }}" />
+      <div class="text-right">
+          <input class="btn-site-orange" style="width:221px" type="submit" value="{{ 'registration.submit'|trans }}" />
+          <br>
+          <br>
+        En cliquant sur "Créer un compte", vous acceptez <br><a href="{{ path('ocnao_mentions') }}"> nos conditions d'utilisations</a>.
       </div>
-
-      <br>
-    En cliquant sur "Créer un compte", vous acceptez nos<a href="{{ path('ocnao_mentions') }}"> Conditions d'utilisation</a>.
+      <p><span style="color:red">* </span><span style="color:#ff5b00"> Champs obligatoire</span></p>
     {{ form_end(form) }}
+    <br>
+    <br>
   </div>
   <br>
 </div>

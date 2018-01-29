@@ -3,78 +3,129 @@
 {% block parameter %}class="menuactive2"{% endblock %}
 
 {% block body %}
-<br>
-
-<br>
-<div class="container">
-  <div class="col-md-offset-4 col-md-4">
-    <h3>Parametre du compte</h3>
+<div class="bgform">
+  <div class="container userparameter">
     <br>
-    {% if (is_granted("ROLE_ADMIN")) %}
-    <h3>jeux peux</h3>
-    {% endif %}
-    {% if (is_granted("ROLE_NATURALIST")) %}
-    <h3>jeux peux</h3>
-    {% endif %}
-    {% if (is_granted("ROLE_OBSERVER")) %}
-    <h3>jeux peux</h3>
-    {% endif %}
-    <p>Votre Pseudo: <b>{{ user.username }}</b></p>
-    <p>Votre email: <b>{{ user.email }}</b></p>
-    <p><a href="/profile/edit">Je ve changer Pseudo ou Email</a></p>
-    <p><a href="/profile/change-password">Je ve changer mon mot de passe</a></p>
+    <br>
+      <h1>MES PARAMETRES</h1>
       <br>
+      <br>
+      <div>
+          <div class="ico1">
+              <img style="height:60px;margin-right:10px" src="{{ asset("assets/images/userIcone.png")}}" alt="icone utilisateur">
+          </div>
+          <div class="ico2" style="margin-left:10px">
+            <p><b>ROLE</b></p><p> {{rolename}}</p> 
+          </div>
+      </div>
 
-    {% if user.newsletter == true %}
-      <form action="{{path('ocnao_profil_newsletter')}}">
-          <input type="hidden" name="newsletter" value="false">
-          <input class="btn-site-orange" style="width:320px" type="submit" value="Ne plus suivre la newsletter">
-      </form>
-    {% else %}
-        <form action="{{path('ocnao_profil_newsletter')}}">
-            <input type="hidden" name="newsletter" value="true">
-            <input class="btn-site-orange" style="width:287px" type="submit" value="Suivre la newsletter">
-        </form>
-    {% endif %}
-
-
-
-<br>
-
-<button type="button" class="btn-site-orange"  style="width:287px" data-toggle="modal" data-target="#confirm-delete">Supprimer mon compte</button>
-
-<div class="modal fade" id="confirm-delete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h3>Confirmation</h3>
-            </div>
-            <div class="modal-body">
-              Etes vous sur de vouloir supprimer votre compte ?
-              ceci est definitif
-            </div>
-            <div class="modal-footer">
-              <form action="{{path('ocnao_profil_removeuser')}}">
-                <button type="button" class="btn-site-orange" data-dismiss="modal">NON</button>
-                <input type="submit" class="btn-site" value="supprimer">
-                </form>
+      <br>
+      {% if (is_granted("ROLE_ADMIN")) == false %}
+      {% if (is_granted("ROLE_NATURALIST")) == false %}
+      <div class="text-center">
+          <button type="button" class="btn-site-orange"  style="width:280px" data-toggle="modal" data-target="#confirm-nat">Demander le role de naturaliste</button>
+      </div>
+        <div class="modal fade" id="confirm-nat">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 style="color:#ff5b00">CONFIRMATION</h4>
+                    </div>
+                    <div class="modal-body">
+                      Etes vous sur de vouloir faire la demande de natualiste ?
+                    </div>
+                    <div class="modal-footer">
+                      <form class="" action="{{ path('ocnao_profil_obsnat') }}" method="post">
+                          <button type="button" style="width:147px" class="btn-site-orange" data-dismiss="modal">NON</button>
+                          <input type="submit" style="width:147px" class="btn-site" value="OUI">
+                      </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
-</div>
+      <br>
+      {% endif %}
+      {% endif %}
 
-<div class="container"> <!-- A supprimer a la fin du dev -->
-  <h3>Dev Admin</h3>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      <p>etape 1 </p>
-        <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
-      <p>etape 2 </p>
-      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-{% endif %}
+      <br>
+      <p><b>PSEUDO</b></p>
+      <p>{{user.username}}</p>
+      <br>
+      <p><b>EMAIL</b></p>
+      <p>{{user.email}}</p>
+      <br>
+      <div class="text-center">
+        <form class="" action="/profile/edit" method="post">
+            <input class="btn-site-orange" type="submit" style="width:280px" class="btn-site" value="Modifier mes identifiants">
+        </form>
+      </div>
+      <br>
+      <br>
+      <p><b>MOT DE PASSE</b></p>
+      <br>
+      <div class="text-center">
+        <form class="" action="/profile/change-password" method="post">
+            <input type="submit" style="width:280px" class="btn-site-orange" value="Modifier le mot de passe">
+        </form>
+      </div>
+      <br>
+      <br>
+      <p><b>NEWSLETTER</b></p>
+      {% if user.newsletter == true %}
+      <p>Vous êtes abonner à la newsletter de Nos Amis les Oiseaux</p>
+      <div class="text-center">
+        <form action="{{path('ocnao_profil_newsletter')}}">
+            <input type="hidden" name="newsletter" value="false">
+            <input class="btn-site-orange" style="width:280px" type="submit" value="Je souhaite me désabonner">
+        </form>
+      </div>
+
+      {% else %}
+      <p>Vous n'êtes pas abonner à la newsletter de Nos Amis les Oiseaux</p>
+      <div class="text-center">
+        <form action="{{path('ocnao_profil_newsletter')}}">
+            <input type="hidden" name="newsletter" value="true">
+            <input class="btn-site-orange" style="width:280px" type="submit" value="Je souhaite m'abonner">
+        </form>
+      </div>
+      {% endif %}
+      <br>
+      <br>
+      {% if (is_granted("ROLE_ADMIN")) == false %}
+      <button type="button" class="btn-site-orange"  style="width:280px" data-toggle="modal" data-target="#confirm-delete">Supprimer mon compte</button>
+      <div class="modal fade" id="confirm-delete">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="color:#ff5b00">CONFIRMATION</h4>
+                  </div>
+                  <div class="modal-body">
+                    Etes vous sur de vouloir supprimer votre compte ?
+                    ceci est definitif
+                  </div>
+                  <div class="modal-footer">
+                    <form action="{{path('ocnao_profil_removeuser')}}">
+                      <button type="button" style="width:147px" class="btn-site-orange" data-dismiss="modal">NON</button>
+                      <input type="submit" style="width:147px" class="btn-site" value="supprimer">
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {% endif %}
+  </div>
+
+  <div class="container"> <!-- A supprimer a la fin du dev -->
+    <h4>Dev Admin</h4>
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <p>etape 1 </p>
+          <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
+        <p>etape 2 </p>
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+  {% endif %}
+  </div>
+
 </div>
-
-
 {% endblock %}

@@ -122,5 +122,4 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     return new Paginator($qb, true);
   }
 
-
 }

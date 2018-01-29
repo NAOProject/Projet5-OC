@@ -9,10 +9,11 @@
 
 {% block body %}
 <div class="bgform">
-  <div class="container">
-
-      <div class="col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-xs-10 col-sm-8 col-md-6">
-        <h1 class="text-left">Nous Contacter</h1>
+  <div class="container formcontact">
+        <br>
+        <br>
+        <h1>CONNTACTEZ-NOUS POUR PLUS D'INFORMATION</h1>
+        <br>
         <br>
         {{ form_start(form) }}
         {# Les erreurs générales du formulaire. #}
@@ -44,15 +45,13 @@
             </div>
           <div class="form-group text-right">
             <br>
+            <br>
               {{ form_widget(form.submit, {'attr': {'class': 'btn-site-orange', 'style': 'width:221px'}}) }}
           </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}
-      </div>
-
+        <br>
+        <br>
   </div>
-</div>
-
-
 </div>
 {% endblock %}

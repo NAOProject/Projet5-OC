@@ -121,6 +121,12 @@ class ProfilListController extends Controller
     $observationList = $repository->ObservationAtValidate($user, $page, $nbPerPage);
 
     $nbPages = ceil(count($observationList) / $nbPerPage);
+
+    if ( $nbPages == 0) {
+      return $this->render('OCNAOBundle:Profil:userobservation.html.twig', array(
+        'notobs' => true,
+      ));
+    }
     if ($page > $nbPages) {
       throw $this->createNotFoundException("La page ".$page." n'existe pas.");
     }
@@ -129,6 +135,7 @@ class ProfilListController extends Controller
       'observationList' => $observationList,
       'nbPages'     => $nbPages,
       'page'        => $page,
+      'notobs' => false,
     ));
   }
 

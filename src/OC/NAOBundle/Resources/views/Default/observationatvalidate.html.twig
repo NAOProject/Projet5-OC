@@ -5,6 +5,12 @@
 {% block body %}
 <div class="container">
 
+'notobs' => false,
+{% if notobs == false %}
+Pas d'observation à valider pour le momment.
+{% else %}
+
+
         <div class="row Liste">
 
         {% for obs in observationList %}
@@ -49,6 +55,6 @@
   </ul>
 </div>
 
-
+{% endif %}
 </div>
 {% endblock %}

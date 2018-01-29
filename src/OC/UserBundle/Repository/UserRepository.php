@@ -28,4 +28,18 @@ class UserRepository extends EntityRepository
 
     return $array;
   }
+
+  public function getUsersCountByRole($role)
+  {
+      $qd = $this->createQueryBuilder('u')
+          ->andWhere('u.roles LIKE :roles')
+          ->setParameter('roles', '%'.$role.'%')
+          ->select('count(u.id)')
+          ;
+
+      return $qd->getQuery()->getSingleScalarResult()
+      ;
+  }
+
+
 }

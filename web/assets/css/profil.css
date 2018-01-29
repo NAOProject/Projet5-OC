@@ -56,7 +56,7 @@
 
 .btng{
   /*display: inline-block;*/
-  width: 350px;
+  width: 330px;
 }
 
 .btn1{
@@ -134,9 +134,9 @@
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.6);
 }
 
-.btn-marge{
-  padding-left: 34px;
-  padding-right: 34px;
+.pad{
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 
@@ -165,16 +165,14 @@
 }
 
 
-
-
 /*///////////////////////////////////////////////////////////////////*/
 
 .bgform{
-  background-size: 50%;
+  background-size: 40%;
   background-repeat: no-repeat;
   background-image: url("../images/Fond_de_formulaire@3x.png");
+  margin-top: -2px;
 }
-
 
 
 /*css formulaire commun*/
@@ -183,11 +181,30 @@
   width:600px;
 }
 
+.formcontact{
+  width:700px;
+}
+
+.userparameter{
+  width:500px;
+}
+
 @media screen and (max-width: 720px){
-  .form{
+  .form, .formcontact, .userparameter{
     width:90%;
   }
 }
+
+.userparameter{
+  width:500px;
+}
+
+@media screen and (max-width: 520px){
+.userparameter{
+    width:90%;
+  }
+}
+
 
 .form-control {
   border: 0px solid ;
@@ -236,15 +253,30 @@ select{
   background-color: white;
   font-size: 2rem;
   padding: 5px 0px 5px 0px;
-  border: 3px solid #ff5b00;
+  border: 3px solid #00ac98;
   height: 57px;
 
 }
 
 
+
+/*pour parametre utilisateur */
+
+.ico1{
+  float: left;
+  width: 50%;
+  text-align: right;
+}
+.icon2{
+  float: right;
+  width: 50%;
+  text-align: left;
+}
+
+
 /*///////////////////////////////// TEST CHECKBOX  /////////////////////////////////////////////////*/
 
-#fos_user_registration_form_newsletter{
+/*#fos_user_registration_form_newsletter{
       border-color: red;
     border-bottom: 50px solid #ff5b00 !important;
     background-color:red!important;
@@ -252,4 +284,4 @@ select{
 [type="checkbox"]:checked {
   color: red;
   background-color: blue;
-}
+}*/

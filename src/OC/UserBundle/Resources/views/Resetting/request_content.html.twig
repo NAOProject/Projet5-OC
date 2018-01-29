@@ -1,9 +1,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-
-<div class="container">
-  <div class="col-md-offset-4 col-md-4">
+<div class="bgform">
+  <div class="container form">
+    <br>
+    <br>
     <h1 class="text-center">Mot de passe perdu</h1>
+    <br>
     <br>
     <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
       <div class="form-group">
@@ -12,8 +14,10 @@
       </div>
       <br>
       <div class="text-right">
-        <input class="btn-site-orange" style="width:320px;" type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+        <input class="btn-site-orange pad" type="submit" value="{{ 'resetting.request.submit'|trans }}" />
       </div>
     </form>
+    <br>
+    <br>
   </div>
 </div>
