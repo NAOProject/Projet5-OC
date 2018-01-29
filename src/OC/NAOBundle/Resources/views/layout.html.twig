@@ -30,6 +30,11 @@
   <script src="{{asset("assets/datepicker/js/bootstrap-datepicker.js")}}"></script>
   <script src="{{asset("assets/datepicker/locales/bootstrap-datepicker.fr.min.js")}}"></script>
 
+  <script type="text/javascript" id="cookiebanner" src="http://cookiebanner.eu/js/cookiebanner.min.js" data-position="bottom" data-fg="#ffffff"
+    data-bg="rgba(255, 91, 0, 0.8)" data-link="#dddddd" data-moreinfo="{{ path('ocnao_mentions') }}"
+    data-message="Les cookies assurent le bon fonctionnement de notre site Internet. En utilisant ce dernier, vous acceptez leur utilisation." data-linkmsg="En savoir plus">
+  </script>
+
   {% endblock %}
 
 </head>
@@ -160,26 +165,40 @@
   <!-- Fin navbar sur smartphone -->
 
   <!-- Navbar bottom sur smartphone -->
+  {% block footerMobile %}
   <nav class="navBottom visible-xs navbar-fixed-bottom">
     <div class="col-xs-4">
       <a href="{{ path('ocnao_recherche') }}">
-        <img class="pictoMini" src="{{ asset("assets/images/Footer_rechercher.png")}}" alt="Picto_rechercher"/>
+        {% if block('picto_rechercher') %}
+          {% block picto_rechercher %}{% endblock %}
+        {% else %}
+          <img class="pictoMini" src="{{ asset("assets/images/Footer_rechercher.png")}}" alt="Picto_rechercher"/>
+        {% endif %}
         <h6>RECHERCHER</h6>
       </a>
     </div>
     <div class="col-xs-4">
       <a href="{{ path('ocnao_addObservation') }}">
-        <img class="pictoMini" src="{{ asset("assets/images/Footer_observer.png")}}" alt="Picto_observer"/>
+        {% if block('picto_observer') %}
+          {% block picto_observer %}{% endblock %}
+        {% else %}
+          <img class="pictoMini" src="{{ asset("assets/images/Footer_observer.png")}}" alt="Picto_observer"/>
+        {% endif %}
         <h6>OBSERVER</h6>
       </a>
     </div>
     <div class="col-xs-4">
       <a href="{{ path('ocnao_profil_listobs') }}">
-        <img class="pictoMini" src="{{ asset("assets/images/Footer_mes_fiches.png")}}" alt="Picto_mes_fiches"/>
+        {% if block('picto_mes_fiches') %}
+          {% block picto_mes_fiches %}{% endblock %}
+        {% else %}
+          <img class="pictoMini" src="{{ asset("assets/images/Footer_mes_fiches.png")}}" alt="Picto_mes_fiches"/>
+        {% endif %}
         <h6>MES OBSERVATIONS</h6>
       </a>
     </div>
   </nav>
+  {% endblock %}
   <!-- Fin navbar bottom sur Smartphone -->
 
   <div class="container" style="margin-top:64px; padding:0;"> <!-- Messages d'informations -->
@@ -217,7 +236,7 @@
           </div>
           <div class="row col-md-12 col-xs-12">
             <div class="col-xs-4">
-              <a href="{{ path('ocnao_addObservation') }}">COMMENT CA MARCHE ?</a>
+              <a href="{{ path('ocnao_faq') }}">COMMENT CA MARCHE ?</a>
             </div>
             <div class="col-xs-4 border_side">
               <a href="{{ path('ocnao_contact') }}">NOUS CONTACTER</a>

@@ -30,8 +30,10 @@ function initMap() {
   });
 
   setMarkers(map);
-  var markerCluster = new MarkerClusterer(map, markers,
-    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+  if (auto == 'ALLOW') {
+    var markerCluster = new MarkerClusterer(map, markers,
+      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+  }
 }
 
 
