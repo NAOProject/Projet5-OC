@@ -236,11 +236,11 @@ class ProfilController extends Controller
 
       // $content2 =
       $message2 =  \Swift_Message::newInstance('Demande Naturaliste | Nos Amis les Oiseaux')
-        ->setTo('adresseadministrateurdusite@exemple.com')
+        ->setTo('admin@weberyon.ovh')
         ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
         ->setBody("Adresse mail: $useremail et $username du demandeur", 'text/html')
         ;
-      $mailer2->send($message2);
+      $mailer->send($message2);
 
      $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
      return $this->redirectToRoute('ocnao_profil_parameter');
