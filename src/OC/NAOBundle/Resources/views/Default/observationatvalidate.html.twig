@@ -19,13 +19,13 @@
               {% if obs.picture.image is defined %}
                 <div class="picture2">
                   <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                    <img class="imggallery" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+                    <img class="imggallery" src="{{ asset('web/uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
                   </a>
                 </div>
               {% else %}
                 <div class="picture2">
                   <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                    <img class="imggallery" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
+                    <img class="imggallery" src="{{ asset('web/assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
                   </a>
                 </div>
               {% endif %}

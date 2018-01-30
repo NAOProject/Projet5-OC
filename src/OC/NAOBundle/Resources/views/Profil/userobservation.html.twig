@@ -3,9 +3,9 @@
 {% block list %}class="menuactive2"{% endblock %}
 
 
-  {% block picto_mes_fiches %}
-    <img class="pictoMini" src="{{ asset("assets/images/Footer_mes_fiches_active.png")}}" alt="Picto_rechercher"/>
-  {% endblock %}
+{% block picto_mes_fiches %}
+  <img class="pictoMini" src="{{ asset("web/assets/images/Footer_mes_fiches_active.png")}}" alt="Picto_rechercher"/>
+{% endblock %}
 
 
 
@@ -84,13 +84,13 @@
                 {% if obs.picture.image is defined %}
                   <div class="picture2">
                     <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                      <img class="imggallery" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+                      <img class="imggallery" src="{{ asset('web/uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
                     </a>
                   </div>
                 {% else %}
                   <div class="picture2">
                     <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                      <img class="imggallery" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
+                      <img class="imggallery" src="{{ asset('web/assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
                     </a>
                   </div>
                 {% endif %}
