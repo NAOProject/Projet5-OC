@@ -4,7 +4,7 @@
   <div class="container form">
     <br>
     <br>
-    <h1 class="text-center">Mot de passe perdu</h1>
+    <h1 class="text-center">MOT DE PASSE PERDU</h1>
     <br>
     <br>
     <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
@@ -17,6 +17,8 @@
         <input class="btn-site-orange pad" type="submit" value="{{ 'resetting.request.submit'|trans }}" />
       </div>
     </form>
+    <br>
+    <p><span style="color:red">* </span><span style="color:#ff5b00"> Champs obligatoire</span></p>
     <br>
     <br>
   </div>

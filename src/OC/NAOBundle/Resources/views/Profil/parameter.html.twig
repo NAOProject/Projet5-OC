@@ -11,11 +11,11 @@
       <br>
       <br>
       <div>
-          <div class="ico1">
-              <img style="height:60px;margin-right:10px" src="{{ asset("assets/images/userIcone.png")}}" alt="icone utilisateur">
+          <div class="ico1 ">
+              <img style="height:60px;margin-right:10px" src="{{ asset("assets/images/Picto_profil_gris@3x.png")}}" alt="icone utilisateur">
           </div>
-          <div class="ico2" style="margin-left:10px">
-            <p><b>ROLE</b></p><p> {{rolename}}</p>
+          <div class="ico2" style="vertical-align:bottom;margin-left:10px;">
+            <p><b>ROLE</b></p><p>{{rolename}}</p>
           </div>
       </div>
 
@@ -46,13 +46,13 @@
             </div>
         </div>
       <br>
-      {% endif %}
       {% else %}
           <p>
             <div class="text-center">
-                <p>Vous avez demander à devenir naturaliste la procédure est en cours</p>
+                <p>Vous avez demander à devenir naturaliste la procédure est en cours.</p>
             </div>
           </p>
+      {% endif %}
       {% endif %}
       {% endif %}
 
@@ -81,7 +81,7 @@
       <br>
       <p><b>NEWSLETTER</b></p>
       {% if user.newsletter == true %}
-      <p>Vous êtes abonner à la newsletter de Nos Amis les Oiseaux</p>
+      <p>Vous êtes abonner à la newsletter de Nos Amis les Oiseaux.</p>
       <div class="text-center">
         <form action="{{path('ocnao_profil_newsletter')}}">
             <input type="hidden" name="newsletter" value="false">

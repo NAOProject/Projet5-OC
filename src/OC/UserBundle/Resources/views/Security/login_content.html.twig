@@ -6,7 +6,7 @@
   <div class="container form">
     <br>
     <br>
-    <h1>Connexion</h1>
+    <h1>CONNEXION</h1>
     <br>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -31,7 +31,7 @@
         </div>
         <div class="form-check">
         <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me" class="etoile">{{ 'security.login.remember_me'|trans }}</label>
+        <label for="remember_me" style="text-transform:none"class="etoile">{{ 'security.login.remember_me'|trans }}</label>
         </div>
         <br>
         <br>
@@ -41,7 +41,9 @@
             <br>
             <p>Pas encore Membre ?<br><a href="{{ path('fos_user_registration_register') }}">Inscrivez vous.</a></p>
         </div>
+        <br>
     </form>
+    <p><span style="color:red">* </span><span style="color:#ff5b00"> Champs obligatoire</span></p>
     <br/>
     <br/>
   </div>

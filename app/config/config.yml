@@ -83,5 +83,7 @@ fos_user:
     registration:
         form:
             type: OC\UserBundle\Form\RegistrationType
-    #     confirmation:
-    #         enabled: true
+        confirmation:
+            enabled: true
+            template:   'OC\UserBundle\Resources\views\Registration\email.txt.twig'
+            # template:   '@FOSUser/Registration/email.txt.twig'

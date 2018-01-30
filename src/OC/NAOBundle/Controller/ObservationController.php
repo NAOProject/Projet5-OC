@@ -145,13 +145,13 @@ class ObservationController extends Controller
       $em->flush();
 
       //envoi email
-      $userobs = $obs->getUser();
-
+        $userobs = $obs[0]->getUser();
         $content = $this->renderView(
           'OCNAOBundle:Contact:emailnotconform.html.twig',
           array('username' => $userobs,
                 'content' => $content,
-                'nomespece' => $obs->getTaxrefname(),
+                'nomespece' => $obs[0]->getTaxrefname(),
+                'date' => $obs[0]->getDateObs(),
           ));
 
         $mailer = $this->container->get('mailer');

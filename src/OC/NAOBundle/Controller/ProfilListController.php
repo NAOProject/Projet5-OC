@@ -24,7 +24,7 @@ class ProfilListController extends Controller
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
 
-    $nbPerPage = 4;
+    $nbPerPage = 8;
     $user = $this->getUser();
 
     $em = $this->getDoctrine()->getManager();
@@ -113,7 +113,8 @@ class ProfilListController extends Controller
     $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('OCNAOBundle:Observation');
     $observationList = $repository->ObservationAtValidate($user, $page, $nbPerPage);
-
+// dump($observationList);
+// exit;
     $nbPages = ceil(count($observationList) / $nbPerPage);
 
     if ( $nbPages == 0) {

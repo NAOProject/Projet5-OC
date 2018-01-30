@@ -100,12 +100,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
   public function getUserObservationValidate($user, $page, $nbPerPage)
   {
     $qb = $this->createQueryBuilder('userobservationvalidate');
-    $qb->where('userobservationvalidate.uservalidator = :uservalidator')
-          ->setParameter('uservalidator', $user)
-      ->andWhere('userobservationvalidate.user != 1')
-        ->setParameter('user', $user)
-      ->orderBy('userobservationvalidate.datetime', 'DESC')
-      ;
+    // $qb->where('userobservationvalidate.uservalidator = :uservalidator')
+    //       ->setParameter('uservalidator', $user)
+    //   ->andWhere('userobservationvalidate.user != :user')
+    //     ->setParameter('user', $user)
+    //   ->orderBy('userobservationvalidate.datetime', 'DESC')
+    //   ;
+      $qb->where('userobservationvalidate.uservalidator = :uservalidator')
+            ->setParameter('uservalidator', $user)
+        ->andWhere('userobservationvalidate.user != :user')
+          ->setParameter('user', $user)
+        ->orderBy('userobservationvalidate.datetime', 'DESC')
+        ;
     $qb->setFirstResult(($page-1) * $nbPerPage)->setMaxResults($nbPerPage);
     return new Paginator($qb, true);
   }

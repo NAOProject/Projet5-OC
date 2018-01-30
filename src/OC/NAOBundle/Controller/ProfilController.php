@@ -141,6 +141,8 @@ class ProfilController extends Controller
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $userManager->findUserBy(array('username' => $username ));
       $user->setStatus(false);
+dump($user);
+
 
         switch ($role) {
           case 'ROLE_OBSERVER':
@@ -150,6 +152,18 @@ class ProfilController extends Controller
           case 'ROLE_NATURALIST':
             $this->addFlash('success', "$username, a obtenu le role Naturaliste, un email lui a était envoyer pour le prevenir");
             $user->setRoles(array($role));// enregistre le role
+            //envoi email
+            $content = $this->renderView(
+              'OCNAOBundle:Contact:emailnatuconf.html.twig',
+              array('username' => $username
+              ));
+            $mailer = $this->container->get('mailer');
+            $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
+              ->setTo($user[0]->getEmail())
+              ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+              ->setBody($content, 'text/html')
+              ;
+            $mailer->send($message);
             break;
           // case 'ROLE_ADMIN':
           //   // $user->setRoles(array($role));// enregistre le role
@@ -162,24 +176,14 @@ class ProfilController extends Controller
                 ));
               break;
         }
+
         $userManager->updateUser($user);
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('OCUserBundle:User');
         $user = $repository->findBy(array('username' => $username));
-
-         //envoi email
-         $content = $this->renderView(
-           'OCNAOBundle:Contact:emailnatuconf.html.twig',
-           array('username' => $username
-           ));
-
-         $mailer = $this->container->get('mailer');
-         $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
-           ->setTo($user[0]->getEmail())
-           ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
-           ->setBody($content, 'text/html')
-           ;
-         $mailer->send($message);
+        dump($user);
+        exit;
 
         $role = $user[0]->getRoles()[0];
         switch ($role) {
@@ -213,20 +217,32 @@ class ProfilController extends Controller
      $user->setStatus(true);
      $userManager->updateUser($user);
 
-    //envoi email
+     //envoi email oberservateur
       $content = $this->renderView(
         'OCNAOBundle:Contact:emailnatuconf.html.twig',
         array('username' => $user->getUsername()
         ));
-        $email = $this->container->get('ocnao.observations');
+
+
+        $useremail = $user->getEmail();
+        $username = $user->getUsername();
+
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
-        ->setTo($user->getEmail())
+        ->setTo($useremail)
         ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
         ->setBody($content, 'text/html')
         ;
 
       $mailer->send($message);
+
+      // $content2 =
+      $message2 =  \Swift_Message::newInstance('Demande Naturaliste | Nos Amis les Oiseaux')
+        ->setTo('adresseadministrateurdusite@exemple.com')
+        ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+        ->setBody("Adresse mail: $useremail et $username du demandeur", 'text/html')
+        ;
+      $mailer2->send($message2);
 
      $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
      return $this->redirectToRoute('ocnao_profil_parameter');

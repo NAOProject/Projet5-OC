@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block subject %}
 {%- autoescape false -%}
-{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}
+{{ 'Confirmation inscription | Nos Amis les Oiseaux'({'%username%': user.username}) }}
 {%- endautoescape -%}
 {% endblock %}
 
@@ -10,6 +10,26 @@
 {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
 {% endautoescape %} #}
 
-Test emailinscription
 {% endblock %}
-{% block body_html %}{% endblock %}
+{% block body_html %}
+
+Bienvenue {{user.username}} !
+
+C’est avec une immense joie que nous vous accueillons au sein de notre communauté.
+Vous êtes désormais un vrai Ami des oiseaux ;) !
+
+Grâce à vous, nous allons pouvoir étudier la biodiversité via vos observations sur les oiseaux.
+Nous vous rappelons rapidement le principe : Observer, Identifier et Partager.
+Chacune de vos observations contribue grandement à la science.
+N’attendez plus et lancez vous : Ajouter une observation.
+
+
+Si vous souhaitez plus d’informations sur le fonctionnement, n'hésitez pas à consulter notre page dédiée : Comment ça marche ?
+
+
+C’est avec émotion que l’ensemble de l’équipe vous remercie pour votre l’intérêt que vous nous portez.
+
+A très bientôt,
+Nos Amis les Oiseaux
+
+{% endblock %}
