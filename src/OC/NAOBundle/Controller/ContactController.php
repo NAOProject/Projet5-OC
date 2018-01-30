@@ -27,7 +27,7 @@ class ContactController extends Controller
             ));
 
           $message =  \Swift_Message::newInstance($object)
-            ->setTo('NAO@weberyon.ovh')
+            ->setTo('naop5@mail.com')
             ->setFrom($email)
             ->setBody($content, 'text/html')
             ;

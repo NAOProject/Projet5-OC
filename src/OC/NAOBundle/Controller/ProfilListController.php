@@ -40,7 +40,7 @@ class ProfilListController extends Controller
       case 'pending':
           if ($user->hasRole('ROLE_OBSERVER')){
               //récupére la liste des observations en attente de validation de l'utilisateur(observateur)
-              $observationList = $repository->getUserObservation($user, $page, $nbPerPage);
+              $observationList = $repository->getUserPendingObservation($user, $page, $nbPerPage);
           }else{
             return $this->redirectToRoute('ocnao_profil_listobs');
           }

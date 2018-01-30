@@ -27,7 +27,7 @@
   <br>
   <br>
   {% endif %}
-  <h1>MES OBSERVATION</h1>
+  <h1>MES OBSERVATIONS</h1>
   <br>
   <ul class="list-inline">
     <li {% if statusobs == 'publish' %}class="activelist"{% endif %}>
@@ -50,7 +50,7 @@
     {% if is_granted(['ROLE_NATURALIST', 'ROLE_ADMIN']) %}
     <li {% if statusobs == 'validate' %}class="activelist"{% endif %}>
       <a  class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'validate'}) }}">
-        <h4>Validées</h4>
+        <h4>Vérifiées</h4>
       </a>
     </li>
     {% endif %}
@@ -141,7 +141,7 @@
             </div> -->
             {% else %}
             <div class="">
-                <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
+                <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}"><img style="height:50px" src="{{ asset('assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
             </div>
             {% endif %}
           </div>
@@ -155,7 +155,7 @@
           </div> -->
         {% else %}
         <div class="">
-          <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictofleched.png') }}" alt="suivante"></a>
+          <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}"><img style="height:50px" src="{{ asset('assets/images/Pictofleched.png') }}" alt="suivante"></a>
         </div>
         {% endif %}
         </div>

@@ -71,7 +71,7 @@
       </div>
       <div class="obsPicture col-xs-12 center">
         {% if observation.0.picture.image is defined %}
-          <img id="photo" class="photoObservation" src=" {{ asset('web/uploads/picture/' ~ observation.0.picture.image) }}" alt="Photo de l'observation"/>
+          <img id="photo" class="photoObservation" src=" {{ asset('uploads/picture/' ~ observation.0.picture.image) }}" alt="Photo de l'observation"/>
         {% else %}
           <img class="photoObservation" src=" {{ asset('assets/images/fond_recherche.png') }}" alt="Photo de l'observation"/>
         {% endif %}
