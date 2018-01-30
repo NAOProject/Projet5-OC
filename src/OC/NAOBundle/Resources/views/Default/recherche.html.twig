@@ -9,7 +9,7 @@
 
 
   {% block picto_rechercher %}
-    <img class="pictoMini" src="{{ asset("web/assets/images/Footer_rechercher_active.png")}}" alt="Picto_rechercher"/>
+    <img class="pictoMini" src="{{ asset("assets/images/Footer_rechercher_active.png")}}" alt="Picto_rechercher"/>
   {% endblock %}
 
 
@@ -68,11 +68,11 @@
             <div class="photo col-md-12">
               {% if obs.picture.image is defined %}
                 <div class="picture center">
-                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('web/uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
+                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/></a>
                 </div>
               {% else %}
                 <div class="picture center">
-                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('web/assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
+                  <a href="{{ path('ocnao_observation', {'id': obs.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
                 </div>
               {% endif %}
             </div>
@@ -113,7 +113,7 @@
          data-username="{{ obs.user.username }}"
          data-espece="{{ obs.taxrefname }}"
          data-date="{{ obs.dateObs.date|date("d/m/Y") }}"
-         data-src="{{ asset('web/uploads/picture/' ~ obs.picture.image) }}">
+         data-src="{{ asset('uploads/picture/' ~ obs.picture.image) }}">
     </div>
     {% else %}
     <div data-latitude="{{ obs.latitude }}"
@@ -121,16 +121,16 @@
          data-username="{{ obs.user.username }}"
          data-espece="{{ obs.taxrefname }}"
          data-date="{{ obs.dateObs.date|date("d/m/Y") }}"
-         data-src="{{ asset('web/assets/images/fond_recherche.png') }}">
+         data-src="{{ asset('assets/images/fond_recherche.png') }}">
     </div>
     {% endif %}
   {% endfor %}
 </div>
 
-<script src="{{asset("web/assets/js/mapmarkers.js")}}"></script>
+<script src="{{asset("assets/js/mapmarkers.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
-<script src="{{asset("web/assets/js/autocomplete.js")}}"></script>
+<script src="{{asset("assets/js/autocomplete.js")}}"></script>
 
 {% endblock %}

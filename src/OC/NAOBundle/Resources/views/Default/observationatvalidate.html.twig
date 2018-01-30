@@ -19,13 +19,13 @@
               {% if obs.picture.image is defined %}
                 <div class="picture2">
                   <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                    <img class="imggallery" src="{{ asset('web/uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
+                    <img class="imggallery" src="{{ asset('uploads/picture/' ~ obs.picture.image) }}" alt="Photo de l'observation"/>
                   </a>
                 </div>
               {% else %}
                 <div class="picture2">
                   <a href="{{ path('ocnao_observation', {'id': obs.id }) }}">
-                    <img class="imggallery" src="{{ asset('web/assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
+                    <img class="imggallery" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/>
                   </a>
                 </div>
               {% endif %}
@@ -69,7 +69,7 @@
 
           {% else %}
           <div class="">
-              <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page - 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
+              <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page - 1}) }}"><img style="height:50px" src="{{ asset('assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
           </div>
           {% endif %}
         </div>
@@ -80,7 +80,7 @@
           {% if page == nbPages %}
         {% else %}
         <div class="">
-          <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page + 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictofleched.png') }}" alt="suivante"></a>
+          <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page + 1}) }}"><img style="height:50px" src="{{ asset('assets/images/Pictofleched.png') }}" alt="suivante"></a>
         </div>
         {% endif %}
         </div>

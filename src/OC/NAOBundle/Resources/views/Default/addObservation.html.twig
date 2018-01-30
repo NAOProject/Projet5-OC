@@ -9,7 +9,7 @@
 
 
 {% block picto_observer %}
-  <img class="pictoMini" src="{{ asset("web/assets/images/Footer_observer_active.png")}}" alt="Picto_rechercher"/>
+  <img class="pictoMini" src="{{ asset("assets/images/Footer_observer_active.png")}}" alt="Picto_rechercher"/>
 {% endblock %}
 
 {% block body %}
@@ -34,7 +34,7 @@
           <h4 class="imageLabel">PHOTO DE L'OISEAU OBSERVÉ</h4>
 
           <label class="photoFileLabel col-xs-12 control-label center etoile" for="observation_picture_image">
-            <img id="blah" src="{{asset("web/assets/images/choosePic.png")}}" onclick="javascript:readURL();" alt=""></img>
+            <img id="blah" src="{{asset("assets/images/choosePic.png")}}" onclick="javascript:readURL();" alt=""></img>
           </label>
           {{ form_widget(form.picture.image, {'attr': {'class': 'hidden'}} ) }}
         </div>
@@ -79,11 +79,11 @@
 </div>
 
 
-<script src="{{asset("web/assets/js/mapAddObs.js")}}"></script>
+<script src="{{asset("assets/js/mapAddObs.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
-<script src="{{asset("web/assets/js/autocomplete.js")}}"></script>
+<script src="{{asset("assets/js/autocomplete.js")}}"></script>
 
 
 {% endblock %}

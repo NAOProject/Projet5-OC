@@ -55,11 +55,11 @@
             <div class="photo col-md-12">
               {% if result.picture.image is defined %}
                 <div class="picture center">
-                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('web/uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/></a>
+                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('uploads/picture/' ~ result.picture.image) }}" alt="Photo de l'observation"/></a>
                 </div>
               {% else %}
                 <div class="picture center">
-                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('web/assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
+                  <a href="{{ path('ocnao_observation', {'id': result.id }) }}"><img class="photoObs" src="{{ asset('assets/images/photoObs.png') }}" alt="Photo de l'observation"/></a>
                 </div>
               {% endif %}
             </div>
@@ -100,7 +100,7 @@
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
          data-date="{{ result.dateObs.date|date("d/m/Y") }}"
-         data-src="{{ asset('web/uploads/picture/' ~ result.picture.image) }}">
+         data-src="{{ asset('uploads/picture/' ~ result.picture.image) }}">
     </div>
     {% else %}
     <div data-latitude="{{ result.latitude }}"
@@ -108,19 +108,19 @@
          data-username="{{ result.user.username }}"
          data-espece="{{ result.taxrefname }}"
          data-date="{{ result.dateObs.date|date("d/m/Y") }}"
-         data-src="{{ asset('web/assets/images/fond_recherche.png') }}"
+         data-src="{{ asset('assets/images/fond_recherche.png') }}"
          data-user= "{{user}}">
     </div>
     {% endif %}
   {% endfor %}
 </div>
 
-<script src="{{asset("web/assets/js/mapmarkers.js")}}"></script>
+<script src="{{asset("assets/js/mapmarkers.js")}}"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>
-<script src="{{asset("web/assets/js/autocomplete.js")}}"></script>
+<script src="{{asset("assets/js/autocomplete.js")}}"></script>
 
 {% endblock %}
