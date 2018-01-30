@@ -12,7 +12,7 @@
       <br>
       <div>
           <div class="ico1 ">
-              <img style="height:60px;margin-right:10px" src="{{ asset("assets/images/Picto_profil_gris@3x.png")}}" alt="icone utilisateur">
+              <img style="height:60px;margin-right:10px" src="{{ asset("web/assets/images/Picto_profil_gris@3x.png")}}" alt="icone utilisateur">
           </div>
           <div class="ico2" style="vertical-align:bottom;margin-left:10px;">
             <p><b>ROLE</b></p><p>{{rolename}}</p>
@@ -49,7 +49,7 @@
       {% else %}
           <p>
             <div class="text-center">
-                <p>Vous avez demander à devenir naturaliste la procédure est en cours.</p>
+                <p>Vous avez demandé à devenir naturaliste, la procédure est en cours.</p>
             </div>
           </p>
       {% endif %}
@@ -126,16 +126,5 @@
       </div>
       {% endif %}
   </div>
-
-  <div class="container"> <!-- A supprimer a la fin du dev -->
-    <h4>Dev Admin</h4>
-      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <p>etape 1 </p>
-          <a href="{{ path('ocnao_profil_adm') }}">devenir administrateur</a>
-        <p>etape 2 </p>
-        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-  {% endif %}
-  </div>
-
 </div>
 {% endblock %}

@@ -65,15 +65,15 @@
 
     <div class="col-md-6 col-xs-12 noPad"> <!-- observateur -->
       <div class="obsUser col-xs-12">
-        <img class="col-xs-1 userIconeObs" alt="Icone utilisateur" src="{{ asset("assets/images/userIcone.png")}}" />
+        <img class="col-xs-1 userIconeObs" alt="Icone utilisateur" src="{{ asset("web/assets/images/userIcone.png")}}" />
         <p class="col-xs-5 user">{{ observation.0.user.username }}<br><span class="italic">{{ nbObs }} Observation(s) publiée(s)</span></p>
         <span class="pull-right obsDate">{{ observation.0.dateObs.date|date('d/m/Y') }}</span>
       </div>
       <div class="obsPicture col-xs-12 center">
         {% if observation.0.picture.image is defined %}
-          <img id="photo" class="photoObservation" src=" {{ asset('uploads/picture/' ~ observation.0.picture.image) }}" alt="Photo de l'observation"/>
+          <img id="photo" class="photoObservation" src=" {{ asset('web/uploads/picture/' ~ observation.0.picture.image) }}" alt="Photo de l'observation"/>
         {% else %}
-          <img class="photoObservation" src=" {{ asset('assets/images/fond_recherche.png') }}" alt="Photo de l'observation"/>
+          <img class="photoObservation" src=" {{ asset('web/assets/images/fond_recherche.png') }}" alt="Photo de l'observation"/>
         {% endif %}
       </div>
 
@@ -158,8 +158,8 @@
     <div data-latitude="{{ observation.0.latitude }}" data-longitude="{{ observation.0.longitude }}" data-username="{{ observation.0.user.username }}" data-conform="{{ observation.0.notconforme }}"></div>
 </div>
 
-<script src="{{asset("assets/js/mapObs.js")}}"></script>
-<script src="{{asset("assets/js/autocomplete.js")}}"></script>
+<script src="{{asset("web/assets/js/mapObs.js")}}"></script>
+<script src="{{asset("web/assets/js/autocomplete.js")}}"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDwjyiE5EGvQcAaJPNkxATWhrxBUsb11A&callback=initMap">
 </script>

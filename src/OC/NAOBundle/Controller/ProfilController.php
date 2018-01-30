@@ -160,7 +160,7 @@ class ProfilController extends Controller
             $mailer = $this->container->get('mailer');
             $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
               ->setTo($user[0]->getEmail())
-              ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+              ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
               ->setBody($content, 'text/html')
               ;
             $mailer->send($message);
@@ -227,13 +227,8 @@ class ProfilController extends Controller
 
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
-<<<<<<< HEAD
         ->setTo($useremail)
-        ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
-=======
-        ->setTo($user->getEmail())
         ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
->>>>>>> 3e01d17876fbc34887dc6867d1a99b93d527e994
         ->setBody($content, 'text/html')
         ;
 
@@ -242,7 +237,7 @@ class ProfilController extends Controller
       // $content2 =
       $message2 =  \Swift_Message::newInstance('Demande Naturaliste | Nos Amis les Oiseaux')
         ->setTo('adresseadministrateurdusite@exemple.com')
-        ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
         ->setBody("Adresse mail: $useremail et $username du demandeur", 'text/html')
         ;
       $mailer2->send($message2);
@@ -295,23 +290,4 @@ class ProfilController extends Controller
 
       return $this->redirectToRoute('ocnao_profil_parameter');
    }
-
-      ///////////////a suprimer le dev fini//////////////////////////////
-
-    /**
-     *@Security("has_role('ROLE_OBSERVER') or has_role('ROLE_NATURALIST') or has_role('ROLE_ADMIN')")
-     */
-    public function admAction()
-    {
-      // obtenir role administrateur
-      $userManager = $this->get('fos_user.user_manager');//recuperre le service
-      $user = $this->getUser();
-
-      // $user->setRoles(array('ROLE_NATURALIST'));// enregistre le role naturalist
-      $user->setRoles(array('ROLE_ADMIN'));// enregistre le role naturalist
-      $userManager->updateUser($user);
-
-        return $this->redirectToRoute('ocnao_profil_parameter');
-    }
-
 }
