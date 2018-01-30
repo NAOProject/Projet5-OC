@@ -117,9 +117,10 @@
 
 
         <div class="row">
-          <br>
+
           <br>
           <div class="hidden-xs">
+            <br>
             <div class="text-center">
               <ul class="pagination">
                 {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
@@ -140,10 +141,11 @@
             </div> -->
             {% else %}
             <div class="">
-                <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}">precedent</a>
+                <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page - 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
             </div>
             {% endif %}
           </div>
+          <br>
           </div>
         <div class="col-xs-6 visible-xs">
         <div class="text-right">
@@ -153,10 +155,11 @@
           </div> -->
         {% else %}
         <div class="">
-          <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}">suivante</a>
+          <a href="{{ path('ocnao_profil_listobs', {'statusobs': statusobs, 'page': page + 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictofleched.png') }}" alt="suivante"></a>
         </div>
         {% endif %}
         </div>
+        <br>
     </div>
   </div>
   <!-- fin test not obs -->

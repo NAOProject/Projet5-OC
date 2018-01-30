@@ -48,7 +48,7 @@
     </div>
 
     <div class="row">
-        <br>
+
         <br>
       <div class="hidden-xs">
         <div class="text-center">
@@ -69,20 +69,22 @@
 
           {% else %}
           <div class="">
-              <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page - 1}) }}">precedent</a>
+              <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page - 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictoflecheg.png') }}" alt="precedente"></a>
           </div>
           {% endif %}
         </div>
+        <br>
       </div>
       <div class="col-xs-6 visible-xs">
         <div class="text-right">
           {% if page == nbPages %}
         {% else %}
         <div class="">
-          <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page + 1}) }}">suivante</a>
+          <a href="{{ path('ocnao_profil_observationatvalidate', {'page': page + 1}) }}"><img style="height:50px" src="{{ asset('web/assets/images/Pictofleched.png') }}" alt="suivante"></a>
         </div>
         {% endif %}
         </div>
+        <br>
       </div>
     </div>
 

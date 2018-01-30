@@ -26,7 +26,6 @@ margin-right: 15px;
 }
 
 .picture2 {
-
   overflow: hidden;
   height: 185px;
 }
@@ -45,11 +44,15 @@ margin-right: 15px;
 
 }
 .gallerybar > .overlay{
-  opacity: 0.4;
+  opacity: 0.8;
+    object-fit: cover;
+  background-image: url("../images/trait.png");
+  background-repeat: no-repeat;
+    object-fit: cover;
   /*background-color: #00ac98;*/
 }
 .gallerybar:hover > .overlay{
-  opacity: 0.9;
+  opacity: 0.5;
   /*background-color: #00ac98;*/
 }
 
@@ -129,7 +132,7 @@ div.desc {
   color: white;
   height: 550px;
   background-size: cover;
-  background-image: url("../images/imageaccueilpierre.jpg");
+  background-image: url("../images/imageaccueil.jpg");
   background-repeat: no-repeat;
 }
 @media screen and (min-width: 720px) and (max-width: 1500px) {

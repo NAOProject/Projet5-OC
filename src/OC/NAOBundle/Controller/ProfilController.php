@@ -57,21 +57,24 @@ class ProfilController extends Controller
                  ->add('name', TextType::class)
                  ->add('submit', SubmitType::class)
                  ->getForm();
-       $em = $this->getDoctrine()->getManager();
-       $repository = $em->getRepository('OCUserBundle:User');
+
+
+
 
        $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
 
-             $data = $form->getData()['name'];
-             $user = $repository->findBy(array('username' => $data));
-             if ( $user == null) {
-              $user = $repository->findBy(array('email' => $data));
-             }
+            $userManager = $this->get('fos_user.user_manager');//recuperre le service
+
+            $data = $form->getData()['name'];
+
+            $user = $userManager->findUserBy(array('username' => $data));
+            if ( $user == null) {
+             $user = $userManager->findUserBy(array('email' => $data));
+            }
 
               if (!$user == null) {
-
-                $role = $user[0]->getRoles()[0];
+                $role = $user->getRoles()[0];
                 switch ($role) {
                   case 'ROLE_OBSERVER':
                     $rolename = 'Observateur';
@@ -85,7 +88,7 @@ class ProfilController extends Controller
                 }
 
                 return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-                    'user' => $user[0],
+                    'user' => $user,
                     'result' => true,
                     'rolename' => $rolename,
                   ));
@@ -95,6 +98,9 @@ class ProfilController extends Controller
 
          }
 
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('OCUserBundle:User');
 
          //nombre observateur et naturaliste sur le site
          $countobserver = $repository->getUsersCountByRole("ROLE_OBSERVER");
@@ -139,23 +145,21 @@ class ProfilController extends Controller
       $role = $request->get('role');
 
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
+      //user ici ce n'est pas l'utilisateur connect mais l'utilisateur qui va obtenir le role
       $user = $userManager->findUserBy(array('username' => $username ));
-
-
-      // dump($user);
-      // exit;
       $user->setStatus(false);
 
-
-
         switch ($role) {
+
           case 'ROLE_OBSERVER':
             $user->setRoles(array($role));// enregistre le role
-            $this->addFlash('success', "$username, a obtenu le role Observateur, un email lui a était envoyer pour le prevenir");
+            $this->addFlash('success', "$username, a obtenu le role Observateur");
             break;
+
           case 'ROLE_NATURALIST':
             $this->addFlash('success', "$username, a obtenu le role Naturaliste, un email lui a était envoyer pour le prevenir");
             $user->setRoles(array($role));// enregistre le role
+
             //envoi email
             $content = $this->renderView(
               'OCNAOBundle:Contact:emailnatuconf.html.twig',
@@ -164,36 +168,24 @@ class ProfilController extends Controller
 
             $mailer = $this->container->get('mailer');
             $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
-
-              // ->setTo($user->getEmail())
-              // ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
-
-              ->setTo($user[0]->getEmail())
-              ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
-
-              ->setBody($content, 'text/html')
-              ;
+                ->setTo($user->getEmail())
+                ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
+                ->setBody($content, 'text/html')
+                ;
             $mailer->send($message);
+
             break;
-          // case 'ROLE_ADMIN':
-          //   // $user->setRoles(array($role));// enregistre le role
-          //   break;
-            default:
+
+          default:
               $this->addFlash('success', "Une erreur est survenu");
               return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-                  'user' => $user[0],
+                  'user' => $user,
                   'result' => false,
                 ));
               break;
         }
-
         $userManager->updateUser($user);
 
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('OCUserBundle:User');
-        $user = $repository->findBy(array('username' => $username));
-
-        $role = $user[0]->getRoles()[0];
         switch ($role) {
           case 'ROLE_OBSERVER':
             $rolename = 'Observateur';
@@ -206,7 +198,7 @@ class ProfilController extends Controller
             break;
         }
         return $this->render('OCNAOBundle:Profil:users.html.twig', array(
-            'user' => $user[0],
+            'user' => $user,
             'result' => true,
             'rolename' => $rolename
           ));
