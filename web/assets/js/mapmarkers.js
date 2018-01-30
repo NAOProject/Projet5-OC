@@ -1,5 +1,7 @@
 //Script JS pour la page recherche.html.twig + results.html.twig
-var markers = [];
+
+//Recuperation des coordonnées des observations
+var markers = []; // mise en place des marqueurs dans une ilste
 var resultArray = (function getGeoDataArray() {
   var $coords = $('#coordonnees').find('div');
   var resultsArray = [];
@@ -20,9 +22,11 @@ var resultArray = (function getGeoDataArray() {
   return resultsArray;
 })();
 
+//Recupere si l'utilisateur est autorisé a voir la position exacte ou non
 var autorisation = $('#autorisation').find('div');
 var auto = $(autorisation).data('user');
 
+//Initialisation de la carte
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 5,
@@ -30,17 +34,17 @@ function initMap() {
   });
 
   setMarkers(map);
-  if (auto == 'ALLOW') {
+  if (auto == 'ALLOW') { //Si autorisé, regroupement des marqueurs avec markerCluster
     var markerCluster = new MarkerClusterer(map, markers,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   }
 }
 
-
+//Definition des marqueurs ou cercles
 function setMarkers(map) {
   for (var i = 0; i < resultArray.length; i++) {
     var result = resultArray[i];
-    if (auto == 'ALLOW') {
+    if (auto == 'ALLOW') { //Si autorisé, affichage des marqueurs avec fenetre d'info
       var infowindow = new google.maps.InfoWindow({
         content: result[2],
         minWidth: 300,
@@ -55,67 +59,58 @@ function setMarkers(map) {
       google.maps.event.addListener(marker,'click', function(){
         hideAllInfoWindows(map);
         this.infowindow.open(map,this);
-        // Reference to the DIV which receives the contents of the infowindow using jQuery
+        // Recupere la fenetre info
         var iwOuter = $('.gm-style-iw');
 
-        /* The DIV we want to change is above the .gm-style-iw DIV.
-         * So, we use jQuery and create a iwBackground variable,
-         * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
-         */
+        //On recupere la div precedante pour le background
         var iwBackground = iwOuter.prev();
 
-        // Remove the background shadow DIV
+        // On enleve le background
         iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-
-        // Remove the white background DIV
         iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-        // Moves the infowindow 115px to the right.
+
+        // Deplace la fenetre d'info
         iwOuter.parent().parent().css({left: '15px'});
 
-        // Moves the shadow of the arrow 76px to the left margin
+        // On deplace la fleche de la fenetre
         iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 176px !important;'});
-
-        // Moves the arrow 76px to the left margin
+        // Ainsi que son ombre
         iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 176px !important;'});
+
+        //On change la couleur du background
         iwBackground.children(':nth-child(3)').children(':nth-child(2)').children(':nth-child(1)').css('background-color', '#ff5b00');
         iwBackground.children(':nth-child(3)').children(':nth-child(1)').children(':nth-child(1)').css('background-color', '#ff5b00');
 
-        // Taking advantage of the already established reference to
-        // div .gm-style-iw with iwOuter variable.
-        // You must set a new variable iwCloseBtn.
-        // Using the .next() method of JQuery you reference the following div to .gm-style-iw.
-        // Is this div that groups the close button elements.
+        //On recupere le bouton de fermeture
         var iwCloseBtn = iwOuter.next();
         var iwCloseImage = iwOuter.next().next();
 
-        // Apply the desired effect to the close button
+        // On appliquer different style en fonction de la taille d'ecran
         if($(window).width()<=767) {
           iwCloseBtn.css({
-            opacity: '0.7', // by default the close button has an opacity of 0.7
-            right: '-15px', top: '20px', // button repositioning
+            opacity: '0.7',
+            right: '-15px', top: '20px', //Repositionnement du bouton
             });
+          //Deplacement de la fleche et son ombre sur mobile (sinon decalage)
           iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 140px !important;'});
           iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 140px !important;'});
         } else {
           iwCloseBtn.css({
-            opacity: '0.7', // by default the close button has an opacity of 0.7
-            right: '60px', top: '20px', // button repositioning
+            opacity: '0.7',
+            right: '60px', top: '20px',
             });
           iwCloseImage.css({
             right: '40px',
           })
         }
 
-
-
-        // The API automatically applies 0.7 opacity to the button after the mouseout event.
-        // This function reverses this event to the desired value.
+        //redefini l'opacité du bouton fermer sur 1
         iwCloseBtn.mouseout(function(){
           $(this).css({opacity: '1'});
         });
       });
     }
-    else if (auto == 'NOTALLOW') {
+    else if (auto == 'NOTALLOW') { //Si non autorisé, affichage des cercles
       var cityCircle = new google.maps.Circle({
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -130,6 +125,7 @@ function setMarkers(map) {
   }
 }
 
+//Fonction qui ferme les fenetre ouverte quand on clique sur un autre marqueuers 
 function hideAllInfoWindows(map) {
    markers.forEach(function(marker) {
      marker.infowindow.close(map, marker);

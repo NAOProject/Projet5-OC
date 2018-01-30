@@ -141,7 +141,7 @@ class ProfilController extends Controller
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $userManager->findUserBy(array('username' => $username ));
       $user->setStatus(false);
-dump($user);
+
 
 
         switch ($role) {
@@ -182,8 +182,6 @@ dump($user);
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('OCUserBundle:User');
         $user = $repository->findBy(array('username' => $username));
-        dump($user);
-        exit;
 
         $role = $user[0]->getRoles()[0];
         switch ($role) {
@@ -229,8 +227,13 @@ dump($user);
 
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
+<<<<<<< HEAD
         ->setTo($useremail)
         ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+=======
+        ->setTo($user->getEmail())
+        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
+>>>>>>> 3e01d17876fbc34887dc6867d1a99b93d527e994
         ->setBody($content, 'text/html')
         ;
 

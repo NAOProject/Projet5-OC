@@ -1,13 +1,24 @@
-//Script d'adaptation de la carte et liste sur mobile
+//Script principal du site
 
+//Adaptation affichage liste et carte sur mobile
 if($(window).width()<=767) {
   $('.Liste').addClass('hidden');
   $('.glyphicon-map-marker').css("color", "white");
   $('.glyphicon-tasks').css("color", "#00c4b6");
 }
 
-$('div.cookiebanner').addClass('underline');
+//Changement du ccs du bouton orange quand le bouton vert est survolé
+if ($(".btnIndex1").hover(function() {
+  if ($(".btnIndex2").hasClass('btn-site-orange')) {
+    $(".btnIndex2").removeClass('btn-site-orange');
+    $(".btnIndex2").addClass('btn-site');
+  } else {
+    $(".btnIndex2").removeClass('btn-site');
+    $(".btnIndex2").addClass('btn-site-orange');
+  }
+})) {}
 
+//Affiche la liste des observation sur mobile
 $('.btnListe').click(function() {
   if ($('.Liste').hasClass("hidden")) {
     $('.Liste').removeClass('hidden');
@@ -17,6 +28,7 @@ $('.btnListe').click(function() {
   }
 });
 
+//Affiche la carte sur mobile
 $('.btnCarte').click(function() {
   if ($('#Carte').hasClass("hidden")) {
     $('.Liste').addClass('hidden');
@@ -27,6 +39,7 @@ $('.btnCarte').click(function() {
   }
 });
 
+//Ajoute les fleches sous les boutons menu du mobile quand liste ouverte
 $('.usermenubutton').click(function () {
   if ($('div.usermenu').hasClass('in')) {
     $('.usermenubutton').removeClass('arrow');
