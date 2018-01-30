@@ -67,7 +67,7 @@ a:hover{
 .bloc4_1 {
   background-color: #493c32;
   color: white;
-  min-height: 300px;
+  min-height: 337px;
   height: auto;
 }
 
@@ -92,16 +92,32 @@ a:hover{
 }
 
 .picto_landing img {
-  width: 120px;
+  width: 150px;
   height: auto;
-  display: flex;
-  margin: auto;
+  position: relative;
+}
+
+.picto_landing_partage img {
+  width: 90px;
+  height: auto;
+  position: relative;
+}
+
+.photo {
+  padding-left: 20px;
+}
+
+.photo img{
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .microscope {
   position: absolute;
-  height: 80px;
+  height: 250px;
   width: auto;
+  bottom: 0px;
+  left: 0px;
 }
 
 @media screen and (max-width:767px) {
@@ -111,6 +127,9 @@ a:hover{
   .logoMenu {
     max-width: 100%;
     height: auto;
+  }
+  .photo {
+    padding-left: 0px;
   }
 }
 
