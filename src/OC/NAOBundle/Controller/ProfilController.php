@@ -58,9 +58,6 @@ class ProfilController extends Controller
                  ->add('submit', SubmitType::class)
                  ->getForm();
 
-
-
-
        $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
 
@@ -75,6 +72,7 @@ class ProfilController extends Controller
 
               if (!$user == null) {
                 $role = $user->getRoles()[0];
+
                 switch ($role) {
                   case 'ROLE_OBSERVER':
                     $rolename = 'Observateur';
@@ -120,6 +118,9 @@ class ProfilController extends Controller
     }
 
     //Pour l'autocompletion du champ recherche utilisateur
+    /**
+     *@Security("has_role('ROLE_ADMIN')")
+     */
     public function userAutoCompAction(Request $request)
     {
         if($request->isXmlHttpRequest())
@@ -135,9 +136,9 @@ class ProfilController extends Controller
     }
 
     //Pour changer de role
-    // /**
-    //  *@Security("has_role('ROLE_ADMIN')")
-    //  */
+    /**
+     *@Security("has_role('ROLE_ADMIN')")
+     */
     public function RoleAction(Request $request)
     {
 
@@ -167,9 +168,10 @@ class ProfilController extends Controller
               ));
 
             $mailer = $this->container->get('mailer');
+            $emailsite = $this->container->getParameter('mail_site');
             $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
                 ->setTo($user->getEmail())
-                ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
+                ->setFrom($emailsite, 'Nos Amis les Oiseaux')
                 ->setBody($content, 'text/html')
                 ;
             $mailer->send($message);
@@ -184,6 +186,7 @@ class ProfilController extends Controller
                 ));
               break;
         }
+
         $userManager->updateUser($user);
 
         switch ($role) {
@@ -210,8 +213,6 @@ class ProfilController extends Controller
    */
    public function ObserverAction()
    {
-    //  echo "devenir naturalist, email a mettre";
-    //  exit;
      $userManager = $this->get('fos_user.user_manager');//recuperre le service
      $user = $this->getUser();
      $user->setStatus(true);
@@ -224,27 +225,26 @@ class ProfilController extends Controller
         ));
 
 
-        $useremail = $user->getEmail();
-        $username = $user->getUsername();
-
+      $useremail = $user->getEmail();
+      $username = $user->getUsername();
       $mailer = $this->container->get('mailer');
-      $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
-        // ->setTo($useremail)
-        // ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
+      $emailsite = $this->container->getParameter('mail_site');
+
+      $usermessage =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
         ->setTo($useremail)
-        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
+        ->setFrom($emailsite, 'Nos Amis les Oiseaux')
         ->setBody($content, 'text/html')
         ;
+      $mailer->send($usermessage);
 
-      $mailer->send($message);
 
-      // $content2 =
-      $message2 =  \Swift_Message::newInstance('Demande Naturaliste | Nos Amis les Oiseaux')
-        ->setTo('admin@weberyon.ovh')
-        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
-        ->setBody("Adresse mail: $useremail et $username du demandeur", 'text/html')
+      $messageadmin =  \Swift_Message::newInstance('Demande Naturaliste | Nos Amis les Oiseaux')
+        ->setTo($emailsite)
+        ->setFrom($this->getParameter('mailer_user'), 'Nos Amis les Oiseaux')
+        ->setBody("Adresse mail: $useremail et pseudo: $username du demandeur", 'text/html')
         ;
-      $mailer->send($message2);
+      $mailer->send($messageadmin);
+
 
      $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
      return $this->redirectToRoute('ocnao_profil_parameter');

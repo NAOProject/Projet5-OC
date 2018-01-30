@@ -26,9 +26,10 @@ class ContactController extends Controller
             array('contact' => $contact
             ));
 
+          $emailsite = $this->container->getParameter('mail_site');
           $message =  \Swift_Message::newInstance($object)
-            ->setTo('naop5@mail.com')
-            ->setFrom($email)
+            ->setTo($emailsite)
+            ->setFrom($email,'Contact | Nos Amis les Oiseaux')
             ->setBody($content, 'text/html')
             ;
           $this->get('mailer')->send($message);
