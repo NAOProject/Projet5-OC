@@ -217,7 +217,7 @@ class ProfilController extends Controller
 
      //envoi email oberservateur
       $content = $this->renderView(
-        'OCNAOBundle:Contact:emailnatuconf.html.twig',
+        'OCNAOBundle:Contact:emailnatu.html.twig',
         array('username' => $user->getUsername()
         ));
 
