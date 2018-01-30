@@ -8,7 +8,8 @@
     <br>
     <br>
     <div style="margin-top:10%; margin-bottom:40%">
-      <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+      <h4>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</h4>
+      <h4><a href="{{ path('ocnao_homepage') }}">Allez sur la page d'accueil</a></h4>
       {% if targetUrl %}
       <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
       {% endif %}

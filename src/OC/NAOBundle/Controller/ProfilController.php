@@ -140,6 +140,10 @@ class ProfilController extends Controller
 
       $userManager = $this->get('fos_user.user_manager');//recuperre le service
       $user = $userManager->findUserBy(array('username' => $username ));
+
+
+      // dump($user);
+      // exit;
       $user->setStatus(false);
 
 
@@ -157,9 +161,10 @@ class ProfilController extends Controller
               'OCNAOBundle:Contact:emailnatuconf.html.twig',
               array('username' => $username
               ));
+
             $mailer = $this->container->get('mailer');
             $message =  \Swift_Message::newInstance('Changement de statut : Naturaliste | Nos Amis les Oiseaux')
-              ->setTo($user[0]->getEmail())
+              ->setTo($user->getEmail())
               ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
               ->setBody($content, 'text/html')
               ;
@@ -217,7 +222,7 @@ class ProfilController extends Controller
 
      //envoi email oberservateur
       $content = $this->renderView(
-        'OCNAOBundle:Contact:emailnatuconf.html.twig',
+        'OCNAOBundle:Contact:emailnatu.html.twig',
         array('username' => $user->getUsername()
         ));
 
@@ -227,13 +232,13 @@ class ProfilController extends Controller
 
       $mailer = $this->container->get('mailer');
       $message =  \Swift_Message::newInstance('Devenir Naturaliste | Nos Amis les Oiseaux')
-<<<<<<< HEAD
+
         ->setTo($useremail)
         ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
-=======
-        ->setTo($user->getEmail())
-        ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
->>>>>>> 3e01d17876fbc34887dc6867d1a99b93d527e994
+
+        // ->setTo($user->getEmail())
+        // ->setFrom('NAO@weberyon.ovh', 'Nos Amis les Oiseaux')
+
         ->setBody($content, 'text/html')
         ;
 
@@ -245,7 +250,7 @@ class ProfilController extends Controller
         ->setFrom('NAO@exemple.com', 'Nos Amis les Oiseaux')
         ->setBody("Adresse mail: $useremail et $username du demandeur", 'text/html')
         ;
-      $mailer2->send($message2);
+      $mailer->send($message2);
 
      $this->addFlash('success', 'La demande est en cours, vous allez recevoir un email détaillant la procédure');
      return $this->redirectToRoute('ocnao_profil_parameter');
