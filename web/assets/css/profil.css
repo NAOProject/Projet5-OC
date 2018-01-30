@@ -44,13 +44,16 @@ margin-right: 15px;
 
 }
 .gallerybar > .overlay{
-  opacity: 0.8;
-    object-fit: cover;
   background-image: url("../images/trait.png");
   background-repeat: no-repeat;
     object-fit: cover;
   /*background-color: #00ac98;*/
 }
+
+.gallerybar > .overlay img{
+  opacity: 0.5;
+}
+
 .gallerybar:hover > .overlay{
   opacity: 0.5;
   /*background-color: #00ac98;*/
