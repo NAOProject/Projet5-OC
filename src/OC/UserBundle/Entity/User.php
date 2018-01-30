@@ -40,7 +40,7 @@ use FOS\UserBundle\Model\User as BaseUser;
   {
       parent::__construct();
        $this->roles = array('ROLE_OBSERVER');
-       $this->status = true;
+       $this->status = false;
        $this->newsletter = false;
   }
 
