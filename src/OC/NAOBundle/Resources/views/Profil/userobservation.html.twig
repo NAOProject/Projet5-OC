@@ -8,7 +8,6 @@
 {% endblock %}
 
 
-
 {% block body %}
 
 <div class="container marginlist">
@@ -43,7 +42,7 @@
     </li>
     <li {% if statusobs == 'conform' %}class="activelist"{% endif %}>
       <a  class="listmenu" href="{{ path('ocnao_profil_listobs',{'statusobs': 'conform'}) }}">
-        <h4>Inexactes</h4>
+        <h4>Inéxactes</h4>
       </a>
     </li>
     {% endif %}
@@ -106,7 +105,6 @@
                       {{ obs.dateObs.date|date("d/m/Y") }}
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -114,10 +112,7 @@
     {% endfor %}
     </div>
     </div>
-
-
         <div class="row">
-
           <br>
           <div class="hidden-xs">
             <br>
@@ -133,7 +128,7 @@
               </ul>
             </div>
           </div>
-      <div class="col-xs-6 visible-xs">
+          <div class="col-xs-6 visible-xs">
           <div class="text-left">
             {% if page == 1 %}
             <!-- <div class="">

@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use OC\UserBundle\Entity\User;
 use OC\UserBundle\Entity\Observation;

@@ -24,7 +24,7 @@ class ObservationController extends Controller
   {
 
   if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-    $this->addFlash('danger', 'Vous devez être connecté pour acceder à cette partie du site');
+    $this->addFlash('success', 'Vous devez être connecté pour acceder à cette partie du site');
     throw new AccessDeniedException('Accès limité aux utilisateur.');
   }
     $observation = new Observation();

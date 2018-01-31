@@ -34,10 +34,6 @@ class ContactController extends Controller
             ;
           $this->get('mailer')->send($message);
 
-//$spool = $mailer->getTransport()->getSpool();
-//$transport = $this->get('swiftmailer.transport.real');
-//$spool->flushQueue($transport);
-
           $this->addFlash('info', 'Votre message a bien été envoyé');
           return $this->redirectToRoute('ocnao_contact');
         }

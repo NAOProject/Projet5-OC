@@ -24,7 +24,7 @@ class ProfilListController extends Controller
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
 
-    $nbPerPage = 8;
+    $nbPerPage = 12;
     $user = $this->getUser();
 
     $em = $this->getDoctrine()->getManager();
@@ -107,7 +107,7 @@ class ProfilListController extends Controller
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");
       }
 
-    $nbPerPage = 4;
+    $nbPerPage = 12;
     $user = $this->getUser();
 
     $em = $this->getDoctrine()->getManager();
